@@ -1576,6 +1576,13 @@ t.test(distractedpeaks, notdistractedpeaks, paired=TRUE)
 
 '''
 
+''' 09/11/17'''
+
+# 12:10 - 12:30 
+
+# Working on Github repository, figuring out files and how to commit edits
+# Need to make repositories for each project 
+
 
 ==============================
 
