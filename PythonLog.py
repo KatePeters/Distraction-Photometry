@@ -1584,6 +1584,36 @@ t.test(distractedpeaks, notdistractedpeaks, paired=TRUE)
 # Need to make repositories for each project 
 
 
+''' 01/02/18 '''
+
+# 4-5pm
+
+# Reading through all scripts (THPH) and trying to figure out what 
+# they do and where the data are saved, where files are created etc. 
+
+# DPCP - what is the status of this?
+# THPH - How have I combined 1 and 2 ? What is the status?
+# NAPH - what needs to be modified? Is there a universal style metafile?
+
+
+''' 02/02/18 '''
+
+# 9:00 - 
+
+# Changed (and added) filepaths for PhotometryAnalysis script 
+# Found data files (mat files already converted for final lick days and 
+# distraction days)
+
+# Ran PhotometryAnalysis script, produced output! Means I have calculated 
+# previously and stored as .csv files
+
+# Should double check what each of these "means" files corresponds to
+# Check how peaks are calculated
+
+# Attempted to run THPH1and2_Brhaviour on Mac, uses R drive (must run from 
+# university PC, or add filepath to R drive copy on memory stick or Mac as option)
+
+
 ==============================
 
 

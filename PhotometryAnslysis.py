@@ -341,7 +341,7 @@ def removenoise(snipsIn, noiseindex):
     snipsOut = np.array([x for (x,v) in zip(snipsIn, noiseindex) if not v])   
     return snipsOut
 
-datafolder = 'D:/PHOTOMETRY MMIN18/'
+datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 
 datafile = datafolder + 'thph2.8distraction.mat' 
 
@@ -451,8 +451,8 @@ print(e1,g1)
 #(5) Peaks alligned to fisrt lick 
 
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickmodel.csv'
-meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
-#meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means distracted.csv'
+#meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
+meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means distracted.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means notdistracted.csv'
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickalligned.csv'
 
