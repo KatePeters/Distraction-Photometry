@@ -1598,7 +1598,7 @@ t.test(distractedpeaks, notdistractedpeaks, paired=TRUE)
 
 ''' 02/02/18 '''
 
-# 9:00 - 
+# 9:00 - 9:30
 
 # Changed (and added) filepaths for PhotometryAnalysis script 
 # Found data files (mat files already converted for final lick days and 
@@ -1613,6 +1613,47 @@ t.test(distractedpeaks, notdistractedpeaks, paired=TRUE)
 # Attempted to run THPH1and2_Brhaviour on Mac, uses R drive (must run from 
 # university PC, or add filepath to R drive copy on memory stick or Mac as option)
 
+
+''' 05/02/18 ''' 
+
+# 19:00 - 20:00
+
+# What does the analysis code actually do?
+    # (1) Assigns a data folder 
+    # (2) Assigns an individual data file in that folder 
+    # (3) Loads the equivalent matlab file (which produced dictionary of relevant cols)
+    # (4) The load matfile calculated distracted or not from TTLs in Synapse
+    # (5) Takes blue and UV snips around TTLs of designated event (not distracted, 
+       # or distractions or distracted etc... could use licks here?)
+    # (6) Makes random events to create a noise index for later removal
+    # (7) Makes a trials figure (for this example, individual rat) all data
+    # !!! So far all for a single rat, later the script uses means which I manually 
+        # calculated for each rat and added to separate .csv files      
+    # (8) Makes trials multishaded figure for this rat, has error bars and uses a mean
+    # (9) Makes array of maximum peaks - within a given time range 
+        # later used (or previously after manually saving .csv) to make average figures
+        # across multiple rats 
+    # (10) Print maximum value in 2 seconds following distractor or distraction 
+        # for blue channel and UV channel (based on maximum value within time)
+        
+    # (11) Using means files (created for different featires, ie. distracted, nondistracted)
+        # plots on aggregated data for all thph1 and 2 rats with observations on the 
+        # distraction day (and preceeding lick days)
+
+# Next steps: Produce and save figures
+# Make a mult shaded figure for the means 
+# Automate the adding columns to .csv files for the means and for each "examplerat"
+    # Need to use the metafile to run through filenames and get data from all rats
+    # process, extract infor and then save columns and figures generated 
+        
+# Thinking about how to make longer time course figure from existing functions
+# Extend the time of the snipper?
+
+# Main output is a means figure, of distracted ot non-distracted trials 
+    # has all data and not error bars 
+    
+# Created new script file to work on figure generation 
+    # Laid out the figures to include, what they should be and some basic code
 
 ==============================
 
