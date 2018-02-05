@@ -572,3 +572,5 @@ ax5.plot([xevent, xevent],[ax5.get_ylim()[0], ax5.get_ylim()[1] - yrange/20],'--
 ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibri, **Size)
 
 
+#NEED TO make a mult shaded figure here using each mean as a "trial" then get 
+# a shaded figure of the means means with SEM error bars
