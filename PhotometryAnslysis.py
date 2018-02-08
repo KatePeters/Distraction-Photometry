@@ -370,6 +370,13 @@ print(noiseindex)
 #blueRemNoise = removenoise(blueSnips, noiseindex)
 #uvRemNoise = removenoise(uvSnips, noiseindex)
 #
+
+''' Longer timecourse - code doesn't work yet '''
+
+#longSnipsB, ppsBlue = snipper(examplerat['blue'], examplerat['notdistracted'], fs=examplerat['fs'], bins=300)
+#longSnipsUV, ppsUV = snipper(examplerat['uv'], examplerat['notdistracted'], fs=examplerat['fs'], bins=300)
+#trialsFig(ax3,longSnipsB, longSnipsUV, ppsBlue)
+
 #
 fig3 = plt.figure()
 ax3 = plt.subplot(1,1,1)
