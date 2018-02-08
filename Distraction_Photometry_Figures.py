@@ -22,7 +22,14 @@ Created on Mon Feb  5 19:23:37 2018
 
 
 # Figure 2
-# Averaged distracted vs not sidtracted (photometry signals snipped)
+# Averaged distracted vs not distracted (photometry signals snipped)
 
 # Figure 3
 # Mean peak height, distracted vs not distracted (VTA)
+
+''' Goals '''
+
+# 1) Simple plot of 30 seconds licking 
+# 2) Simple plot of 30 seconds alligned to distractor (not concerned if distracted or not)
+# 3) Mark the events on distractor plot 
+# 4) Mark licks on / above plots
