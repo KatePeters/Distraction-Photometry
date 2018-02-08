@@ -1655,6 +1655,17 @@ t.test(distractedpeaks, notdistractedpeaks, paired=TRUE)
 # Created new script file to work on figure generation 
     # Laid out the figures to include, what they should be and some basic code
 
+''' 08/02/18 '''
+
+# 21:00 - 21:30
+
+# Wrote code to make longer timecourse plot
+# Some issues with scaling and old data staying on new plots
+# Possibly worked for the first plot?
+
+# Wrote to do list of three simple plots to tackle tomorrow 
+
+
 ==============================
 
 
