@@ -185,6 +185,8 @@ def loadmatfile(file):
 #    
     sessiondict['distracted'], sessiondict['notdistracted'] = distractedOrNot(sessiondict['distractors'], sessiondict['licks'])
    # sessiondict['notdistracted'] = notdistracted
+   
+  ''' sessiondict['lickRuns'] = lickRunCalc(sessiondict['licks']) ''' 
     
     return sessiondict
 
@@ -449,13 +451,13 @@ print(e1,g1)
 # For now manual 
 ##~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## Massively overcomplicated method to make mean plots
-## Added individual lines to the plot (could have used Trial figs)
+## Added individual lines to the plot (could have used Trial figs but data type issue)
 # Snips means 
-#(1) Peaks on licking, modelled distractors means 
+#(1) Peaks on licking, modelled distractors means (not alligned to lick event though - do this)
 #(2) Peaks for real distractors
 #(3) Peaks distracted
 #(4) Peaks not distracted
-#(5) Peaks alligned to fisrt lick 
+#(5) Peaks alligned to first lick 
 
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickmodel.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
@@ -581,3 +583,4 @@ ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibr
 
 #NEED TO make a mult shaded figure here using each mean as a "trial" then get 
 # a shaded figure of the means means with SEM error bars
+# Figure out the issue of data types 
