@@ -1665,6 +1665,144 @@ t.test(distractedpeaks, notdistractedpeaks, paired=TRUE)
 
 # Wrote to do list of three simple plots to tackle tomorrow 
 
+''' 09/02/18 '''
+
+# 10:30 - 11:30 
+
+# Trying to figure out how to allign plot so that "event" is the first lick 
+    # in a bout of licks 
+# Reading through previous scripts where calculated first lick in bout 
+# Trying to edit plot code and snipper to create events from licks (TTLs) when 
+    # meets condition of X licks in a run 
+    # store the licks which start a run or burst, so they can be input as "timelock"
+    # parameter in Snipper function 
+    
+ ''' sessiondict['lickRuns'] = lickRunCalc(sessiondict['licks']) ''' 
+ 
+ # Need to write lickRunCalc function that takes an array of licks and finds 
+     # the start of bursts or runs
+     # 1) Define burst or run 
+     # 2) For each lick add to the store/list/array if it is followed by more 
+        # than X licks within X ms/sec
+    
+# Work in progress, writing function for lickRun / burst calculation 
+ 
+def lickRunCalc(licks):
+    
+#    distracted = []
+#    notdistracted = []
+runstart = [] 
+    for lick in licklist:
+        runstart.append(l)   
+
+    for index, lick in enumerate(licks):
+     
+            try:
+                if (licks[index+1] - licks[index]) < 1:
+                    and if (licks[index+2] - )
+                    
+                    ?
+      # if there are more than 5 licks after this index (ignore the last 5?)
+              
+                    
+                    distracted.append(licks[ind])
+                else:
+                    if (licks[ind+1] - licks[ind]) < 1:
+                        notdistracted.append(licks[ind])
+            except IndexError:
+                print('last lick was a distractor!!!')
+                distracted.append(licks[ind])
+
+    return(distracted, notdistracted)
+
+
+# Looking at function from Murphy et al (2017)
+'''
+"""
+This function will calculate data for bursts from a train of licks. The threshold
+for bursts and clusters can be set. It returns all data as a dictionary.
+"""
+def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10, 
+             binsize=60, histDensity = False):
+    
+    # makes dictionary of data relating to licks and bursts
+    if type(licks) != np.ndarray or type(offset) != np.ndarray:
+        try:
+            licks = np.array(licks)
+            offset = np.array(offset)
+        except:
+            print('Licks and offsets need to be arrays and unable to easily convert.')
+            return
+
+    lickData = {}
+    
+    if len(offset) > 0:
+        lickData['licklength'] = offset - licks
+        lickData['longlicks'] = [x for x in lickData['licklength'] if x > 0.3]
+    else:
+        lickData['licklength'] = []
+        lickData['longlicks'] = []
+
+    lickData['licks'] = np.concatenate([[0], licks])
+    lickData['ilis'] = np.diff(lickData['licks'])
+    lickData['freq'] = 1/np.mean([x for x in lickData['ilis'] if x < burstThreshold])
+    lickData['total'] = len(licks)
+    
+    # Calculates start, end, number of licks and time for each BURST 
+    lickData['bStart'] = [val for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > burstThreshold)]  
+    lickData['bInd'] = [i for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > burstThreshold)]
+    lickData['bEnd'] = [lickData['licks'][i-1] for i in lickData['bInd'][1:]]
+    lickData['bEnd'].append(lickData['licks'][-1])
+
+    lickData['bLicks'] = np.diff(lickData['bInd'] + [len(lickData['licks'])])    
+    lickData['bTime'] = np.subtract(lickData['bEnd'], lickData['bStart'])
+    lickData['bNum'] = len(lickData['bStart'])
+    if lickData['bNum'] > 0:
+        lickData['bMean'] = np.nanmean(lickData['bLicks'])
+    else:
+        lickData['bMean'] = 0
+    
+    lickData['bILIs'] = [x for x in lickData['ilis'] if x > burstThreshold]
+    
+    lickData['bILIs'] = [x for x in lickData['ilis'] if x > burstThreshold]
+
+    # Calculates start, end, number of licks and time for each RUN
+    lickData['rStart'] = [val for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > runThreshold)]  
+    lickData['rInd'] = [i for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > runThreshold)]
+    lickData['rEnd'] = [lickData['licks'][i-1] for i in lickData['rInd'][1:]]
+    lickData['rEnd'].append(lickData['licks'][-1])
+
+    lickData['rLicks'] = np.diff(lickData['rInd'] + [len(lickData['licks'])])    
+    lickData['rTime'] = np.subtract(lickData['rEnd'], lickData['rStart'])
+    lickData['rNum'] = len(lickData['rStart'])
+
+    lickData['rILIs'] = [x for x in lickData['ilis'] if x > runThreshold]
+    try:
+        lickData['hist'] = np.histogram(lickData['licks'][1:], 
+                                    range=(0, 3600), bins=int((3600/binsize)),
+                                          density=histDensity)[0]
+    except TypeError:
+        print('Problem making histograms of lick data')
+        
+    return lickData    
+'''
+# TODO:
+    
+# Start looking at whether you need onset and offset or whether onset is enough 
+# Read through the code and see how it works 
+    # threshold for bursts can be set
+    # is there a more simple way of doinf this?
+    # which bits of the function stop the index errors?
+    
+    # What is the output? - Start, end, N licks for each burst
+        # Useful to store this, but only want to acess the start of the burst, the
+        # first lick to allign all photometry signals in distraction and lick day data 
+# ! will need to add lick offset to matfile loader if want to use this code as is
+
+    
+
+# 14:00 - 15:00 Supervisor meeting 
+
 
 ==============================
 
