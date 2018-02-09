@@ -27,9 +27,10 @@ Created on Mon Feb  5 19:23:37 2018
 # Figure 3
 # Mean peak height, distracted vs not distracted (VTA)
 
-''' Goals '''
+''' TODO '''
 
 # 1) Simple plot of 30 seconds licking 
 # 2) Simple plot of 30 seconds alligned to distractor (not concerned if distracted or not)
 # 3) Mark the events on distractor plot 
 # 4) Mark licks on / above plots
+
