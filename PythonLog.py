@@ -1803,6 +1803,25 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
 
 # 14:00 - 15:00 Supervisor meeting 
 
+''' 13/03/18 '''
+
+# 9:20 - 10:20 
+
+# Reading through THPH1 and 2 behaviour analysis 
+# Will add licking structure analysis here? Or use the TTLs from TDT?
+
+# File runs (changed filepath to HDD) and produces cumulative licking plots 
+    # Can take some of these for the poster for MMiN18 
+    # Start compiling "behaviour" only figures and deciding which to include in paper
+
+# This file plots the cumulative licks for licking day and distraction 
+    # plots each rat (across whole session) and an average for both days
+
+# Also plots the cumulative PDPs - post distraction pauses 
+    # for lick day and distraction day (modelled distractors in the case of lick day)
+
+# Paused Python for a bit, looking through results and writing some of the section
+
 
 ==============================
 
