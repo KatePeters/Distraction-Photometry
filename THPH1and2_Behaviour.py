@@ -139,13 +139,13 @@ def distractionCalc2(licks, pre=1, post=1):
     
     
 
-metafile = 'R:\DA_and_Reward\kp259\THPH1AND2\THPH1&2Metafile.csv'
+metafile = '/Volumes/KP_HARD_DRI/kp259/THPH1AND2/THPH1&2Metafile.csv'
 # filename = '/Volumes/KPMSB352/R drive copy 29thJuly/DPCP1/!2017-04-23_11h54m.Subject dpcp1.15' 
 
 
 
 metaData  = MetaExtractor(metafile)   
-os.chdir('R:\DA_and_Reward\kp259\THPH1AND2\med') 
+os.chdir('/Volumes/KP_HARD_DRI/kp259/THPH1AND2/med') 
 
 NDistractors = 0 
 distracted = 0
