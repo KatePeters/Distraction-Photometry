@@ -1822,7 +1822,39 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
 
 # Paused Python for a bit, looking through results and writing some of the section
 
+''' 15/02/18 '''
 
+# 08:30 - 10:11
+
+# 1) Behaviour
+            # Using just MED files to start 
+            # Produce the PDP plots, format them and export 
+                # Decide on colour scheme, kelly green and greys/blues
+            # Make percentage distracted lick day average plot, distraction day plot 
+                # Add in habituation day too
+                # Add in the circles and lines from each point (rat across days)
+
+# Trying to calculate percent distracted from modelled distractors 
+# Issues with divisions 
+
+# Uninstalling and re-installing conda a million times on UOL client -_-
+
+# Found that I manually calculated percent distracted by copying and pasting 
+    # the distracted and notdis arrays into excel, checking against the med values 
+    # and using formula in excel!
+    # re did this and got the same result as the previous data found in Prism
+    # now --> input this into arrays and make JEM scatter/bar plot            
+            
+# Making barscatterplot
+    # In script "Distraction_Photometry_Figures
+    # Need to figure out how the "set colors" and other functions work with 
+        # this plotting function
+    # Cannot see how to add in the lines between scatters
+        # thought it was in the paired=True lines but nothing changes when I alter
+        # looked like the paired=False was always triggered, and the else never
+            # commented out and just ran the else, still no lines! 
+            # Ask JEM in meeting Friday!!
+        
 ==============================
 
 
