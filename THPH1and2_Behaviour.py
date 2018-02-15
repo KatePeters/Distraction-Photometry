@@ -437,6 +437,10 @@ cumulativelickFig(ax8, avg5, normed=True, color='gold', log=True)
 #cumulativelickFig(ax8, avg6, normed=True, color='k', log=True)
 
 
+### Have last lick day licks, and distraction day licks 
+### Need modelled distractors on lick day (see other code for this with photo)
+
+totalNDistractors = np.asarray(distracted2)+np.asarray(nondis)
 
 
 
