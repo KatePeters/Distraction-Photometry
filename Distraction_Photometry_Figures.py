@@ -77,6 +77,9 @@ dataX[0] = np.array(percentdistractedLickDay)
 dataX[1] = np.array(percentdistractedDisDay)
 dataX[2] = np.array(percentdistractedHabDay)
 
+#dataX[0] = percentdistractedLickDay
+#dataX[1] = percentdistractedDisDay
+#dataX[2] = percentdistractedHabDay
 
  
 def barscatter(data, transpose = False,
@@ -130,7 +133,7 @@ def barscatter(data, transpose = False,
         
     else:
         grouped = False
-        paired = False
+        paired = True
         barspergroup = 1
         
         for i in range(np.shape(data)[0]):
@@ -189,17 +192,25 @@ def barscatter(data, transpose = False,
                          c = scf,
                          edgecolors = sce,
                          zorder=1))
-                
+
     else:
-        for x, Yarray, scf, sce in zip(xvals, data, scfacecolorArray, scedgecolorArray):
-            for y in np.transpose(Yarray.tolist()):
-                sclist.append(ax.plot(x, y, '-o', markersize = scattersize/10,
-                         color = scatterlinecolor,
-                         linewidth=linewidth,
-                         markerfacecolor = scf,
-                         markeredgecolor = sce))
-                
-    
+        try:
+            np.shape(data)[1]
+            for x, Yarray, scf, sce in zip(xvals, data, scfacecolorArray, scedgecolorArray):
+                for y in np.transpose(Yarray.tolist()):
+                    sclist.append(ax.plot(x, y, '-o', markersize = scattersize/10,
+                             color = scatterlinecolor,
+                             linewidth=linewidth,
+                             markerfacecolor = scf,
+                             markeredgecolor = sce))
+        except IndexError:                    
+            print(len(data[0]))
+            for n,_ in enumerate(data[0]):
+                y = [y[n-1] for y in data]
+                sclist.append(ax.plot(xvals, y, '-o', markersize = scattersize/10,
+                             color = scatterlinecolor,
+                             linewidth=linewidth))
+
     # Label axes
     if ylabel != 'none':
         plt.ylabel(ylabel)
