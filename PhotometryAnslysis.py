@@ -177,6 +177,7 @@ def loadmatfile(file):
     sessiondict['uv'] = a['output'].uv
     sessiondict['fs'] = a['output'].fs   
     sessiondict['licks'] = a['output'].licks.onset
+    sessiondict['licks_off'] = a['output'].licks.offset
 
     sessiondict['distractors'] = distractionCalc2(sessiondict['licks'])
 
@@ -186,7 +187,7 @@ def loadmatfile(file):
     sessiondict['distracted'], sessiondict['notdistracted'] = distractedOrNot(sessiondict['distractors'], sessiondict['licks'])
    # sessiondict['notdistracted'] = notdistracted
    
-  ''' sessiondict['lickRuns'] = lickRunCalc(sessiondict['licks']) ''' 
+ # ''' sessiondict['lickRuns'] = lickRunCalc(sessiondict['licks']) ''' 
     
     return sessiondict
 
@@ -345,7 +346,7 @@ def removenoise(snipsIn, noiseindex):
 
 datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 
-datafile = datafolder + 'thph2.8distraction.mat' 
+datafile = datafolder + 'thph2.6lick3.mat' 
 
 examplerat = loadmatfile(datafile)
 
@@ -584,3 +585,81 @@ ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibr
 #NEED TO make a mult shaded figure here using each mean as a "trial" then get 
 # a shaded figure of the means means with SEM error bars
 # Figure out the issue of data types 
+
+
+
+
+# Looking at function from Murphy et al (2017)
+
+"""
+This function will calculate data for bursts from a train of licks. The threshold
+for bursts and clusters can be set. It returns all data as a dictionary.
+"""
+def lickCalc(licks, offset = [], burstThreshold = 0.5, runThreshold = 10, 
+             binsize=60, histDensity = False):
+    
+    # makes dictionary of data relating to licks and bursts
+    if type(licks) != np.ndarray or type(offset) != np.ndarray:
+        try:
+            licks = np.array(licks)
+            offset = np.array(offset)
+        except:
+            print('Licks and offsets need to be arrays and unable to easily convert.')
+            return
+
+    lickData = {}
+    
+    if len(offset) > 0:
+        lickData['licklength'] = offset - licks
+        lickData['longlicks'] = [x for x in lickData['licklength'] if x > 0.3]
+    else:
+        lickData['licklength'] = []
+        lickData['longlicks'] = []
+
+    lickData['licks'] = np.concatenate([[0], licks])
+    lickData['ilis'] = np.diff(lickData['licks'])
+    lickData['freq'] = 1/np.mean([x for x in lickData['ilis'] if x < burstThreshold])
+    lickData['total'] = len(licks)
+    
+    # Calculates start, end, number of licks and time for each BURST 
+    lickData['bStart'] = [val for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > burstThreshold)]  
+    lickData['bInd'] = [i for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > burstThreshold)]
+    lickData['bEnd'] = [lickData['licks'][i-1] for i in lickData['bInd'][1:]]
+    lickData['bEnd'].append(lickData['licks'][-1])
+
+    lickData['bLicks'] = np.diff(lickData['bInd'] + [len(lickData['licks'])])    
+    lickData['bTime'] = np.subtract(lickData['bEnd'], lickData['bStart'])
+    lickData['bNum'] = len(lickData['bStart'])
+    if lickData['bNum'] > 0:
+        lickData['bMean'] = np.nanmean(lickData['bLicks'])
+    else:
+        lickData['bMean'] = 0
+    
+    lickData['bILIs'] = [x for x in lickData['ilis'] if x > burstThreshold]
+    
+    lickData['bILIs'] = [x for x in lickData['ilis'] if x > burstThreshold]
+
+    # Calculates start, end, number of licks and time for each RUN
+    lickData['rStart'] = [val for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > runThreshold)]  
+    lickData['rInd'] = [i for i, val in enumerate(lickData['licks']) if (val - lickData['licks'][i-1] > runThreshold)]
+    lickData['rEnd'] = [lickData['licks'][i-1] for i in lickData['rInd'][1:]]
+    lickData['rEnd'].append(lickData['licks'][-1])
+
+    lickData['rLicks'] = np.diff(lickData['rInd'] + [len(lickData['licks'])])    
+    lickData['rTime'] = np.subtract(lickData['rEnd'], lickData['rStart'])
+    lickData['rNum'] = len(lickData['rStart'])
+
+    lickData['rILIs'] = [x for x in lickData['ilis'] if x > runThreshold]
+    try:
+        lickData['hist'] = np.histogram(lickData['licks'][1:], 
+                                    range=(0, 3600), bins=int((3600/binsize)),
+                                          density=histDensity)[0]
+    except TypeError:
+        print('Problem making histograms of lick data')
+        
+    return lickData    
+
+burstanalysis = lickCalc(examplerat['licks'], offset=examplerat['licks_off'])
+
+
+

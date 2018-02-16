@@ -25,7 +25,6 @@ import matplotlib as mpl
 
 # Data processing functions 
 
-import matplotlib as mpl
 
 # Figure 1
 # Long time course figure, lick day 

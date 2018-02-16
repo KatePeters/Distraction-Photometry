@@ -1854,6 +1854,39 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
         # looked like the paired=False was always triggered, and the else never
             # commented out and just ran the else, still no lines! 
             # Ask JEM in meeting Friday!!
+
+''' 16/02/18 '''
+
+# 10:20 - 11:00
+
+# Start burst / cluster analysis 
+# Confused about what the dictionary output contains, and how to plot the burst lengths
+
+# for the start lick of each burst (or run?)
+    # find the interval to that lick minus 1
+    # and the interval to that lick plus one 
+    
+# Why is burst time (the length in time between start and end of burst) so short?
+# How can there be just 1 lick in a burst?
+
+    # Maybe need the lick OFFSET values too? (might need to alter loadmatfile)
+    # If this is the case will the function work?
+    # Why does it not plot histogram? How does np.histogram actually work?
+    
+  sessiondict['licks_off'] = a['output'].licks.offset
+
+# Added offset to matfileloader dictionary output to pass into the LickCalc func
+  # Still produces output with bursts of 1 lick (how and why?)
+  # maybe I need to limit the code to only record bursts of 3 licks or more? 
+    # or just exclude the 1 lick "bursts"
+    # or use the runs? - Not high number of runs though (<10)
+
+#!! Possible this rat didn't lick a lot --> 357 licks (with 320 of those in one long run)
+# perhaps this rat is not typical, check another rat with more licks 
+
+
+    
+    
         
 ==============================
 
