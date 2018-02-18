@@ -1884,8 +1884,46 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
 #!! Possible this rat didn't lick a lot --> 357 licks (with 320 of those in one long run)
 # perhaps this rat is not typical, check another rat with more licks 
 
+# 15:00 - 16:30 
+# Supervisor meeting with JEM 
+#
+# Discovered bug with bar scatter plot
+#•	Reason I couldn’t get the scatters to be paired
+#•	Function set up to expect 2D not 1D array
+#•	Ie. Like excel sheets with groups on each sheet etc.
+#•	Will work as it is for grouped data but not for what I want to input
+#
+#•	N.B  → To assign a 2D array (like an array of arrays)
+#•	[[1,2,3],[1,3,2],[1,3,2]],[[1,2,3],[3,2,4],[4,5,5]], etc...
+#•	Large is the “sheet” or layer, small is the column within the sheet 
+#
+# Looked over other functions and discussed 1D and 2D arrays
+#•	Data2obj1D and data2obj2D
+#•	Single list into object array or 2 lists into 2D array (could combine these)
+#
+# Working on bar scatter
+#•	Writing code to check the shape or dimensions of input data
+#•	How to extract each value from the same index in the 3 lists in the array?
+#•	List comprehension
+#
+# N.B Don’t forget to test all conditions of the function, each possible execution (pass in a 2D array to check it works with this)
 
+''' 18/02/18 '''
+
+# 20:00
+
+# Added colours for scatter back into the code
+# Issue with color section - 'scf' no assigned yet 
+    # Assigned in the if statement when paired is false
+    # Try adding explicit colours first then adding assignment 
     
+# Making a 2D array - figuring out how to do this and what it represents 
+    # Testing function with 2D array 
+    # It works!! If enter groups as "sheets" in the 2D array the pairs are correct
+
+# Looking up hex code colours, like golden yellow and sky blue together for figures
+    # Maybe 2 blues and 2 yellows/orange with light and dark greys together
+    # Then poster colour can be nice sky blue 
     
         
 ==============================
