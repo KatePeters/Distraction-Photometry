@@ -72,14 +72,18 @@ for i in barlist1[1].get_children():
 percentdistractedLickDay = [0,0,8.33,9.26,0,8.7,1.35,0,4.92,3.23,0,1.33,24]
 percentdistractedDisDay = [49.38,81.33,100,42.62,24.32,78.95,10.96,60.94,27.03,57.5,61.11,50,100]
 percentdistractedHabDay = [16.13,43.24,100,18.18,15.38,28.95,1.11,18.42,18.75,23.53,21.62,11.76]
-dataX = np.empty((3), dtype=np.object)
+
+dataX = np.empty((3,), dtype=np.object)
 dataX[0] = np.array(percentdistractedLickDay)
 dataX[1] = np.array(percentdistractedDisDay)
 dataX[2] = np.array(percentdistractedHabDay)
 
-#dataX[0] = percentdistractedLickDay
-#dataX[1] = percentdistractedDisDay
-#dataX[2] = percentdistractedHabDay
+# Testing 2D array and barscatter function paired bug fix 
+#dataX = np.empty((3,2), dtype=np.object)
+#dataX[0][1] = np.array(percentdistractedLickDay)
+#dataX[1][1] = np.array(percentdistractedDisDay)
+#dataX[2][1] = np.array(percentdistractedHabDay)
+
 
  
 def barscatter(data, transpose = False,
@@ -155,7 +159,7 @@ def barscatter(data, transpose = False,
         xvals = groupx
     
     # Set colors for bars and scatters  
-    colors = ['k', 'darkgreen', 'darkgrey']
+    colors = ['grey', '#eca72c', '#14a7e0']
     colors2 = ['k','k','k']
     colors3 = ['white', 'white', 'white']
     
@@ -203,13 +207,17 @@ def barscatter(data, transpose = False,
                              linewidth=linewidth,
                              markerfacecolor = scf,
                              markeredgecolor = sce))
+
+# Explicitly added color here, issue with assignment of scf and sce 
         except IndexError:                    
             print(len(data[0]))
             for n,_ in enumerate(data[0]):
                 y = [y[n-1] for y in data]
                 sclist.append(ax.plot(xvals, y, '-o', markersize = scattersize/10,
-                             color = scatterlinecolor,
-                             linewidth=linewidth))
+                             color = 'grey',
+                             linewidth=linewidth,
+                             markerfacecolor = 'white',
+                             markeredgecolor = 'k'))
 
     # Label axes
     if ylabel != 'none':
