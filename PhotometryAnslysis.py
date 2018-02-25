@@ -9,6 +9,7 @@ Created on Thu Sep 21 15:14:15 2017
 
 import numpy as np
 import scipy.io as sio
+import scipy.stats as stats
 import matplotlib.pyplot as plt
 import seaborn as sb
 
@@ -595,7 +596,7 @@ ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibr
 This function will calculate data for bursts from a train of licks. The threshold
 for bursts and clusters can be set. It returns all data as a dictionary.
 """
-def lickCalc(licks, offset = [], burstThreshold = 0.5, runThreshold = 10, 
+def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10, 
              binsize=60, histDensity = False):
     
     # makes dictionary of data relating to licks and bursts
@@ -659,7 +660,30 @@ def lickCalc(licks, offset = [], burstThreshold = 0.5, runThreshold = 10,
         
     return lickData    
 
+# Burst analysis for lengths and pauses before and after bursts or runsß
+
 burstanalysis = lickCalc(examplerat['licks'], offset=examplerat['licks_off'])
 
+meanburstlength = np.mean(np.asarray(burstanalysis['bLicks'] ))
+meanrunlength = np.mean(burstanalysis['rLicks'])
+medburstlen = np.median(np.asarray(burstanalysis['bLicks'] ))
+medrunlen = np.median(burstanalysis['rLicks'])
+modburstlen = stats.mode(np.asarray(burstanalysis['bLicks'] ))
+modrunlen = stats.mode(np.asarray(burstanalysis['rLicks'] ))
+
+print('Mean burst length is', meanburstlength, '/ median is', medburstlen, '/mode is', modburstlen)
+print('Mean run length is', meanrunlength, '/ median is', medrunlen, '/mode is', modrunlen)
+
+figure10 = plt.figure()
+plt.hist(burstanalysis['bLicks'])
+plt.show()
+
+figure11 = plt.figure()
+plt.hist(burstanalysis['rLicks'])
+plt.show()
 
 
+
+# Maybe some visual representation of licking across a session ?
+# Plot the ttls? 
+# Just one example for lick day and distraction day 

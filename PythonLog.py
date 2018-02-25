@@ -1925,7 +1925,80 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
     # Maybe 2 blues and 2 yellows/orange with light and dark greys together
     # Then poster colour can be nice sky blue 
     
-        
+''' 19/02/18 '''
+
+# 14:00 - 15:15
+
+# Working on lick calc and with the dictionary output
+# Trying to figure out why the histogram has no output  
+# Got it to make plot output, but now histogram superimposed on previous figures
+    # How do I stop it doing this???
+    
+# Python keeps track of current axis, and plots to this (pyplot)
+    # Made new axis and defined properties 
+    # Histogram now plotting correctly
+    # Doesn't look particularly informative --> need to adjust bin sizes
+         # Not sure why one bar is blue and why not equal spacing?
+         
+    # Maybe order the bursts by length and plot these (not freq, individual)
+        # sortedBurstLen = sorted(burstanalysis['bLicks'])
+        # plt.plot(sortedBurstLen)
+
+# Sorted list looks like cumulative plot! Shows there are quite a few 1 lick 
+    # bursts and 1 lick runs!
+    
+# Trying to figure out how to calculate bin sizes and bins 
+     # Not enought bins, confused why does changing bins change the y axis?
+     # No change to X?
+     
+# Weird multicolour histograms, plotting 2 data sets? 
+     
+''' 20/02/18 '''
+
+# 10:00 - 11:00
+
+# Jaime explained histogram issue, defining it twice
+# np.histogram gives the edges and I was plotting this as well as the hist
+
+# Re-wrote histogram code
+     # figure12 = plt.figure()
+     # NOT NEEDED --> a = np.histogram(percentdistractedLickDay)
+     # plt.hist(percentdistractedDisDay)
+     # plt.show()    
+    
+# Mode
+    # Mode is 1 for runs and bursts, why are there bursts and runs of 1?
+    # Look over the code and fix this, maybe add a "must be over 2 / 3" clause
+
+# Thinking about making new logs, for each month. Start in March with MarchLog 
+# Change this file name to ArchiveLog or HistoryLog
+
+# Changing definition of RUN, making the pause smaller to see how many runs we get
+    # Want a long enough pause before the run to plot what happens before (without another run/burst)
+
+# Could define the interval before as from 1st lick in the burst to distractor?
+# Or find some way to differentiate intervals before by s,m,l?
+
+# Thinking about how to measure the interval before the burst if I set a 
+    # cutoff for runs in the LickCalc function as 2,5, or 10 seconds 
+    # maybe look at the bursts (no definition of run here)?
+    
+# 0.5 --> cluster
+# 0.25 --> bursts?     
+
+# Interval after a 1 lick burst? Correlation between the post inter-burst interval 
+   # number of licks in the next burst 
+   
+   # for every burst work out the interval and plot the 2 against each other
+   # do these 1 lick bursts always come a little before a long burst?
+   # if there is a short interval is the burst length longer or shorter?
+   # following a long burst is the interval longer?  
+    
+    
+
+
+
+
 ==============================
 
 
