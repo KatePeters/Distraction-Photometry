@@ -68,6 +68,10 @@ for i in barlist1[1].get_children():
 # Calculated modelled distractors and percentge from lick data in Python
 # Pasted distracted and not distracted into excel and calculated percentage
 # Cross referenced against med files and manually entered here:
+ 
+''' Percentage distracted
+    Need to add labels and significance stars, either here or in Illustrator
+'''
     
 percentdistractedLickDay = [0,0,8.33,9.26,0,8.7,1.35,0,4.92,3.23,0,1.33,24]
 percentdistractedDisDay = [49.38,81.33,100,42.62,24.32,78.95,10.96,60.94,27.03,57.5,61.11,50,100]
@@ -77,6 +81,18 @@ dataX = np.empty((3,), dtype=np.object)
 dataX[0] = np.array(percentdistractedLickDay)
 dataX[1] = np.array(percentdistractedDisDay)
 dataX[2] = np.array(percentdistractedHabDay)
+
+''' Mean flourescence peak (2 second) following distractor or modelled distractor
+    
+'''
+    
+''' Mean flourescence peak (2 second) when distracted versus not distracted
+    Distraction day only
+
+'''
+
+
+
 
 # Testing 2D array and barscatter function paired bug fix 
 #dataX = np.empty((3,2), dtype=np.object)
@@ -310,5 +326,5 @@ def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter =
 
 ax = barscatter(dataX, paired=True, scatterlinecolor='k')
 
-
+ax2 = barscatter(dataX,paired=True, scatterlinecolor='k')
 

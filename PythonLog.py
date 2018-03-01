@@ -1994,10 +1994,61 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
    # if there is a short interval is the burst length longer or shorter?
    # following a long burst is the interval longer?  
     
+''' 26/02/18 '''
+
+#
+
+# Need to make a list and go through it of plots, start with scatter bar plots
+
+# Then move on the behavioural, save as PDFs and save the script in figures (in order)
+# Licking analysis and pauses etc. in behaviour (and stats analysis, export numbers)
+# Then photometry, distracted versus not
+# Licking bouts photometry    
+
+LIST
+
+''' 27/02/18 '''
+# Testing JEM GUI and looking over code
+# Giving suggestions for features and testing with different files 
+
+''' 01/03/18 '''
+
+# 17:15
+
+# Looking at poster layout and checking which plots are needed
+# Need to make :
     
+    Licking plots for behaviour 
+    Means?
+    Distraction behaviour plots
+    Photometry licking 
+    Photometry distractors
+    Photomtery - modality??
+    Photometry distracted 
+    Heatmaps??
+    
+# Added comments in Distraction_Photometry_Figs. to scatter bar to make 
+    # other figures for paper/poster
+# Finding date for peak values (old script and excel sheets previously made)
 
-
-
+Results
+1) Rats pause ongoing licking following distractors 
+    # Percentage distracted - just show modelled and distraction day
+    # Post distraction pause - increased pause following distractors vs model
+    # Cumulative PDP plot - difference between normal lick day and distraction day
+    
+2) 1 Behaviour - Licking, burst/cluster/run
+   Relationship between pre-bout pause and burst/run/bout length
+   
+   # Plot of pre burst pause and burst length 
+   
+3) Bout length predicts distracted or not?
+4) PHOTOMETRY - Licking peak, just lick day 
+5) Scatter of lick burst length and peak magnitude
+6) Scatter of pre-burst pause and burst length 
+7) Scatter of pre-burstpause and peak magnitude on first lick?
+            
+? Arbitrarily decide short, medium, long pauses (based on histograms)
 
 ==============================
 
