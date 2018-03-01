@@ -23,6 +23,14 @@ from tkinter import filedialog
 
 import matplotlib as mpl
 
+# Defining figure sizes using rcParams 
+
+fig_size = plt.rcParams["figure.figsize"]
+print("Current size:", fig_size)
+fig_size[0] = 4
+fig_size[1] = 5
+plt.rcParams["figure.figsize"] = fig_size
+
 # Data processing functions 
 
 
