@@ -2013,7 +2013,7 @@ LIST
 
 ''' 01/03/18 '''
 
-# 17:15
+# 17:15 - 18:00
 
 # Looking at poster layout and checking which plots are needed
 # Need to make :
@@ -2050,6 +2050,16 @@ Results
             
 ? Arbitrarily decide short, medium, long pauses (based on histograms)
 
+''' 02/03/18 ''' 
+
+# JEM MEETING 14:30 :
+
+# How to isolate a single trial from photometry data and plot it?
+    # How to plot every trial as one plot from TDT data only 
+        # How to overlay distracted or not AND licks (TTLs) onto the plot 
+            # Or as a separate plot I can 
+            
+            
 ==============================
 
 

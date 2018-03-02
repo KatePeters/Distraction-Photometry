@@ -687,3 +687,15 @@ plt.show()
 # Maybe some visual representation of licking across a session ?
 # Plot the ttls? 
 # Just one example for lick day and distraction day 
+
+#for i in blueSnips:
+ #   plt.plot(i)
+    
+plt.plot(blueSnips[55])
+plt.plot(uvSnips[55])
+
+''' Want to plot each trial alone, separate by distracted or not 
+    and add the licks TTLs as markers on the plot 
+    graphical way to explain distraction trigger/distracted etc.
+    and raw data plot example. 
+'''
