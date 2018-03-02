@@ -346,6 +346,7 @@ def removenoise(snipsIn, noiseindex):
     return snipsOut
 
 datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
+datafolder = 'F:\\PHOTOMETRY MMIN18\\'
 
 datafile = datafolder + 'thph2.6lick3.mat' 
 
@@ -464,6 +465,7 @@ print(e1,g1)
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickmodel.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
 meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means distracted.csv'
+meansfile = 'F:\\PHOTOMETRY MMIN18\\Snips means distracted.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means notdistracted.csv'
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickalligned.csv'
 
@@ -662,6 +664,22 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
 
 # Burst analysis for lengths and pauses before and after bursts or runsß
 
+def nearestevents(timelock, events, preTrial=10, trialLength=30):
+#    try:
+#        nTrials = len(timelock)
+#    except TypeError:
+#        nTrials = 1
+    data = []
+    start = [x - preTrial for x in timelock]
+    end = [x + trialLength - preTrial for x in start]
+    for start, end in zip(start, end):
+        data.append([x for x in events if (x > start) & (x < end)])
+    for i, x in enumerate(data):
+        data[i] = x - timelock[i]      
+    
+    return data
+
+
 burstanalysis = lickCalc(examplerat['licks'], offset=examplerat['licks_off'])
 
 meanburstlength = np.mean(np.asarray(burstanalysis['bLicks'] ))
@@ -690,12 +708,33 @@ plt.show()
 
 #for i in blueSnips:
  #   plt.plot(i)
-    
-plt.plot(blueSnips[55])
-plt.plot(uvSnips[55])
+
+f = plt.Figure()
+ax = f.add_subplot()
+ax.plot(blueSnips[55])
+ax.plot(uvSnips[55])
+
 
 ''' Want to plot each trial alone, separate by distracted or not 
     and add the licks TTLs as markers on the plot 
     graphical way to explain distraction trigger/distracted etc.
     and raw data plot example. 
 '''
+
+triallicks = nearestevents(examplerat['distractors'], examplerat['licks'])
+
+trial = 7
+
+f = plt.Figure()
+ax = plt.subplot()
+ax.plot(blueSnips[trial])
+ax.plot(uvSnips[trial])
+xvals = [(x+10)*10 for x in triallicks[trial]]
+
+yvals = [ax.get_ylim()[1]] * len(xvals)
+
+#ax.scatter(xvals, yvals)
+
+ax.scatter(xvals, yvals, marker='|')
+
+ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
