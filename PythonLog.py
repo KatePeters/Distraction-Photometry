@@ -2059,7 +2059,93 @@ Results
         # How to overlay distracted or not AND licks (TTLs) onto the plot 
             # Or as a separate plot I can 
             
+# See meeting notes for info on individual trial plots using FindNEarestEvent 
+
+# Want to plot each trial alone, separate by distracted or not 
+# and add the licks TTLs as markers on the plot 
+# graphical way to explain distraction trigger/distracted etc.
+# and raw data plot example. 
+
+'''
+triallicks = nearestevents(examplerat['distractors'], examplerat['licks'])
+
+trial = 7
+
+f = plt.Figure()
+ax = plt.subplot()
+ax.plot(blueSnips[trial])
+ax.plot(uvSnips[trial])
+xvals = [(x+10)*10 for x in triallicks[trial]]
+
+yvals = [ax.get_ylim()[1]] * len(xvals)
+
+#ax.scatter(xvals, yvals)
+
+ax.scatter(xvals, yvals, marker='|')
+
+ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
+
+'''
+
+# Remember, found the ylimits to plot the scatter and defined the marker 
+    # to mark licks 
+    # had to also scale the actual values to the -10 to 20 scale of the snips
+    # this is done using the constant and expression: (x+10)*10
+    
+
+''' 05/03/18 '''
+
+# 13:30 - 14:10
+
+# Looking over Friday's python individual plots
+
+# Lick plots:
+    # Lick day descriptives
+#            a) Average burst lengths, licks per burst median etc. 
+#            b) Photometry, align to start of a burst (all)
+#            c) Photometry align to start of burst by top 25 and bottom 25% of lengths
+#            d) Pre-burst pause (short and long) topand bottom quartiles
+        
             
+# Slack discussion with JEM 
+# Deciding how to represent mean/median data, whether to look at mean/median 
+    # burst lengths for each rat and then show the mean of all 
+    # or to rank all data and find mean median from grouped 
+    # decided for stats use INDIVIDUAL RATS and then mean/median
+    # for histogram plotting use ALL RATS TOGETHER (frequencies of different
+        #burst lengths for all of the rats as a cohort on the last lick day)
+    
+   # Similar idea for the upper and lower quartiles 
+       # Want to define high and low number bursts
+       # Do both --> quartiles for each rat and quartiles for the whole data set
+       # Then see which looks best 
+       # Probably end up using the whole data set together (more reliable less noisy)
+
+# Writing Python list for figures, making step by step plan to get Licking figures
+    # finished by Friday and then the distraction figures ASAP
+
+# 14:30 - 14:50
+
+# Adding in code to have licks, distractors and distracted or not on the same plot
+# figuring out how to get them at different Y levels on the plot 
+# add constant to the "getylim" line (small signals, small scales, small constant)
+
+# Tested this on a LICK DAY
+    # need to make these plots for distraction days individual trials 
+    # can compare to the last lick days if wanted 
+
+# How easy would it be to change the size of the snips? --> re-scale later plots
+    # shorter time course for looking in detail at the distracted or not and licks 
+    # around 5 seconds either way 
+    # although longer for the pre-burst pause info     
+
+
+
+
+
+
+
+           
 ==============================
 
 

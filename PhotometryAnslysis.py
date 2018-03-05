@@ -346,10 +346,10 @@ def removenoise(snipsIn, noiseindex):
     return snipsOut
 
 datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
-datafolder = 'F:\\PHOTOMETRY MMIN18\\'
+#datafolder = 'F:\\PHOTOMETRY MMIN18\\'
 
 datafile = datafolder + 'thph2.6lick3.mat' 
-
+datafile = datafolder + 'thph2.6distraction.mat'
 examplerat = loadmatfile(datafile)
 
 print(examplerat['licks'][-1])
@@ -465,7 +465,7 @@ print(e1,g1)
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickmodel.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
 meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means distracted.csv'
-meansfile = 'F:\\PHOTOMETRY MMIN18\\Snips means distracted.csv'
+#meansfile = 'F:\\PHOTOMETRY MMIN18\\Snips means distracted.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means notdistracted.csv'
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickalligned.csv'
 
@@ -709,11 +709,6 @@ plt.show()
 #for i in blueSnips:
  #   plt.plot(i)
 
-f = plt.Figure()
-ax = f.add_subplot()
-ax.plot(blueSnips[55])
-ax.plot(uvSnips[55])
-
 
 ''' Want to plot each trial alone, separate by distracted or not 
     and add the licks TTLs as markers on the plot 
@@ -722,19 +717,36 @@ ax.plot(uvSnips[55])
 '''
 
 triallicks = nearestevents(examplerat['distractors'], examplerat['licks'])
+trialdistractors = nearestevents(examplerat['distractors'], examplerat['distractors'])
+trialdistracted = nearestevents(examplerat['distractors'], examplerat['distracted'])
+trialnotdistracted = nearestevents(examplerat['distractors'], examplerat['notdistracted'])
 
-trial = 7
+
+trial = 20
 
 f = plt.Figure()
 ax = plt.subplot()
+
 ax.plot(blueSnips[trial])
 ax.plot(uvSnips[trial])
-xvals = [(x+10)*10 for x in triallicks[trial]]
 
-yvals = [ax.get_ylim()[1]] * len(xvals)
+xvals1 = [(x+10)*10 for x in triallicks[trial]]
+xvals2 = [(x+10)*10 for x in trialdistractors[trial]]
+xvals3 = [(x+10)*10 for x in trialdistracted[trial]]
+xvals4 = [(x+10)*10 for x in trialnotdistracted[trial]]
+
+
+yvals1 = [ax.get_ylim()[1]] * len(xvals1)
+yvals2 = [ax.get_ylim()[1] + 0.005] * len(xvals2)
+yvals3 = [ax.get_ylim()[1] + 0.0075] * len(xvals3) 
+yvals4 = [ax.get_ylim()[1] + 0.01] * len(xvals4)
+
 
 #ax.scatter(xvals, yvals)
+ax.scatter(xvals1, yvals1, marker='|')
+ax.scatter(xvals2, yvals2, marker='*')
+ax.scatter(xvals3, yvals3, marker='_')
+ax.scatter(xvals4, yvals4, marker='x')
 
-ax.scatter(xvals, yvals, marker='|')
 
 ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
