@@ -2137,10 +2137,48 @@ ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
 # How easy would it be to change the size of the snips? --> re-scale later plots
     # shorter time course for looking in detail at the distracted or not and licks 
     # around 5 seconds either way 
-    # although longer for the pre-burst pause info     
+    # although longer for the pre-burst pause info
 
+''' 07/03/18 '''
 
+'''
+for each rat (or file) in the list of files - make list
+    open the file
+    run the example rat script 
+    extact the licks
+    calculate the burst lengths
+    add the bLicks and rLicks to a master list (append each list to
+                                                the master)
 
+Then using master list, make a histogram of all the lick bursts from 
+all the rats      
+
+'''
+
+# Writing new script to make the plots, reducing unecessary code 
+# Start with the histogram 
+
+# Wrote for loop to go through 14 files (the 14 last lick days, N/B
+    # for distraction there are 12 as 2 did not have this day) 
+    # loads the matfile and produces the disctionary for each rat
+
+# Putting the lickCalc / burst analysis into the loop to get a list
+    # of burst and run lengths for each rat
+    # writing loop to append - remember issues with PDP loop similar
+
+# Half working, appended each array to the list 
+    # want one continuous list / array NOT 14 lists ?
+   
+    # Maybe not append, take the burst list (which is an array) and add it
+        # to the end of an empty array? Try making empty array not list
+
+# Used itertools and merged the lists in the list, simpler than either list
+    # comprehension or for loop 
+    
+#TO DO
+# Add means/medians to plot 
+# 1) Means and medians from ALL aggregated
+# 2) Means and medians from EACH RAT then averaged  
 
 
 

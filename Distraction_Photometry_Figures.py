@@ -9,6 +9,7 @@ Created on Mon Feb  5 19:23:37 2018
 ''' New analysis file for distraction photometry paper, for generating figures
     specific to the paper and adding titles and information to them 
 
+CURRENTLY JUST BARSCATTER PLOTS 
 '''
 
 # Imports

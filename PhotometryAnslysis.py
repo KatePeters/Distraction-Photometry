@@ -664,6 +664,11 @@ def lickCalc(licks, offset = [], burstThreshold = 0.25, runThreshold = 10,
 
 # Burst analysis for lengths and pauses before and after bursts or runsß
 
+
+
+
+
+
 def nearestevents(timelock, events, preTrial=10, trialLength=30):
 #    try:
 #        nTrials = len(timelock)
