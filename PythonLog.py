@@ -2190,7 +2190,7 @@ all the rats
 
 ''' 08/03/18 '''
 
-# 08:30 - 9:30 
+# 08:30 - 10:00 
 
 # Change bin sizes of histograms to see if more informative
 # Change x-limits and see if you can zoom in on histogram / make clearer
@@ -2206,7 +2206,21 @@ all the rats
 
 # Make a "all functions" script and save all functions to it, run this first
 
+# Looking through plot styles 
 
+# 15:15 - 
+
+# Figure 2.a 
+# Panel of 14, (can make 14 individual and add to word or actually panel)
+
+# Each rat, mean photometry peak alligned to first lick within burst
+# Need to change snips to allign to the first lick in a burst
+    # store this as an index? Does lickcalc produce the indices of the first
+    # lick of each burst? 
+    # In future will also need the previous lick and the interlick interval 
+        # think about how to code this 
+    
+    
 
            
 ==============================

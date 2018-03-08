@@ -3,12 +3,12 @@
 
 '''
 Plots for MMiN18 poster 
-Figure 1 and 2 - Histograms for burst and run lengths last lick day (all rats)
+Figure 1a and 1b - Histograms for burst(a) and run(b) lengths last lick day (all rats)
+Figure 2 - Photometry analysis (14 rats) individual plots alligned to first lick of BURST and RUN
 Figure 3
 Figure 4
 Figure 5
 Figure 6
-Figure 7
 
 '''
 
@@ -43,46 +43,70 @@ for filename in TDTfileslist:
 MergedBurstList = list(itertools.chain.from_iterable(allBursts)) 
 MergedRunList = list(itertools.chain.from_iterable(allRuns)) 
     
+# Descriptives - aggregated data
+meanburstlength = round(np.mean(MergedBurstList))
+medburstlen = round(np.median(MergedBurstList))
+meanrunlength = round(np.mean(MergedRunList))
+medrunlen = round(np.median(MergedRunList))
+
+
 # Burst histogram, frequency of different burst lengths all rats, last lick day
+
+
 figure1 = plt.figure()
-plt.hist(MergedBurstList, bins=100, normed=1, facecolor='blue', alpha=0.5)
-plt.title('Insert plot title')
-plt.xlabel('Licks per burst')
-plt.ylabel('Probability')
+plt.hist(MergedBurstList, bins=100, normed=1, facecolor='cornflowerblue')
+plt.xlabel('Licks per burst', fontsize=14)
+plt.ylabel('Probability', fontsize=14)
 plt.xlim(xmax=50, xmin=0)
+plt.text(20, 0.10, 'Mean licks per burst '+'{}'.format(meanburstlength), fontsize=14)
+plt.text(20, 0.09, 'Median licks per burst '+'{}'.format(medburstlen), fontsize=14)
+# get rid of the frame
+for spine in plt.gca().spines.values():
+    spine.set_visible(False)
 plt.show()
+
 
 # Run histogram, frequency of different run lengths across all rats
 figure2 = plt.figure()
-plt.hist(MergedRunList, bins=100, normed=1, facecolor='green', alpha=0.5) #Maybe add normed=True
-plt.title('Insert plot title')
-plt.xlabel('Licks per run')
-plt.ylabel('Probability')
+
+plt.hist(MergedRunList, bins=100, normed=1, facecolor='gold') #Maybe add normed=True
+plt.xlabel('Licks per run', fontsize=14)
+plt.ylabel('Probability', fontsize=14)
 plt.xlim(xmax=500, xmin=0)
+plt.text(200, 0.010, 'Mean licks per run '+'{}'.format(meanrunlength), fontsize=14)
+plt.text(200, 0.009, 'Median licks per run '+'{}'.format(medrunlen), fontsize=14)
+
+# get rid of the frame
+for spine in plt.gca().spines.values():
+    spine.set_visible(False)
+
 plt.show()
 
-# Add mean and median text to plots 
-
-
-
-# Descriptives - aggregated data
-
-meanburstlength = np.mean(MergedBurstList)
-medburstlen = np.median(MergedBurstList)
-meanrunlength = np.mean(MergedRunList)
-medrunlen = np.median(MergedRunList)
-
+#------------------------------------------------------------------------
 ## Descriptives, means and medians from each rat then then mean of those
-#
-#for each list in the all burst list:
-#    find the mean 
-#    add to list
-#    find the median
-#    add to list
-#    
-#    find mean of mean list
-#    find mean of median list
-#    
+# Similar for bursts but quite different for runs aggregated vs indivdual
 
+bMeanByRat = []
+bMedianByRat = []
+for bList in allBursts:
+    meanB = np.mean(bList)
+    bMeanByRat.append(meanB)
+    medB = np.median(bList)
+    bMedianByRat.append(medB)
+
+meanMeanBurst = np.mean(bMeanByRat) # Similar (rounds to the same) for aggregate
+meanMedBurst = np.mean(bMedianByRat) # Similar as aggregate
     
+rMeanByRat = []
+rMedianByRat = []
+for rList in allRuns:
+    meanR = np.mean(rList)
+    rMeanByRat.append(meanR)
+    medR = np.median(rList)
+    rMedianByRat.append(medR)
+
+meanMeanRun = np.mean(rMeanByRat) # Agg = 143, Individual = 155.60
+meanMedRun = np.mean(rMedianByRat) # Agg = 80, Individual = 115.78
+    
+   
     
