@@ -2180,6 +2180,31 @@ all the rats
 # 1) Means and medians from ALL aggregated
 # 2) Means and medians from EACH RAT then averaged  
 
+# Could add N burst too, the mean N burst and mean N runs 
+# Check the definitions of runs and bursts and see if JEM has different cut
+# offs
+
+# In future, have all functions in one long file and then run this first
+    # gets around issue of needing packages or modules 
+    # will make code much more readible
+
+''' 08/03/18 '''
+
+# 08:30 - 9:30 
+
+# Change bin sizes of histograms to see if more informative
+# Change x-limits and see if you can zoom in on histogram / make clearer
+# Add in the descriptives for mean and median (aggregated data)
+
+# Remove the code for line of best fit (fits a Gaussian and this is not
+    # normally distributed)
+
+# Pretty up the plots 
+# Work out the means and medians for each rat (then average them)
+
+# Add medians and means text to histogram plots 
+
+# Make a "all functions" script and save all functions to it, run this first
 
 
 
