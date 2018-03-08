@@ -26,8 +26,6 @@ TDTfilepath = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 # Assign empty lists for storing arrays of burst/run lengths
 allBursts = []
 allRuns = []
-
-
 # Loop through files and calculate burst and run lengths
 for filename in TDTfileslist:
     
@@ -50,9 +48,7 @@ meanrunlength = round(np.mean(MergedRunList))
 medrunlen = round(np.median(MergedRunList))
 
 
-# Burst histogram, frequency of different burst lengths all rats, last lick day
-
-
+# 1a - Burst histogram, frequency of burst lengths all rats, last lick day
 figure1 = plt.figure()
 plt.hist(MergedBurstList, bins=100, normed=1, facecolor='cornflowerblue')
 plt.xlabel('Licks per burst', fontsize=14)
@@ -66,10 +62,10 @@ for spine in plt.gca().spines.values():
 plt.show()
 
 
-# Run histogram, frequency of different run lengths across all rats
+# 1b - Run histogram, frequency of run lengths all rats, last lick day
 figure2 = plt.figure()
 
-plt.hist(MergedRunList, bins=100, normed=1, facecolor='gold') #Maybe add normed=True
+plt.hist(MergedRunList, bins=100, normed=1, facecolor='gold') 
 plt.xlabel('Licks per run', fontsize=14)
 plt.ylabel('Probability', fontsize=14)
 plt.xlim(xmax=500, xmin=0)
@@ -85,28 +81,78 @@ plt.show()
 #------------------------------------------------------------------------
 ## Descriptives, means and medians from each rat then then mean of those
 # Similar for bursts but quite different for runs aggregated vs indivdual
-
-bMeanByRat = []
-bMedianByRat = []
-for bList in allBursts:
-    meanB = np.mean(bList)
-    bMeanByRat.append(meanB)
-    medB = np.median(bList)
-    bMedianByRat.append(medB)
-
-meanMeanBurst = np.mean(bMeanByRat) # Similar (rounds to the same) for aggregate
-meanMedBurst = np.mean(bMedianByRat) # Similar as aggregate
+#
+#bMeanByRat = []
+#bMedianByRat = []
+#for bList in allBursts:
+#    meanB = np.mean(bList)
+#    bMeanByRat.append(meanB)
+#    medB = np.median(bList)
+#    bMedianByRat.append(medB)
+#
+#meanMeanBurst = np.mean(bMeanByRat) # Similar (rounds to the same) for aggregate
+#meanMedBurst = np.mean(bMedianByRat) # Similar as aggregate
+#    
+#rMeanByRat = []
+#rMedianByRat = []
+#for rList in allRuns:
+#    meanR = np.mean(rList)
+#    rMeanByRat.append(meanR)
+#    medR = np.median(rList)
+#    rMedianByRat.append(medR)
+#
+#meanMeanRun = np.mean(rMeanByRat) # Agg = 143, Individual = 155.60
+#meanMedRun = np.mean(rMedianByRat) # Agg = 80, Individual = 115.78
     
-rMeanByRat = []
-rMedianByRat = []
-for rList in allRuns:
-    meanR = np.mean(rList)
-    rMeanByRat.append(meanR)
-    medR = np.median(rList)
-    rMedianByRat.append(medR)
+ # Figure 2 -----------------------------------------------------------  
+ 
+for each file listed (files listed earlier) last lick days
+load in the matfile  
 
-meanMeanRun = np.mean(rMeanByRat) # Agg = 143, Individual = 155.60
-meanMedRun = np.mean(rMedianByRat) # Agg = 80, Individual = 115.78
+Or actually do I have the first lick in the burst already?
+Using this ... 
+
+'''REPEATED SECTION HERE - could I add this earlier in that loop?'''
+
+
+
+# TDT file paths for the last lick day for THPH1 and THPH2 rats (n=12)
+TDTfileslist = ['thph1.1lick6', 'thph1.2lick6','thph1.3lick6','thph1.4lick6',
+                'thph1.5lick6','thph1.6lick6','thph2.1lick3','thph2.2lick3',
+                'thph2.3lick3', 'thph2.4lick3','thph2.5lick3','thph2.6lick3',
+                'thph2.7lick6', 'thph2.8lick6']
+
+TDTfilepath = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
+
+
+# Assign empty lists for storing arrays of burst/run lengths
+allBursts = []
+allRuns = []
+# Loop through files and calculate burst and run lengths
+for filename in TDTfileslist:
     
-   
-    
+    file = TDTfilepath + filename
+    ratdata = loadmatfile(file)
+    burstanalysis = lickCalc(ratdata['licks'], offset=ratdata['licks_off'])
+    burstList = burstanalysis['bLicks'] # type, array 
+    runList = burstanalysis['rLicks'] # type array
+    allBursts.append(burstList)
+    allRuns.append(runList)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  

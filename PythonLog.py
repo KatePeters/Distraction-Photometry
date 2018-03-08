@@ -2220,6 +2220,7 @@ all the rats
     # In future will also need the previous lick and the interlick interval 
         # think about how to code this 
     
+    # Removing all functions and adding to "all functions" before making plots
     
 
            

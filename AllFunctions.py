@@ -8,6 +8,10 @@ Created on Thu Mar  8 09:16:54 2018
 '''
    All imports and all functions needed for MMiN18 poster figures
    Run this script before anything else 
+   
+   Contains:
+       
+   loadmatfile, distractedOrNot, remcheck, distractionCalc2
 '''
 
 # Import modules --------------------------------------------------------
