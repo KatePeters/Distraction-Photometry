@@ -2208,7 +2208,7 @@ all the rats
 
 # Looking through plot styles 
 
-# 15:15 - 
+# 15:15 - 17:00
 
 # Figure 2.a 
 # Panel of 14, (can make 14 individual and add to word or actually panel)
@@ -2222,6 +2222,54 @@ all the rats
     
     # Removing all functions and adding to "all functions" before making plots
     
+# Working on figure 2
+# Have the indices of the burst/runs, need the actual times (this IS in lickcalc)
+    # add this as part of figure 1 for loop and call the variable later
+    
+# Decided not to add to the for loop, made new section of code
+# Wrote new loop to make master list of first lick times for each burst
+    # for each rat
+
+# Working out how to loop around the lists of first lick times (not indices)
+    # for each burst/each rat, and make blue and uv snips alligned to these events
+    # (the first licks of each burst) and make the phototrials figures like 
+    # with distractors 
+    # All just on the last lick day for each rat (14 images for bursts and 1 
+    # images for runs, 28 in total - can choose representative image) 
+        # keep in mind how I will label these, knowing which iteration 
+        # of the loop is which rat
+
+# I keep repeating the load matfile in loops (not storing the 14 produced dicts.)
+    # this is inefficient and needs tidying up
+    # talk to JEM about it        
+
+'''
+loadmatfile 
+store the blue and uv traces after loading EACH of 14 files in a similar way 
+to the allBurstTimes/allBursts (will end up with 14 lists of the BLUE signal
+                                readouts and 14 of the uv, might be quite data
+                                heavy to store them all, but better than 
+                                extracting them in place inside a loop?)
+
+'''    
+
+# Produced 14 plots aligned to first lick in burst
+# How can I independently alter the scaling to see the peaks?
+# Why do the peaks look so wildly different?
+# How can I double check it is doing what I think it is?
+
+# Means plot 
+# Looking back over photometry code, how do I get the mean ALL RATS
+    # (after getting the mean for EACH rat, which is done in multfig)
+    
+# 17:20 
+
+# Look at removing noise, make the trials figs (with all data on) and inspect
+    # see what removing the noise does to the plots
+    
+# Figure out how to do the mean of all rats plot 
+
+
 
            
 ==============================

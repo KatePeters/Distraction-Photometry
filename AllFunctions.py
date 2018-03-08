@@ -11,7 +11,7 @@ Created on Thu Mar  8 09:16:54 2018
    
    Contains:
        
-   loadmatfile, distractedOrNot, remcheck, distractionCalc2
+   loadmatfile, distractedOrNot, remcheck, distractionCalc2...
 '''
 
 # Import modules --------------------------------------------------------
@@ -25,7 +25,7 @@ import matplotlib as mpl
 import itertools
 import matplotlib.mlab as mlab
 import seaborn as sb
-
+import statistics as stats
 # Set plot parameters and styles
 
 sb.set_context("paper")

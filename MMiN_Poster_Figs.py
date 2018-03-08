@@ -105,44 +105,91 @@ plt.show()
 #meanMedRun = np.mean(rMedianByRat) # Agg = 80, Individual = 115.78
     
  # Figure 2 -----------------------------------------------------------  
- 
+'''
 for each file listed (files listed earlier) last lick days
 load in the matfile  
 
 Or actually do I have the first lick in the burst already?
-Using this ... 
+Using this ... need the TIMES of the first lick in the burst,
+need the licks that occurred at these times only and later the 
+lick-1
 
-'''REPEATED SECTION HERE - could I add this earlier in that loop?'''
+Here just time = photometry data at that time? Use for the snips, these
+are the events 
 
+example rat 
 
+'REPEATED SECTION HERE - could I add this earlier in that loop?'
+
+'''
 
 # TDT file paths for the last lick day for THPH1 and THPH2 rats (n=12)
-TDTfileslist = ['thph1.1lick6', 'thph1.2lick6','thph1.3lick6','thph1.4lick6',
-                'thph1.5lick6','thph1.6lick6','thph2.1lick3','thph2.2lick3',
-                'thph2.3lick3', 'thph2.4lick3','thph2.5lick3','thph2.6lick3',
-                'thph2.7lick6', 'thph2.8lick6']
-
-TDTfilepath = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 
 
 # Assign empty lists for storing arrays of burst/run lengths
-allBursts = []
-allRuns = []
+allBurstsTimes = []
+allRunsTimes = []
+allRatBlue = []
+allRatUV = []
+allRatFS = []
 # Loop through files and calculate burst and run lengths
 for filename in TDTfileslist:
     
     file = TDTfilepath + filename
     ratdata = loadmatfile(file)
     burstanalysis = lickCalc(ratdata['licks'], offset=ratdata['licks_off'])
-    burstList = burstanalysis['bLicks'] # type, array 
-    runList = burstanalysis['rLicks'] # type array
-    allBursts.append(burstList)
-    allRuns.append(runList)
+    burstListTimes = burstanalysis['bStart'] # type, array 
+    runListTimes = burstanalysis['rStart'] # type array
+    allBurstsTimes.append(burstListTimes)
+    allRunsTimes.append(runListTimes)
+    
+    allRatBlue.append(ratdata['blue'])
+    allRatUV.append(ratdata['uv'])
+    allRatFS.append(ratdata['fs'])
+    
+
+##########################################################################
+'''
+
+#for each LIST in the list of burst times for first lick, use 
+#each item in that list as the timestamp for the snips on BLUE and 
+#UV
+
+'''
+
+for i, val in enumerate(allBurstsTimes):
+    
+    # make a blue and uv snip for all 14, and noise remover / index
+    blueSnips, ppsBlue = snipper(allRatBlue[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)
+    uvSnips, ppsUV = snipper(allRatUV[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)
+
+    randevents = makerandomevents(allRatBlue[i][300], allRatBlue[i][-300])
+    bgMad, bgMean = findnoise(allRatBlue[i], randevents, fs=allRatFS[i], method='sum', bins=300)
+    threshold = 1
+    sigSum = [np.sum(abs(i)) for i in blueSnips]
+    noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
+    
+    # Might not need the noise index, this is just for trials fig 
+    
+    fig = plt.figure()
+    ax = plt.subplot(1,1,1)
+    ax.set_ylim([-0.05, 0.05])
+    trialsMultShadedFig(ax, [uvSnips,blueSnips], ppsBlue, eventText='First Lick in Burst')
+   
 
 
-
-
-
+#loadmatfile 
+#store the blue and uv traces after loading EACH of 14 files in a similar way 
+#to the allBurstTimes/allBursts (will end up with 14 lists of the BLUE signal
+#                                readouts and 14 of the uv, might be quite data
+#                                heavy to store them all, but better than 
+#                                extracting them in place inside a loop?)
+#
+#for firstlicklistB in allBurstsTimes AND FOR THE SIGNAL OF THE SAME RAT:
+#
+#
+#
+#
 
 
 

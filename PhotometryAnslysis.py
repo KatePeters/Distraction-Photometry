@@ -233,14 +233,6 @@ ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibr
    
 
 # Burst analysis for lengths and pauses before and after bursts or runsß
-
-
-
-
-
-
-
-
 burstanalysis = lickCalc(examplerat['licks'], offset=examplerat['licks_off'])
 
 meanburstlength = np.mean(np.asarray(burstanalysis['bLicks'] ))
