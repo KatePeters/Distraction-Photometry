@@ -2317,6 +2317,23 @@ TO DO-
     
 # Make these plots for bursts also (as we are looking at bursts not runs
     # probably during the distraction day? )
+
+# 15:00 - 15:30
+
+# Make mult shaded figure for bursts/runs? 
+# Go through code and see if simple to plot with the variables already made 
+    # for the trials fig
+
+# Made trialsShadedFig, playing with font sizes, need to edit original function
+    # to access paramters for font / label sizes 
+# Making all sizing consistent and labelling axes, checking plots 
+
+# Need to work on LONG TIME COURSE photometry plot to show licking over time 
+
+# Not averaged, individual rat, on a lick day (choose one with decent signal)
+
+    
+    
            
 ==============================
 

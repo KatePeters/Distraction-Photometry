@@ -137,10 +137,9 @@ for filename in TDTfileslist:
     
 
 ##########################################################################
-'''
 
-
-'''
+blueMeansBurst = []
+uvMeansBurst = []
 
 for i, val in enumerate(allBurstsTimes):
     
@@ -168,6 +167,12 @@ for i, val in enumerate(allBurstsTimes):
     trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Burst', noiseindex=noiseindex) #, )
     plt.text(250,0.2, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
 
+ # these four lines used later to define means plot (made after runs)
+    blueMean = np.mean(blueSnips, axis=0)
+    blueMeansBurst.append(blueMean)
+    uvMean = np.mean(uvSnips, axis=0)
+    uvMeansBurst.append(uvMean)
+    
 #### Allign to runs - makes individual plots and then plots the average 
 
 blueMeans = []
@@ -205,6 +210,8 @@ for i, val in enumerate(allRunsTimes):
     uvMean = np.mean(uvSnips, axis=0)
     uvMeans.append(uvMean)
     
+    # !!! These four lines need to be added to burst code for the mean plot --> 
+    
 fig5 = plt.figure()
 ax3 = plt.subplot(1,1,1)
 ax3.set_ylim([-0.04, 0.04])
@@ -216,7 +223,7 @@ ylabel=''
 pps = ppsBlue # note this is retrieved from previous code 
 preTrial = 10
 
-
+# Plot all the blue means (means of runs for each rat as 1 line)
 ax3.plot(np.asarray(blueMeans).transpose(), c='lightblue', alpha=0.6)
 ax3.plot(np.asarray(uvMeans).transpose(), c='thistle', alpha=0.6)
 
@@ -229,6 +236,7 @@ ax3.plot(np.asarray(UVMEANSMEAN).transpose(), c='purple', alpha=1)
 
 # Plot properties 
 ax3.set(ylabel = chr(916) + 'df')
+ax3.yaxis.label.set_size(14)
 ax3.xaxis.set_visible(False)
 scalebar = scale * pps
 yrange = ax3.get_ylim()[1] - ax3.get_ylim()[0]
@@ -246,4 +254,63 @@ ax3.text(xevent, ax3.get_ylim()[1], eventText, ha='center',va='bottom', **Calibr
 
 
 
-  
+
+### Repeat for first lick in burst to check if it looks any good (or whether to not bother)
+## remember code added to the burst section above (not in a linear way)
+## wrote the RUN mean plot code first then the burst mean plot
+
+fig6 = plt.figure()
+ax4 = plt.subplot(1,1,1)
+ax4.set_ylim([-0.04, 0.04])
+
+
+scale = 5
+eventText='First lick in burst' 
+ylabel=''   
+pps = ppsBlue # note this is retrieved from previous code 
+preTrial = 10
+
+# Plot all the blue means (means of runs for each rat as 1 line)
+ax4.plot(np.asarray(blueMeansBurst).transpose(), c='lightblue', alpha=0.6)
+ax4.plot(np.asarray(uvMeansBurst).transpose(), c='thistle', alpha=0.6)
+
+# Blue mean of means
+# UV mean of means
+BLUEMEANSMEANburst = np.mean(blueMeansBurst, axis=0)
+UVMEANSMEANburst = np.mean(uvMeansBurst, axis=0)
+ax4.plot(np.asarray(BLUEMEANSMEANburst).transpose(), c='blue', alpha=1)
+ax4.plot(np.asarray(UVMEANSMEANburst).transpose(), c='purple', alpha=1)
+
+# Plot properties 
+ax4.set(ylabel = chr(916) + 'df')
+ax4.yaxis.label.set_size(14)
+ax4.xaxis.set_visible(False)
+scalebar = scale * pps
+yrange = ax4.get_ylim()[1] - ax4.get_ylim()[0]
+scalebary = (yrange / 10) + ax4.get_ylim()[0]
+scalebarx = [ax4.get_xlim()[1] - scalebar, ax4.get_xlim()[1]]
+ax4.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
+ax4.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), str(scale) +' s', ha='center',va='top', **Calibri, **Size) 
+ax4.spines['right'].set_visible(False)
+ax4.spines['top'].set_visible(False)
+ax4.spines['bottom'].set_visible(False)
+xevent = pps * preTrial  
+ax4.plot([xevent, xevent],[ax4.get_ylim()[0], ax4.get_ylim()[1] - yrange/20],'--')
+ax4.text(xevent, ax4.get_ylim()[1], eventText, ha='center',va='bottom', **Calibri, **Size)
+
+
+fig7 = plt.figure()
+ax5 = plt.subplot(1,1,1)
+ax5.set_ylim([-0.04, 0.04])
+runMultFig = trialsMultShadedFig(ax5, [np.asarray(uvMeans),np.asarray(blueMeans)], ppsBlue, eventText='First Lick in Run')
+ax5.set(ylabel = chr(916) + 'df')
+ax5.yaxis.label.set_size(14)
+
+fig8 = plt.figure()
+ax6 = plt.subplot(1,1,1)
+ax6.set_ylim([-0.04, 0.04])
+burstMultFig = trialsMultShadedFig(ax6, [np.asarray(uvMeansBurst),np.asarray(blueMeansBurst)], ppsBlue, eventText='First Lick in Burst')
+ax6.set(ylabel = chr(916) + 'df')
+ax6.yaxis.label.set_size(14)
+
+

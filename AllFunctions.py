@@ -463,7 +463,7 @@ def trialsMultShadedFig(ax, trials, pps = 1, scale = 5, preTrial = 10,
     scalebarx = [ax.get_xlim()[1] - scalebar, ax.get_xlim()[1]]
     
     ax.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
-    ax.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), '5 s', ha='center',va='top')
+    ax.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), '5 s', ha='center',va='top', **Calibri, **Size)
  
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
@@ -471,8 +471,8 @@ def trialsMultShadedFig(ax, trials, pps = 1, scale = 5, preTrial = 10,
     
     xevent = pps * preTrial
     ax.plot([xevent, xevent],[ax.get_ylim()[0], ax.get_ylim()[1] - yrange/20],'--')
-    ax.text(xevent, ax.get_ylim()[1], eventText, ha='center',va='bottom')
-    ax.set_title(title)
+    ax.text(xevent, ax.get_ylim()[1], eventText, ha='center',va='bottom', **Calibri, **Size)
+    ax.set_title(title, fontsize=14)
     
     return ax, errorpatch
 
