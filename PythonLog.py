@@ -2294,10 +2294,29 @@ TO DO-
 # Running the code for RUNS not bursts, looks nicer
 # Check definition of RUN and see if possible to optimise
 
+# 10:30 - 11:00
+
 # Work out how to get a mean for each and plot (have done this in a very 
     # over complicated way previously, try this and then find a simpler
     # method)
 
+# Also need to add rat number to the plots and add a YAxis label for ∆df
+# delta symbol of mac = alt+j ∆
+
+# Is there a way to get the mean value of the snips for each rat ?
+    # Previously did this in excel, see if possible 
+    
+# Working on means fig with individual trials (each trial is a mean of ALL
+    # THE RUNS of one rat, and the darker lines are means of ALL RATS)
+
+# Need to do the same for multShadedFigure (to get an error bar like plot)
+
+
+# !! THINK ABOUT HOW TO COMPARE THE PEAK FROM LICKING TO THE DISTRACTOR
+    # PEAKS AND HOW CAN WE SHOW IT IS NOT JUST LICKING?
+    
+# Make these plots for bursts also (as we are looking at bursts not runs
+    # probably during the distraction day? )
            
 ==============================
 

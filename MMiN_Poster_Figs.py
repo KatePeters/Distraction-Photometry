@@ -7,7 +7,7 @@ from AllFunctions import *
 Plots for MMiN18 poster 
 Figure 1a and 1b - Histograms for burst(a) and run(b) lengths last lick day (all rats)
 Figure 2 - Photometry analysis (14 rats) individual plots alligned to first lick of BURST and RUN
-Figure 3
+Figure 3 - Photometry mean of all 14 rats (means of their runs all together)
 Figure 4
 Figure 5
 Figure 6
@@ -108,20 +108,6 @@ plt.show()
     
  # Figure 2 -----------------------------------------------------------  
 '''
-for each file listed (files listed earlier) last lick days
-load in the matfile  
-
-Or actually do I have the first lick in the burst already?
-Using this ... need the TIMES of the first lick in the burst,
-need the licks that occurred at these times only and later the 
-lick-1
-
-Here just time = photometry data at that time? Use for the snips, these
-are the events 
-
-example rat 
-
-'REPEATED SECTION HERE - could I add this earlier in that loop?'
 
 '''
 
@@ -153,9 +139,6 @@ for filename in TDTfileslist:
 ##########################################################################
 '''
 
-#for each LIST in the list of burst times for first lick, use 
-#each item in that list as the timestamp for the snips on BLUE and 
-#UV
 
 '''
 
@@ -185,7 +168,10 @@ for i, val in enumerate(allBurstsTimes):
     trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Burst', noiseindex=noiseindex) #, )
     plt.text(250,0.2, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
 
-#### Allign to runs 
+#### Allign to runs - makes individual plots and then plots the average 
+
+blueMeans = []
+uvMeans = []
 
 for i, val in enumerate(allRunsTimes):
     
@@ -214,7 +200,48 @@ for i, val in enumerate(allRunsTimes):
     trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Run', noiseindex=noiseindex) #, )
     plt.text(250,0.2, '{}'.format(len(allRunsTimes[i])) + ' runs' )
 
+    blueMean = np.mean(blueSnips, axis=0)
+    blueMeans.append(blueMean)
+    uvMean = np.mean(uvSnips, axis=0)
+    uvMeans.append(uvMean)
+    
+fig5 = plt.figure()
+ax3 = plt.subplot(1,1,1)
+ax3.set_ylim([-0.04, 0.04])
 
+
+scale = 5
+eventText='First lick in run' 
+ylabel=''   
+pps = ppsBlue # note this is retrieved from previous code 
+preTrial = 10
+
+
+ax3.plot(np.asarray(blueMeans).transpose(), c='lightblue', alpha=0.6)
+ax3.plot(np.asarray(uvMeans).transpose(), c='thistle', alpha=0.6)
+
+# Blue mean of means
+# UV mean of means
+BLUEMEANSMEAN = np.mean(blueMeans, axis=0)
+UVMEANSMEAN = np.mean(uvMeans, axis=0)
+ax3.plot(np.asarray(BLUEMEANSMEAN).transpose(), c='blue', alpha=1)
+ax3.plot(np.asarray(UVMEANSMEAN).transpose(), c='purple', alpha=1)
+
+# Plot properties 
+ax3.set(ylabel = chr(916) + 'df')
+ax3.xaxis.set_visible(False)
+scalebar = scale * pps
+yrange = ax3.get_ylim()[1] - ax3.get_ylim()[0]
+scalebary = (yrange / 10) + ax3.get_ylim()[0]
+scalebarx = [ax3.get_xlim()[1] - scalebar, ax3.get_xlim()[1]]
+ax3.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
+ax3.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), str(scale) +' s', ha='center',va='top', **Calibri, **Size) 
+ax3.spines['right'].set_visible(False)
+ax3.spines['top'].set_visible(False)
+ax3.spines['bottom'].set_visible(False)
+xevent = pps * preTrial  
+ax3.plot([xevent, xevent],[ax3.get_ylim()[0], ax3.get_ylim()[1] - yrange/20],'--')
+ax3.text(xevent, ax3.get_ylim()[1], eventText, ha='center',va='bottom', **Calibri, **Size)
 
 
 
