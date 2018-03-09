@@ -2208,7 +2208,7 @@ all the rats
 
 # Looking through plot styles 
 
-# 15:15 - 17:00
+# 15:15 - 17:15
 
 # Figure 2.a 
 # Panel of 14, (can make 14 individual and add to word or actually panel)
@@ -2262,14 +2262,41 @@ to the allBurstTimes/allBursts (will end up with 14 lists of the BLUE signal
 # Looking back over photometry code, how do I get the mean ALL RATS
     # (after getting the mean for EACH rat, which is done in multfig)
     
-# 17:20 
-
 # Look at removing noise, make the trials figs (with all data on) and inspect
-    # see what removing the noise does to the plots
+    # see what removing the noise does to the plots - just get rid of the 
+    # initial filenames so they are never read in 
+   
+
+
+    
+TO DO-
+# Go and find which rats do not have signals (previous code, means used)
+    # take the out of the analysis - remove those with no signal at all
+    # then repeate the plots and choose a represntative one, and make the 
+    # averaged figure using JUST THOSE WITH SIGNALS
     
 # Figure out how to do the mean of all rats plot 
 
+''' 09/03/18 '''
 
+# Need to repeat for runs, check if signals look nicer with the first lick 
+    # in the run rather than burst (longer time before no licks maybe less noise)
+
+# 8:00 - 9:00
+
+# Quick catch up with JEM (8:00-8:30)
+# Add n trials per plot (n bursts) take from 
+# Keeps reading MAT file --> pickle file ? Import dill from pickle ! 
+    # stores version of file for easy access "pickles it" 
+    # orderderd dictionary ?
+
+# Adding the burst and run N text to the plots 
+# Running the code for RUNS not bursts, looks nicer
+# Check definition of RUN and see if possible to optimise
+
+# Work out how to get a mean for each and plot (have done this in a very 
+    # over complicated way previously, try this and then find a simpler
+    # method)
 
            
 ==============================

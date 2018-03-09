@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# can import this as it is in the same folder as this script 
+from AllFunctions import *
 '''
 Plots for MMiN18 poster 
 Figure 1a and 1b - Histograms for burst(a) and run(b) lengths last lick day (all rats)
@@ -168,34 +170,49 @@ for i, val in enumerate(allBurstsTimes):
     threshold = 1
     sigSum = [np.sum(abs(i)) for i in blueSnips]
     noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
-    
     # Might not need the noise index, this is just for trials fig 
     
     fig = plt.figure()
     ax = plt.subplot(1,1,1)
-    ax.set_ylim([-0.05, 0.05])
+    ax.set_ylim([-0.03, 0.03])
+    #ax.set_ylim([-0.05, 0.05])
     trialsMultShadedFig(ax, [uvSnips,blueSnips], ppsBlue, eventText='First Lick in Burst')
-   
+    plt.text(250,0.03, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
+    
+    fig2 = plt.figure()
+    ax2 = plt.subplot(1,1,1)
+    ax2.set_ylim([-0.2, 0.2])
+    trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Burst', noiseindex=noiseindex) #, )
+    plt.text(250,0.2, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
 
+#### Allign to runs 
 
-#loadmatfile 
-#store the blue and uv traces after loading EACH of 14 files in a similar way 
-#to the allBurstTimes/allBursts (will end up with 14 lists of the BLUE signal
-#                                readouts and 14 of the uv, might be quite data
-#                                heavy to store them all, but better than 
-#                                extracting them in place inside a loop?)
-#
-#for firstlicklistB in allBurstsTimes AND FOR THE SIGNAL OF THE SAME RAT:
-#
-#
-#
-#
+for i, val in enumerate(allRunsTimes):
+    
+    # make a blue and uv snip for all 14, and noise remover / index
+    blueSnips, ppsBlue = snipper(allRatBlue[i], allRunsTimes[i], fs=allRatFS[i], bins=300)
+    uvSnips, ppsUV = snipper(allRatUV[i], allRunsTimes[i], fs=allRatFS[i], bins=300)
 
-
-
-
-
-
+    randevents = makerandomevents(allRatBlue[i][300], allRatBlue[i][-300])
+    bgMad, bgMean = findnoise(allRatBlue[i], randevents, fs=allRatFS[i], method='sum', bins=300)
+    threshold = 1
+    sigSum = [np.sum(abs(i)) for i in blueSnips]
+    noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
+    
+    # Might not need the noise index, this is just for trials fig 
+    
+    fig3 = plt.figure()
+    ax = plt.subplot(1,1,1)
+    ax.set_ylim([-0.03, 0.03])
+    #ax.set_ylim([-0.05, 0.05])
+    trialsMultShadedFig(ax, [uvSnips,blueSnips], ppsBlue, eventText='First Lick in Run')
+    plt.text(250,0.03, '{}'.format(len(allRunsTimes[i])) + ' runs' )
+    
+    fig4 = plt.figure()
+    ax2 = plt.subplot(1,1,1)
+    ax2.set_ylim([-0.2, 0.2])
+    trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Run', noiseindex=noiseindex) #, )
+    plt.text(250,0.2, '{}'.format(len(allRunsTimes[i])) + ' runs' )
 
 
 
