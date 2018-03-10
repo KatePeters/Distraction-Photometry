@@ -2332,9 +2332,55 @@ TO DO-
 
 # Not averaged, individual rat, on a lick day (choose one with decent signal)
 
+''' 10/03/18 '''
+
+# 19:30 - 20:00
+
+# Quick look at x-ticks and labels for long time course plot
+
+
+''' Slack message JEM
+Change the axis ticks and labels. 
+it's something like ax.set_yticks([0,360,720,1080]) and 
+ax.set_yticklabels([0,6,12,18])
+
+those are for made up numbers obviously. 
+but then do do the sum and work out 
+you have to make an array that you will feed into set_xticks 
+that is based on how many samples make up each tick you want to have
+
+so if you want one second intervals between ticks you would just 
+multiply your ticks [1,2,3,4,5,6,...] by the sampling rate (fs).
+
+if you wanted 1 minutes intervals you would multiply by fs*60, 
+if you wanted 10 minutes intervals you'd multiply by fs*60*10
+the only thing I'm not definite about is how our funky, 
+non-ingeter fs (e.g. 1017.etc) works with all this.
+
+'''
     
-    
-           
+# Make tick array 
+
+# Started with 10 min intervals between ticks 
+
+ax7.set_xticklabels([(0*allRatFS[0]),(1*allRatFS[0]),(2*allRatFS[0]),(3*allRatFS[0]),(4*allRatFS[0])])    
+
+ax7.set_xticks([0,(10*60*allRatFS[0]),(20*60*allRatFS[0]),(30*60*allRatFS[0]),(40*60*allRatFS[0]),(50*60*allRatFS[0]),(60*60*allRatFS[0])] )
+                
+Original ticks:                
+1000000
+2000000
+3000000
+4000000
+       
+0  mins = 0
+10 mins = (10*60*allRatFS[0])
+20 mins = 20*60*allRatFS[0]
+30 mins = 30*60*allRatFS[0]
+40 mins = 40*60*allRatFS[0]
+50 mins = 50*60*allRatFS[0]
+60 mins = 60*60*allRatFS[0]
+
 ==============================
 
 

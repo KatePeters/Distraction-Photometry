@@ -314,3 +314,22 @@ ax6.set(ylabel = chr(916) + 'df')
 ax6.yaxis.label.set_size(14)
 
 
+#==================================
+
+
+# Long trial figure, make new snips? 
+# With much longer pre and post, still align to something, licks?
+
+# OR look at JEM GUI and find code for the long snip he used there?
+# Something important with time 2 samples, need to convert using thE FS 
+
+fig9 = plt.figure()
+ax7 = plt.subplot(1,1,1)
+plt.plot(allRatBlue[10])
+plt.plot(allRatUV[10])
+ax7.set_xticks([0,(10*60*allRatFS[0]),(20*60*allRatFS[0]),(30*60*allRatFS[0]),(40*60*allRatFS[0]),(50*60*allRatFS[0]),(60*60*allRatFS[0])] )
+ax7.set_xticklabels([0,10,20,30,40,50,60])
+ax7.set_xlabel('Mins', fontsize=14)
+
+# Could just plot every 1000th point? or 10000th point?? Change the Hz
+
