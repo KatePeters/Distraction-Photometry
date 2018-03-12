@@ -2423,6 +2423,15 @@ Original ticks:
         # Add label to output (absolute light out)
         # Workout the ticks / labels correctly 
         # Double check the scale is what you think it is!!
+ 
+TODO
+
+# Supress output (do not need 14 * 2 individual plots, know the mean works)
+# Check which lick figures are left 
+# Work out what statistics will be done 
+    # where the peaks will come from 
+    # using just blue peaks or subracting UV 
+    # where is the zero? Are they scaled or not at all? 
     
 ==============================
 
