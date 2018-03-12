@@ -2381,6 +2381,41 @@ Original ticks:
 50 mins = 50*60*allRatFS[0]
 60 mins = 60*60*allRatFS[0]
 
+# Is the UV signal scaled to the blue? or not? 
+
+# For the long timecourse get rid of the UV signal or scale them
+
+''' 12/03/18 '''
+
+# 8:00
+
+# Changing figure size and making long time course plot look decent
+# Trying to add licks to the plot, looking over signle trial code
+# Can I find the specific TTLs and the times to plot them?
+
+# The particular plot chosen has UV and blue at similar level
+
+# Need to use nearest event but this relies on snips aligned to 
+    # an event (ie. distractor) 
+    # could edit the single trial to be a longer timecourse?
+    # need to fisrst make very long snips / trials (can align to distractor
+    # on a lick day as this is modelled and not actual)
+    # edited nearest event (normal was 10,30)
+        # def nearestevents(timelock, events, preTrial=10, trialLength=600): # edited
+        # works to plot the licks, but still relies on snips (aligned and 30sec)
+        
+    # different approach
+    # just plot the TTLs of the licks on the same axis?
+    # Don't have the lick TTLs stored, added line to loadmatfile
+    '''
+    allRatLicks = [] ...
+    
+    allRatLicks.append(ratdata['licks'])
+    '''
+# Licks added to long timecourse plot
+    # Need to fix the scale and make licks clear to see
+    # Choose a time course with enough zoom to see licks     
+    
 ==============================
 
 

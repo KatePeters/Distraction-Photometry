@@ -120,6 +120,7 @@ allRunsTimes = []
 allRatBlue = []
 allRatUV = []
 allRatFS = []
+allRatLicks = []
 # Loop through files and calculate burst and run lengths
 for filename in TDTfileslist:
     
@@ -135,6 +136,7 @@ for filename in TDTfileslist:
     allRatUV.append(ratdata['uv'])
     allRatFS.append(ratdata['fs'])
     
+    allRatLicks.append(ratdata['licks'])
 
 ##########################################################################
 
@@ -323,13 +325,42 @@ ax6.yaxis.label.set_size(14)
 # OR look at JEM GUI and find code for the long snip he used there?
 # Something important with time 2 samples, need to convert using thE FS 
 
-fig9 = plt.figure()
+fig9 = plt.figure(figsize=(12,2))
 ax7 = plt.subplot(1,1,1)
-plt.plot(allRatBlue[10])
-plt.plot(allRatUV[10])
+plt.plot(allRatBlue[12], color='blue')
+plt.plot(allRatUV[10], color='purple')
 ax7.set_xticks([0,(10*60*allRatFS[0]),(20*60*allRatFS[0]),(30*60*allRatFS[0]),(40*60*allRatFS[0]),(50*60*allRatFS[0]),(60*60*allRatFS[0])] )
 ax7.set_xticklabels([0,10,20,30,40,50,60])
 ax7.set_xlabel('Mins', fontsize=14)
+ax7.set_xlim([500000,1000000])
+ax7.set_ylim([400,1000])
+
+
+# Adding the scatter to long time course plot of photo signals
+#allRatLicks.append(ratdata['licks'])
+
+multipliedLicks = []
+for element in allRatLicks[12]:
+    multElement = element*allRatFS[0]
+    multipliedLicks.append([multElement])
+    
+xvals = multipliedLicks
+yvals = [ax7.get_ylim()[1] - 100] * len(xvals)
+ax7.scatter(xvals, yvals, marker='.')
+
+
+
+#
+#
+
+
+
+
 
 # Could just plot every 1000th point? or 10000th point?? Change the Hz
 
+# 13 best (uv higher though)
+# 12 with tighter scales, just show 10 mins / 15 mins with a scale bar
+# Write code to add scale bar (5 mins)
+# ! concerned no scaling or adjusting to 0, use a rat where uv and blue 
+    # similar ABSOLUTE VALUES 
