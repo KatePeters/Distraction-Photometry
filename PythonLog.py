@@ -2387,7 +2387,7 @@ Original ticks:
 
 ''' 12/03/18 '''
 
-# 8:00
+# 8:00 - 9:00
 
 # Changing figure size and making long time course plot look decent
 # Trying to add licks to the plot, looking over signle trial code
@@ -2414,7 +2414,15 @@ Original ticks:
     '''
 # Licks added to long timecourse plot
     # Need to fix the scale and make licks clear to see
-    # Choose a time course with enough zoom to see licks     
+    # Choose a time course with enough zoom to see licks 
+    # 10 mins? 
+    # 600 seconds    
+    
+    # Instead of an x scale could just add in scale bar for 1min 
+        # Or add ticklabels for mins
+        # Add label to output (absolute light out)
+        # Workout the ticks / labels correctly 
+        # Double check the scale is what you think it is!!
     
 ==============================
 

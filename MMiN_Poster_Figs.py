@@ -318,6 +318,7 @@ ax6.yaxis.label.set_size(14)
 
 #==================================
 
+# Figure N?? Probably the first on the poster 
 
 # Long trial figure, make new snips? 
 # With much longer pre and post, still align to something, licks?
@@ -332,13 +333,12 @@ plt.plot(allRatUV[10], color='purple')
 ax7.set_xticks([0,(10*60*allRatFS[0]),(20*60*allRatFS[0]),(30*60*allRatFS[0]),(40*60*allRatFS[0]),(50*60*allRatFS[0]),(60*60*allRatFS[0])] )
 ax7.set_xticklabels([0,10,20,30,40,50,60])
 ax7.set_xlabel('Mins', fontsize=14)
-ax7.set_xlim([500000,1000000])
-ax7.set_ylim([400,1000])
-
+#ax7.set_xlim([500000,700000]) # looks really nice scale wise, approx 3 mins
+ax7.set_xlim([122070.31494140625,732421.8896484375]) # 2 mins to 12 mins, a 10 min snip without noise at start
+ax7.set_ylim([400,800])
 
 # Adding the scatter to long time course plot of photo signals
 #allRatLicks.append(ratdata['licks'])
-
 multipliedLicks = []
 for element in allRatLicks[12]:
     multElement = element*allRatFS[0]
@@ -346,12 +346,25 @@ for element in allRatLicks[12]:
     
 xvals = multipliedLicks
 yvals = [ax7.get_ylim()[1] - 100] * len(xvals)
-ax7.scatter(xvals, yvals, marker='.')
+ax7.scatter(xvals, yvals, marker='|', color='k', linewidth=0.25)
 
+# Get rid of the spines and add labels and ticks to plot 
+# Add a 1 minute scale bar OR tick labels for mins 
+ax7.set(ylabel = 'Light output(mA)')
+ax7.xaxis.set_visible(False)
+            
+scalebar = 1*allRatFS[0]*60 # 1 minute
 
+yrange = ax7.get_ylim()[1] - ax7.get_ylim()[0]
+scalebary = (yrange / 10) + ax7.get_ylim()[0]
+scalebarx = [ax7.get_xlim()[1] - scalebar, ax7.get_xlim()[1]]
 
-#
-#
+ax7.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
+ax7.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), '1 Min', ha='center',va='top', **Calibri, **Size)
+ 
+ax7.spines['right'].set_visible(False)
+ax7.spines['top'].set_visible(False)
+ax7.spines['bottom'].set_visible(False)
 
 
 
