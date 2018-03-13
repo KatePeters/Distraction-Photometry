@@ -369,20 +369,38 @@ ax7.spines['bottom'].set_visible(False)
 
 aggregateLowerQuart = np.percentile(MergedRunList,25)
 aggregateUpperQuart = np.percentile(MergedRunList,75) 
-
-logIndRuns = []
-for runLickNum in MergedRunList:
-    if runLickNum < aggregateLowerQuart:
-        logIndRuns.append('UPPER')
-    else:
-        if runLickNum > aggregateUpperQuart:
-            logIndRuns.append('LOWER')
-            
+    
+allLogIndRuns = []
+for runLicksList in allRuns:
+    logIndRuns = [] # so 14 empty arrays exist and then don't (add to larger)
+    for item in runLicksList:
+        if item < aggregateLowerQuart:
+            logIndRuns.append('UPPER')
         else:
-            logIndRuns.append('MIDDLE')
-        
+            if item > aggregateUpperQuart:
+                logIndRuns.append('LOWER')
+            
+            else:
+                logIndRuns.append('MIDDLE')
+    allLogIndRuns.append(logIndRuns)
+            
+ 
+#### ===========================================  
+    
+for each list in the list of indices:
+    for each item in each list:
+        find the time of the start of that run 
+        if item == 'UPPER'  
 
-        
+now, for those in the list of runstart times (with the same index 301)
+ 
+'''       
+# ISSUE --> should use the cut offs from all but should actually segregate them 
+    # for each rat separately NOT aggregated 
+    # as to index the TIMES of the licks and the blue/uv signal this is 
+    # stored as SEPARATE by-rat lists NOT aggregated .... 
+
+'''
 
 
 # Will need logical indexing to select the values (is it higher, lower = true)
