@@ -2516,6 +2516,19 @@ def quartiles2(data):
 '''
 
 # Discovered build in, np.percentile(a,25) and np.percentil(a,75)
+
+# Work out how to subset data, want to splice the list from the 25th and 75th percentiles
+    # But don't want to keep them ordered 
+    # Use logical indexing to access the indices in all lists with the same dims
+    
+    # Add a col of T/F 1/0 and use booleans to select the lick start times to 
+        # include 
+    
+    # Think about how it links in to the snips, define the start of the snip 
+         # by the time of the short runs and then the long runs only 
+         
+# Can work on finding the pause before the burst 
+     # Comparing the short pauses, long pauses, short runs and long runs 
 ==============================
 
 

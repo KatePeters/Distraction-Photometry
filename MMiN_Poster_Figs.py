@@ -360,7 +360,39 @@ ax7.spines['bottom'].set_visible(False)
 
 
 # Separating data by quartiles
+# Find the quartiles - of the whole data set or each rat? - do both
+
+#(1) ALL RATS AS ONE LIST 
+
+# Produces an index of the upper, lower quartile status of each vurst length
+# Use these indices (ie. if == UPPER) to access data 
+
+aggregateLowerQuart = np.percentile(MergedRunList,25)
+aggregateUpperQuart = np.percentile(MergedRunList,75) 
+
+logIndRuns = []
+for runLickNum in MergedRunList:
+    if runLickNum < aggregateLowerQuart:
+        logIndRuns.append('UPPER')
+    else:
+        if runLickNum > aggregateUpperQuart:
+            logIndRuns.append('LOWER')
+            
+        else:
+            logIndRuns.append('MIDDLE')
+        
+
+        
+
+
 # Will need logical indexing to select the values (is it higher, lower = true)
-for x in allRuns:
-    for each index, value in enumerat(allRuns[x])
+#for x in allRuns:
+#    for each index, value in enumerat(allRuns[x]):
+#        
+#
+#1) List of run lengths in same order as 
+#2) List of times of first lick in run   
+#3) List of lick times 
+#
+#     
 
