@@ -8,7 +8,7 @@ Plots for MMiN18 poster
 Figure 1a and 1b - Histograms for burst(a) and run(b) lengths last lick day (all rats)
 Figure 2 - Photometry analysis (14 rats) individual plots alligned to first lick of BURST and RUN
 Figure 3 - Photometry mean of all 14 rats (means of their runs all together)
-Figure 4
+Figure 4 - Long timecours licking 
 Figure 5
 Figure 6
 
@@ -254,9 +254,6 @@ ax3.plot([xevent, xevent],[ax3.get_ylim()[0], ax3.get_ylim()[1] - yrange/20],'--
 ax3.text(xevent, ax3.get_ylim()[1], eventText, ha='center',va='bottom', **Calibri, **Size)
 
 
-
-
-
 ### Repeat for first lick in burst to check if it looks any good (or whether to not bother)
 ## remember code added to the burst section above (not in a linear way)
 ## wrote the RUN mean plot code first then the burst mean plot
@@ -320,11 +317,7 @@ ax6.yaxis.label.set_size(14)
 
 # Figure N?? Probably the first on the poster 
 
-# Long trial figure, make new snips? 
-# With much longer pre and post, still align to something, licks?
-
-# OR look at JEM GUI and find code for the long snip he used there?
-# Something important with time 2 samples, need to convert using thE FS 
+# Long trial figure, 10 min snapshot of one rat licking / photo
 
 fig9 = plt.figure(figsize=(12,2))
 ax7 = plt.subplot(1,1,1)
@@ -366,13 +359,8 @@ ax7.spines['top'].set_visible(False)
 ax7.spines['bottom'].set_visible(False)
 
 
+# Separating data by quartiles
+# Will need logical indexing to select the values (is it higher, lower = true)
+for x in allRuns:
+    for each index, value in enumerat(allRuns[x])
 
-
-
-# Could just plot every 1000th point? or 10000th point?? Change the Hz
-
-# 13 best (uv higher though)
-# 12 with tighter scales, just show 10 mins / 15 mins with a scale bar
-# Write code to add scale bar (5 mins)
-# ! concerned no scaling or adjusting to 0, use a rat where uv and blue 
-    # similar ABSOLUTE VALUES 
