@@ -2432,7 +2432,90 @@ TODO
     # where the peaks will come from 
     # using just blue peaks or subracting UV 
     # where is the zero? Are they scaled or not at all? 
+
+# Figure out how to start with NAPH1 also (no metafile here!)
+
+# Plots so far...
+
+# Long time course lick plot
+# Averaged peaks for bursts and runs of licks 
+
+# Next ...
+
+# Separate bursts/runs into short and long based on top and bottom
+    # 25% of burst lengths 
+# Find the peaks of short runs and long runs 
+# Average peak for each rat for short and long 
+
+''' 13/03/18 '''
+
+# 11:00
+
+# Work on quartiles function 
+# Separate the runs (as there was a peak) by high and low 
+    # using upper and lower quartiles
     
+# Calculate the PRE-RUN-PAUSE and plot pause against subsequent run length 
+
+# Need to think about how to get the time of runs when 
+    # to split the data into quartiles (long and short) 
+    # they need to be ordered
+    
+# Can order to find the quartile cut offs and THEN use these
+    # cut offs in a for loop to select the values that are 
+    # (a) above the cut off in terms of licks in run 
+    # (b) index only these (get the index boolean, logical indexing)
+    
+# Spent a very long time writing the following ;
+
+'''
+def quartiles(dataPoints):
+ 
+    
+    sortedPoints = sorted(dataPoints)
+    mid = int(len(sortedPoints) / 2)
+    
+    if (len(sortedPoints) % 2 == 0):
+        lowerQ = np.median(sortedPoints[:mid])
+        upperQ = np.median(sortedPoints[mid:])
+        
+    else:
+        lowerQ = np.median(sortedPoints[:mid-1])
+        upperQ = np.median(sortedPoints[mid+1:])
+        
+    return (lowerQ, upperQ)
+
+
+
+import math
+x = 1234.5678
+math.modf(x) # (0.5678000000000338, 1234.0)
+
+def quartiles2(data):
+    
+    sortedPoints = sorted(data)
+    nPlus1 = len(sortedPoints)+1
+    X = np.median(sortedPoints)
+    if (len(sortedPoints) +1) % 4 == 0 :
+        print('yes')
+        
+        lower = (len(sortedPoints) + 1) * 0.25
+        upper = (len(sortedPoints) + 1) * 0.75
+        print(lower)
+        print(upper)
+        
+    else:
+        
+        decimal, integer = math.modf(len(sortedPoints)+1)
+
+        lower = integer*(nPlus1*0.25)+ ((integer*(nPlus1 * 0.25) + 1) * (decimal*(nPlus1 * 0.25)))
+        upper = integer*(nPlus1*0.75)+ ((integer*(nPlus1 * 0.75) + 1) * (decimal*(nPlus1 * 0.75)))
+        print(lower)
+        print(upper)
+        
+'''
+
+# Discovered build in, np.percentile(a,25) and np.percentil(a,75)
 ==============================
 
 
