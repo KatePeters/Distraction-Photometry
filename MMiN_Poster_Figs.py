@@ -12,8 +12,8 @@ Figure 1a and 1b - Histograms for burst(a) and run(b) lengths last lick day (all
 Figure 2 - Photometry analysis (14 rats) individual plots alligned to first lick of BURST and RUN
 Figure 3 - Photometry mean of all 14 rats (means of their runs all together)
 Figure 4 - Long timecours licking 
-Figure 5 - 
-Figure 6 -
+Figure 5 - ....
+Figure 6 - ...
 Figure 7 - 
 
 '''
@@ -609,8 +609,8 @@ ax16.set(ylabel = chr(916) + 'df')
 ax16.yaxis.label.set_size(14)
 
 # Simple figure legend
-orange_patch = mpatches.Patch(color='darkorange', label='Short Runs')
-grey_patch = mpatches.Patch(color='darkgrey', label='Long Runs')
+orange_patch = mpatches.Patch(color='darkorange', label='Long Runs')
+grey_patch = mpatches.Patch(color='darkgrey', label='Short Runs')
 plt.legend(handles=[orange_patch, grey_patch], fontsize=14)
 plt.show()
 

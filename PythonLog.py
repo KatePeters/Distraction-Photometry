@@ -2654,7 +2654,7 @@ for i, listofindices in enumerate(allLogIndRuns):
 
 •••••••••••••••••••••••••••••••••• BREAK
 
-# 17:20 - 18:00
+# 17:20 - 18:15
 
 # Making photometry figures alligned to short and long runs (first lick in these)
 
@@ -2669,7 +2669,15 @@ for i, listofindices in enumerate(allLogIndRuns):
 # Made combined plot for short and long JUST BLUE SIGNALS - could use 2 shades of blue
     # or totally different colours     
     
-    
+ # Fill in the comments at top of script (to exaplin what plots it makes at the moment)
+
+# Move onto distraction figures ... 
+
+
+•••••••••••••••••••••••••••••••••• BREAK
+
+
+  
 
 
 
