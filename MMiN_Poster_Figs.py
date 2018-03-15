@@ -494,6 +494,11 @@ allign to uppqRunTimes
     # same photometry plot 
 
 '''
+
+uvMeans_short_run = []
+blueMeans_short_run = []
+uvMeans_long_run = []
+blueMeans_long_run = []
 # Makes tonnes of individual plots             
 # Individual rats might look odd as low Ns, but mean of mean will be better 
 # Repeat this with bursts if looks like might be useful 
@@ -575,3 +580,31 @@ for i, val in enumerate(uppqRunTimes):
 
 # JUST the error bard type figure (mult shaded) make with blue and uv then make 
 # with blue from short and blue from long 
+
+fig15 = plt.figure()
+ax14 = plt.subplot(1,1,1)
+ax14.set_ylim([-0.04, 0.04])
+SHORTrunMultFig = trialsMultShadedFig(ax14, [np.asarray(uvMeans_short_run),np.asarray(blueMeans_short_run)], ppsBlue, eventText='First Lick in Short Run')
+ax14.set(ylabel = chr(916) + 'df')
+ax14.yaxis.label.set_size(14)
+
+fig16 = plt.figure()
+ax15 = plt.subplot(1,1,1)
+ax15.set_ylim([-0.04, 0.04])
+LONGrunMultFig = trialsMultShadedFig(ax15, [np.asarray(uvMeans_long_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText='First Lick in Long Run')
+ax15.set(ylabel = chr(916) + 'df')
+ax15.yaxis.label.set_size(14)
+
+
+## Both short and long runs on the same graph (just blue signals)
+
+fig17 = plt.figure()
+ax16 = plt.subplot(1,1,1)
+ax16.set_ylim([-0.04, 0.04])
+LONG_SHORTrunMultFig = trialsMultShadedFig(ax16, [np.asarray(blueMeans_short_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText='First Lick in Long Run'
+                                                  , linecolor=['k', 'blue'], errorcolor=['yellow', 'lightblue'])
+ax16.set(ylabel = chr(916) + 'df')
+ax16.yaxis.label.set_size(14)
+
+
+
