@@ -448,7 +448,7 @@ print("r-squaredb:", r_valueB**2)
 
 # *******************************************************************
 
-# Figure 11? Photometry plots (averaged) aligned to short and long runs, is there a difference?
+# Figure 12? Photometry plots (averaged) aligned to short and long runs, is there a difference?
 # Firstly separate out the run lists (and then the times) into short and long 
 
 
@@ -494,43 +494,84 @@ allign to uppqRunTimes
     # same photometry plot 
 
 '''
-            
+# Makes tonnes of individual plots             
 # Individual rats might look odd as low Ns, but mean of mean will be better 
 # Repeat this with bursts if looks like might be useful 
 
+for i, val in enumerate(lowerqRunTimes):
+    try:
+        # make a blue and uv snip for all 14, and noise remover / index
+        blueSnips, ppsBlue = snipper(allRatBlue[i], lowerqRunTimes[i], fs=allRatFS[i], bins=300)
+        uvSnips, ppsUV = snipper(allRatUV[i], lowerqRunTimes[i], fs=allRatFS[i], bins=300)
     
-#for i, val in enumerate(lowerqRunTimes):
-#    
-#    # make a blue and uv snip for all 14, and noise remover / index
-#    blueSnips, ppsBlue = snipper(allRatBlue[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)
-#    uvSnips, ppsUV = snipper(allRatUV[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)
-#
-#    randevents = makerandomevents(allRatBlue[i][300], allRatBlue[i][-300])
-#    bgMad, bgMean = findnoise(allRatBlue[i], randevents, fs=allRatFS[i], method='sum', bins=300)
-#    threshold = 1
-#    sigSum = [np.sum(abs(i)) for i in blueSnips]
-#    noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
-#    # Might not need the noise index, this is just for trials fig 
-#    
-#    fig = plt.figure()
-#    ax = plt.subplot(1,1,1)
-#    ax.set_ylim([-0.03, 0.03])
-#    #ax.set_ylim([-0.05, 0.05])
-#    trialsMultShadedFig(ax, [uvSnips,blueSnips], ppsBlue, eventText='First Lick in Burst')
-#    plt.text(250,0.03, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
-#    
-#    fig2 = plt.figure()
-#    ax2 = plt.subplot(1,1,1)
-#    ax2.set_ylim([-0.2, 0.2])
-#    trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Burst', noiseindex=noiseindex) #, )
-#    plt.text(250,0.2, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
-#
+        randevents = makerandomevents(allRatBlue[i][300], allRatBlue[i][-300])
+        bgMad, bgMean = findnoise(allRatBlue[i], randevents, fs=allRatFS[i], method='sum', bins=300)
+        threshold = 1
+        sigSum = [np.sum(abs(i)) for i in blueSnips]
+        noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
+        # Might not need the noise index, this is just for trials fig 
+    except: 
+        pass
+    
+    fig12 = plt.figure()
+    ax10 = plt.subplot(1,1,1)
+    ax10.set_ylim([-0.03, 0.03])
+    #ax.set_ylim([-0.05, 0.05])
+    trialsMultShadedFig(ax10, [uvSnips,blueSnips], ppsBlue, eventText='First Lick Short Run')
+    plt.text(250,0.03, '{}'.format(len(lowerqRunTimes[i])) + ' short runs' )
+    
+    fig13 = plt.figure()
+    ax11 = plt.subplot(1,1,1)
+    ax11.set_ylim([-0.2, 0.2])
+    trialsFig(ax11, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Short Run', noiseindex=noiseindex) #, )
+    plt.text(250,0.2, '{}'.format(len(lowerqRunTimes[i])) + ' short runs' )
+
 # # these four lines used later to define means plot (made after runs)
-#    blueMean = np.mean(blueSnips, axis=0)
-#    blueMeansBurst.append(blueMean)
-#    uvMean = np.mean(uvSnips, axis=0)
-#    uvMeansBurst.append(uvMean)
-#    
-#
-#
-#
+    blueMeanSHORT = np.mean(blueSnips, axis=0)
+    blueMeans_short_run.append(blueMeanSHORT)
+    uvMeanSHORT = np.mean(uvSnips, axis=0)
+    uvMeans_short_run.append(uvMeanSHORT)
+
+
+## ===============================================================
+
+# Photometry figures (individual) for LONG bursts 
+
+for i, val in enumerate(uppqRunTimes):
+    try:
+        # make a blue and uv snip for all 14, and noise remover / index
+        blueSnips, ppsBlue = snipper(allRatBlue[i], uppqRunTimes[i], fs=allRatFS[i], bins=300)
+        uvSnips, ppsUV = snipper(allRatUV[i], uppqRunTimes[i], fs=allRatFS[i], bins=300)
+    
+        randevents = makerandomevents(allRatBlue[i][300], allRatBlue[i][-300])
+        bgMad, bgMean = findnoise(allRatBlue[i], randevents, fs=allRatFS[i], method='sum', bins=300)
+        threshold = 1
+        sigSum = [np.sum(abs(i)) for i in blueSnips]
+        noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
+        # Might not need the noise index, this is just for trials fig 
+    except: 
+        pass
+    
+    fig14 = plt.figure()
+    ax12 = plt.subplot(1,1,1)
+    ax12.set_ylim([-0.03, 0.03])
+    #ax.set_ylim([-0.05, 0.05])
+    trialsMultShadedFig(ax12, [uvSnips,blueSnips], ppsBlue, eventText='First Lick Long Run')
+    plt.text(250,0.03, '{}'.format(len(uppqRunTimes[i])) + ' long runs' )
+    
+    fig14 = plt.figure()
+    ax13 = plt.subplot(1,1,1)
+    ax13.set_ylim([-0.2, 0.2])
+    trialsFig(ax13, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Long Run', noiseindex=noiseindex) #, )
+    plt.text(250,0.2, '{}'.format(len(uppqRunTimes[i])) + ' long runs' )
+
+# # these four lines used later to define means plot (made after runs) 
+    blueMeanLONG = np.mean(blueSnips, axis=0)
+    blueMeans_long_run.append(blueMeanLONG)
+    uvMeanLONG = np.mean(uvSnips, axis=0)
+    uvMeans_long_run.append(uvMeanLONG)
+    
+### Means figures for short and long bursts 
+
+# JUST the error bard type figure (mult shaded) make with blue and uv then make 
+# with blue from short and blue from long 
