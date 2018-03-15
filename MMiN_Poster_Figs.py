@@ -451,10 +451,7 @@ print("r-squaredb:", r_valueB**2)
 # Figure 11? Photometry plots (averaged) aligned to short and long runs, is there a difference?
 # Firstly separate out the run lists (and then the times) into short and long 
 
-# Temp lists to store values 
-templower = []
-tempupper = []
-tempmid = []
+
 # Final lists of run times sorted by u.m.l and stored by rat (14 lists)
 lowerqRunTimes = []
 uppqRunTimes = []
@@ -462,7 +459,9 @@ mid50RunTimes = []
 
 # Might need the index and the value for both lists ??
 for i, listofindices in enumerate(allLogIndRuns):
-    
+    templower = []
+    tempupper = []
+    tempmid = []
     for j, runIndex in enumerate(listofindices):
         
         #print(i,j) i is the list index and j is the item index
@@ -479,32 +478,23 @@ for i, listofindices in enumerate(allLogIndRuns):
             midrun = allRunsTimes[i][j]
             tempmid.append(midrun)
             
-    lowerqRunTimes.append([templower])
-    uppqRunTimes.append([tempupper])
-    mid50RunTimes.append([tempmid])
+    lowerqRunTimes.append(templower)
+    uppqRunTimes.append(tempupper)
+    mid50RunTimes.append(tempmid)
     
- 
-''' PROBLEM
-
-Now have 3 lists of values not separated by rat anymore!!!!! 
-Really want to have a tuple or something that links the tag u,m,l to the value and rat
-Or somehow split that list using [] in the for?
-Could add ALL to a list (all for upper and all for lower) for each rat 
-rather than 3 separate lists. Have values in places where is IS LOWER and 'false' where
-it isn't?
-
-Then index in the same way as previously? 
-           
-
+    
+''' 
+         
 allign to lowerqRunTimes
 allign to uppqRunTimes
 
-'''
-            
-for i, val in enumerate()
-
 # Then, if not too complex, add BOTH BLUE SIGNALS high and low burst numbers to the 
     # same photometry plot 
+
+'''
+            
+
+
     
 #for i, val in enumerate(allBurstsTimes):
 #    

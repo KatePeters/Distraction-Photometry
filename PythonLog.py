@@ -2644,6 +2644,13 @@ for i, listofindices in enumerate(allLogIndRuns):
             
 '''
 
+# Need to do something to the for loops
+
+# Thought I'd fixed it but haven't!! Have now got 14 lists of 75 values 
+    # need to move around the appends in the loop and figure out when to add lists
+    # of values 
+    # Forgot to re-initialise the temp list to [] empty after the loops
+
 
 
 
