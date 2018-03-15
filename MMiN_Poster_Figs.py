@@ -28,6 +28,7 @@ TDTfilepath = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 # Assign empty lists for storing arrays of burst/run lengths
 allBursts = []
 allRuns = []
+allRunIndices = []
 # Loop through files and calculate burst and run lengths
 for filename in TDTfileslist:
     
@@ -36,8 +37,11 @@ for filename in TDTfileslist:
     burstanalysis = lickCalc(ratdata['licks'], offset=ratdata['licks_off'])
     burstList = burstanalysis['bLicks'] # type, array 
     runList = burstanalysis['rLicks'] # type array
+    indexRunList = burstanalysis['rInd'] 
+    
     allBursts.append(burstList)
     allRuns.append(runList)
+    allRunIndices.append(indexRunList)
     
 # Make the list of lists into one long list for histogram 
 MergedBurstList = list(itertools.chain.from_iterable(allBursts)) 
@@ -384,16 +388,43 @@ for runLicksList in allRuns:
                 logIndRuns.append('MIDDLE')
     allLogIndRuns.append(logIndRuns)
             
+# 14 lists of logical indices for whether the n licks in that run was L,M,U
+
  
 #### ===========================================  
-    
-for each list in the list of indices:
-    for each item in each list:
-        find the time of the start of that run 
-        if item == 'UPPER'  
+# Now find the pauses preceding each run (can do it for all or can select out high and low)
 
-now, for those in the list of runstart times (with the same index 301)
- 
+''' UNSURE IF THE RUN INDICES ARE CORRECT, THOUGHT RUNS WERE NOTHING FOR 10 SECONDS'''
+
+preRunPauses = []  
+allPreRunPauses = []  
+for runIndexIndex, runIndexList in enumerate(allRunIndices):
+    tempLickList = allRatLicks[runIndexIndex] # accesses 1, to 14 indices for the lists
+    # check this, seems to have index 1 as always a run, the first run
+    for runIndex in runIndexList:
+        preRunPause = tempLickList[runIndex] - tempLickList[runIndex-1]
+        preRunPauses.append(preRunPause)
+        
+    allPreRunPauses.append(preRunPauses)
+        
+### HOW CAN THE ILIs BE LESS THAN 10 SECONDS???    
+        
+
+#        
+#        find the lick before this time in allRatLicks
+#        maybe access the index in the licks and then find the index - 1?
+#        IS this already in the burstanalysis(lickcalc) function? 
+#        write this in earlier and store it 
+#        
+#        the value in rInd = the index in all Licks to access (then want -1)
+#        
+#        
+#        find the time of the start of that run for only the items that upper AND for those lower
+#        if item == 'UPPER'  
+#
+#*** ••• output being --> times of bursts starts when JUST lower and JUST upper (simply index into the TIMES only when conditions met)
+#now, for those in the list of runstart times (with the same index 301)
+# 
 '''       
 # ISSUE --> should use the cut offs from all but should actually segregate them 
     # for each rat separately NOT aggregated 

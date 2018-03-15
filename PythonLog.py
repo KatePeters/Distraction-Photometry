@@ -2529,6 +2529,20 @@ def quartiles2(data):
          
 # Can work on finding the pause before the burst 
      # Comparing the short pauses, long pauses, short runs and long runs 
+     
+     
+''' 15/03/18 '''
+# 13:00
+
+# Working on the pre-run / bre-burst pause 
+# That pause must be at least 10 seconds as defined this previously in the run
+    # calculator 
+
+# Find the long and short bursts - done with quartiles
+# Separate the rats by their long and short bursts (done)
+
+# Find the indices of the burst first lick - go back to lick calc and check if
+    # it produces the lick index for the burst/run first lick      
 ==============================
 
 
