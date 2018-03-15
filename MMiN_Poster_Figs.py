@@ -482,6 +482,8 @@ for i, listofindices in enumerate(allLogIndRuns):
     uppqRunTimes.append(tempupper)
     mid50RunTimes.append(tempmid)
     
+# _________________________________________________________________________
+
     
 ''' 
          
@@ -493,10 +495,11 @@ allign to uppqRunTimes
 
 '''
             
-
+# Individual rats might look odd as low Ns, but mean of mean will be better 
+# Repeat this with bursts if looks like might be useful 
 
     
-#for i, val in enumerate(allBurstsTimes):
+#for i, val in enumerate(lowerqRunTimes):
 #    
 #    # make a blue and uv snip for all 14, and noise remover / index
 #    blueSnips, ppsBlue = snipper(allRatBlue[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)

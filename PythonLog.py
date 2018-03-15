@@ -2602,7 +2602,7 @@ Out[457]: 0.15887578273045813
 
 ++++++++++++++++++++++++++ BREAK
 
-# 15:00 
+# 15:00 - 17:00
 
 
    # 426 - 455 Linear regressions, runs is significant but incredibly weak (2%)
@@ -2650,6 +2650,25 @@ for i, listofindices in enumerate(allLogIndRuns):
     # need to move around the appends in the loop and figure out when to add lists
     # of values 
     # Forgot to re-initialise the temp list to [] empty after the loops
+
+
+•••••••••••••••••••••••••••••••••• BREAK
+
+# 17:20 - 
+
+# Making photometry figures alligned to short and long runs (first lick in these)
+
+# Making 14 individual plots and also the averaged plots 
+
+    # Make sure to remove the rat with 0 short bursts from the mean plot  
+    # And the same with long bursts 
+    
+    
+
+
+
+
+
 
 
 
