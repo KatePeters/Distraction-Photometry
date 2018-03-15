@@ -3,6 +3,8 @@
 
 # can import this as it is in the same folder as this script 
 from AllFunctions import *
+import matplotlib.patches as mpatches
+
 '''
 Plots for MMiN18 poster  LICK DAY ONLY 
 
@@ -600,11 +602,18 @@ ax15.yaxis.label.set_size(14)
 
 fig17 = plt.figure()
 ax16 = plt.subplot(1,1,1)
-ax16.set_ylim([-0.04, 0.04])
-LONG_SHORTrunMultFig = trialsMultShadedFig(ax16, [np.asarray(blueMeans_short_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText='First Lick in Long Run'
-                                                  , linecolor=['k', 'blue'], errorcolor=['yellow', 'lightblue'])
+ax16.set_ylim([-0.05, 0.04])
+LONG_SHORTrunMultFig = trialsMultShadedFig(ax16, [np.asarray(blueMeans_short_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText=''
+                                                  , linecolor=['k', 'firebrick'], errorcolor=['darkgrey', 'darkorange'])
 ax16.set(ylabel = chr(916) + 'df')
 ax16.yaxis.label.set_size(14)
+
+# Simple figure legend
+orange_patch = mpatches.Patch(color='darkorange', label='Short Runs')
+grey_patch = mpatches.Patch(color='darkgrey', label='Long Runs')
+plt.legend(handles=[orange_patch, grey_patch], fontsize=14)
+plt.show()
+
 
 
 

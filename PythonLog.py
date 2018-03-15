@@ -2654,7 +2654,7 @@ for i, listofindices in enumerate(allLogIndRuns):
 
 •••••••••••••••••••••••••••••••••• BREAK
 
-# 17:20 - 
+# 17:20 - 18:00
 
 # Making photometry figures alligned to short and long runs (first lick in these)
 
@@ -2662,7 +2662,12 @@ for i, listofindices in enumerate(allLogIndRuns):
 
     # Make sure to remove the rat with 0 short bursts from the mean plot  
     # And the same with long bursts 
-    
+
+# Kept zero's in and didn't affect average much so left them there
+# Made plots for short runs and long runs
+
+# Made combined plot for short and long JUST BLUE SIGNALS - could use 2 shades of blue
+    # or totally different colours     
     
     
 
