@@ -2532,7 +2532,7 @@ def quartiles2(data):
      
      
 ''' 15/03/18 '''
-# 13:00 - 14:00 
+# 13:00 - 14:40
 
 # Working on the pre-run / bre-burst pause 
 # That pause must be at least 10 seconds as defined this previously in the run
@@ -2543,6 +2543,24 @@ def quartiles2(data):
 
 # Find the indices of the burst first lick - go back to lick calc and check if
     # it produces the lick index for the burst/run first lick 
+
+
+'''UNSURE IF THE RUN INDICES ARE CORRECT, THOUGHT RUNS WERE NOTHING FOR 10 SECONDS'''
+
+'''
+preRunPauses = []  
+allPreRunPauses = []  
+for runIndexIndex, runIndexList in enumerate(allRunIndices):
+    tempLickList = allRatLicks[runIndexIndex] # accesses 1, to 14 indices for the lists
+    # check this, seems to have index 1 as always a run, the first run
+    for runIndex in runIndexList:
+        preRunPause = tempLickList[runIndex] - tempLickList[runIndex-1]
+        preRunPauses.append(preRunPause)
+        
+    allPreRunPauses.append(preRunPauses)
+
+'''
+
 
 # Do I already have the ILIs? rILI variable looks like the interval between the 
     # first lick in the run and the preceeding lick (should all be over 10 seconds 
@@ -2580,7 +2598,66 @@ Out[457]: 0.15887578273045813
 # THEN, last bit for lick figures
     # look at peaks alligned to LONG bursts and SHORT bursts 
     # figure out how to get the snips around these time points (check they are times)
-    # as events      
+    # as events  
+
+++++++++++++++++++++++++++ BREAK
+
+# 15:00 
+
+
+   # 426 - 455 Linear regressions, runs is significant but incredibly weak (2%)
+   # bursts is even lower and not significant 
+   # looks like relationship is NOT linear, burst length is not well predicted by 
+   # the pause before the burst or pause before the run 
+
+# Last licking figure
+
+    # Make photometry figures alligned to short (lower quartile) and long (upper quartile) 
+    # Run lengths (can do for bursts but very little evidence of peak as grouped)
+
+
+# Finding times for short and long bursts using quartiles 
+
+'''
+lowerqRunTimes = []
+uppqRunTimes = []
+mid50RunTimes = []
+
+# Might need the index and the value for both lists ??
+for i, listofindices in enumerate(allLogIndRuns):
+    
+    for j, runIndex in enumerate(listofindices):
+        
+        #print(i,j) i is the list index and j is the item index
+        
+        if runIndex == 'LOWER':
+            lowrun = allRunsTimes[i][j]
+            lowerqRunTimes.append(lowrun)
+           
+        if runIndex == 'UPPER':
+            upprun = allRunsTimes[i][j]
+            uppqRunTimes.append(upprun)
+#                
+        if runIndex == 'MIDDLE':
+            midrun = allRunsTimes[i][j]
+            mid50RunTimes.append(midrun)
+            
+'''
+
+
+
+
+# Any numbers that need exporting for statistics
+
+# Distraction figures
+# All numbers that need exporting for statistics 
+
+
+# Statistics (friday)
+
+
+   
+
 ==============================
 
 

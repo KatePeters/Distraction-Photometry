@@ -4,13 +4,15 @@
 # can import this as it is in the same folder as this script 
 from AllFunctions import *
 '''
-Plots for MMiN18 poster 
+Plots for MMiN18 poster  LICK DAY ONLY 
+
 Figure 1a and 1b - Histograms for burst(a) and run(b) lengths last lick day (all rats)
 Figure 2 - Photometry analysis (14 rats) individual plots alligned to first lick of BURST and RUN
 Figure 3 - Photometry mean of all 14 rats (means of their runs all together)
 Figure 4 - Long timecours licking 
-Figure 5
-Figure 6
+Figure 5 - 
+Figure 6 -
+Figure 7 - 
 
 '''
 
@@ -30,6 +32,7 @@ allBursts = []
 allRuns = []
 allRunIndices = []
 allrILIs = []
+allbILIs = []
 # Loop through files and calculate burst and run lengths
 for filename in TDTfileslist:
     
@@ -40,11 +43,13 @@ for filename in TDTfileslist:
     runList = burstanalysis['rLicks'] # type array
 #    indexRunList = burstanalysis['rInd'] 
     runILIs = burstanalysis['rILIs']
+    burstILIs = burstanalysis['bILIs']
     
     allBursts.append(burstList)
     allRuns.append(runList)
 #    allRunIndices.append(indexRunList)
     allrILIs.append(runILIs)
+    allbILIs.append(burstILIs)
     
 # Make the list of lists into one long list for histogram 
 MergedBurstList = list(itertools.chain.from_iterable(allBursts)) 
@@ -403,25 +408,11 @@ for runLicksList in allRuns:
 # Linear regression --> see R notes 
 
 
-''' UNSURE IF THE RUN INDICES ARE CORRECT, THOUGHT RUNS WERE NOTHING FOR 10 SECONDS'''
-
-preRunPauses = []  
-allPreRunPauses = []  
-for runIndexIndex, runIndexList in enumerate(allRunIndices):
-    tempLickList = allRatLicks[runIndexIndex] # accesses 1, to 14 indices for the lists
-    # check this, seems to have index 1 as always a run, the first run
-    for runIndex in runIndexList:
-        preRunPause = tempLickList[runIndex] - tempLickList[runIndex-1]
-        preRunPauses.append(preRunPause)
-        
-    allPreRunPauses.append(preRunPauses)
     
 #rILIs are these the ILIs for before the first lick or not??? 
 
 # MergedRunList exists already
 MergedrILIsList = list(itertools.chain.from_iterable(allrILIs)) 
-# repeat for runs (even though the neural data were crap, behaviour might be interesting)
-
 fig10 = plt.figure()
 ax8 = plt.subplot(1,1,1)
 ax8.scatter(MergedrILIsList, MergedRunList, marker='*', color='k') #linewidth=0.2)   
@@ -432,27 +423,121 @@ ax8.scatter(MergedrILIsList, MergedRunList, marker='*', color='k') #linewidth=0.
 # Can repeat this for bursts too (higher sample size may be more informative)
 # Poor looking fit, possibly correlated at the extremes (very long/short)
 import scipy.stats as scipys
-slope, intercept, r_value, p_value, std_err = scipys.linregress(MergedILIsList, MergedRunList)
+slope, intercept, r_value, p_value, std_err = scipys.linregress(MergedrILIsList, MergedRunList)
 print("r-squared:", r_value**2)
 
+#+++++++++++++++++++++++++ repeated for bursts, ILIs versus burst lengths ++++++++++++++
+
+MergedbILIsList = list(itertools.chain.from_iterable(allbILIs))
+# MergedBurstList already exists 
+fig11 = plt.figure()
+ax9 = plt.subplot(1,1,1)
+ax9.scatter(MergedbILIsList, MergedBurstList, color='k') #linewidth=0.2) 
+    # A lot of them are very short and very small pauses before bursts, 
+    # probably not linear fit but do linreg anyway    
+slopeB, interceptB, r_valueB, p_valueB, std_errB = scipys.linregress(MergedbILIsList, MergedBurstList)
+print("r-squaredb:", r_valueB**2)
 
 
 # Could t-test difference the pre-burst pauses for SHORT (quart) and for LONG
 
 # Figure out how to separate these pauses based on long and short (if, index == long)
 
-     
-#        
-#        find the time of the start of that run for only the items that upper AND for those lower
-#        if item == 'UPPER'  
-#
-#*** ••• output being --> times of bursts starts when JUST lower and JUST upper (simply index into the TIMES only when conditions met)
-#now, for those in the list of runstart times (with the same index 301)
-# 
-'''       
-# ISSUE --> should use the cut offs from all but should actually segregate them 
-    # for each rat separately NOT aggregated 
-    # as to index the TIMES of the licks and the blue/uv signal this is 
-    # stored as SEPARATE by-rat lists NOT aggregated .... 
+
+
+
+# *******************************************************************
+
+# Figure 11? Photometry plots (averaged) aligned to short and long runs, is there a difference?
+# Firstly separate out the run lists (and then the times) into short and long 
+
+# Temp lists to store values 
+templower = []
+tempupper = []
+tempmid = []
+# Final lists of run times sorted by u.m.l and stored by rat (14 lists)
+lowerqRunTimes = []
+uppqRunTimes = []
+mid50RunTimes = []
+
+# Might need the index and the value for both lists ??
+for i, listofindices in enumerate(allLogIndRuns):
+    
+    for j, runIndex in enumerate(listofindices):
+        
+        #print(i,j) i is the list index and j is the item index
+        
+        if runIndex == 'LOWER':
+            lowrun = allRunsTimes[i][j]
+            templower.append(lowrun)
+               
+        if runIndex == 'UPPER':
+            upprun = allRunsTimes[i][j]
+            tempupper.append(upprun)
+#                
+        if runIndex == 'MIDDLE':
+            midrun = allRunsTimes[i][j]
+            tempmid.append(midrun)
+            
+    lowerqRunTimes.append([templower])
+    uppqRunTimes.append([tempupper])
+    mid50RunTimes.append([tempmid])
+    
+ 
+''' PROBLEM
+
+Now have 3 lists of values not separated by rat anymore!!!!! 
+Really want to have a tuple or something that links the tag u,m,l to the value and rat
+Or somehow split that list using [] in the for?
+Could add ALL to a list (all for upper and all for lower) for each rat 
+rather than 3 separate lists. Have values in places where is IS LOWER and 'false' where
+it isn't?
+
+Then index in the same way as previously? 
+           
+
+allign to lowerqRunTimes
+allign to uppqRunTimes
 
 '''
+            
+for i, val in enumerate()
+
+# Then, if not too complex, add BOTH BLUE SIGNALS high and low burst numbers to the 
+    # same photometry plot 
+    
+#for i, val in enumerate(allBurstsTimes):
+#    
+#    # make a blue and uv snip for all 14, and noise remover / index
+#    blueSnips, ppsBlue = snipper(allRatBlue[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)
+#    uvSnips, ppsUV = snipper(allRatUV[i], allBurstsTimes[i], fs=allRatFS[i], bins=300)
+#
+#    randevents = makerandomevents(allRatBlue[i][300], allRatBlue[i][-300])
+#    bgMad, bgMean = findnoise(allRatBlue[i], randevents, fs=allRatFS[i], method='sum', bins=300)
+#    threshold = 1
+#    sigSum = [np.sum(abs(i)) for i in blueSnips]
+#    noiseindex = [i > bgMean + bgMad*threshold for i in sigSum]
+#    # Might not need the noise index, this is just for trials fig 
+#    
+#    fig = plt.figure()
+#    ax = plt.subplot(1,1,1)
+#    ax.set_ylim([-0.03, 0.03])
+#    #ax.set_ylim([-0.05, 0.05])
+#    trialsMultShadedFig(ax, [uvSnips,blueSnips], ppsBlue, eventText='First Lick in Burst')
+#    plt.text(250,0.03, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
+#    
+#    fig2 = plt.figure()
+#    ax2 = plt.subplot(1,1,1)
+#    ax2.set_ylim([-0.2, 0.2])
+#    trialsFig(ax2, blueSnips, uvSnips, ppsBlue, eventText='First Lick in Burst', noiseindex=noiseindex) #, )
+#    plt.text(250,0.2, '{}'.format(len(allBurstsTimes[i])) + ' bursts' )
+#
+# # these four lines used later to define means plot (made after runs)
+#    blueMean = np.mean(blueSnips, axis=0)
+#    blueMeansBurst.append(blueMean)
+#    uvMean = np.mean(uvSnips, axis=0)
+#    uvMeansBurst.append(uvMean)
+#    
+#
+#
+#
