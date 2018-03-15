@@ -29,6 +29,7 @@ TDTfilepath = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 allBursts = []
 allRuns = []
 allRunIndices = []
+allrILIs = []
 # Loop through files and calculate burst and run lengths
 for filename in TDTfileslist:
     
@@ -37,11 +38,13 @@ for filename in TDTfileslist:
     burstanalysis = lickCalc(ratdata['licks'], offset=ratdata['licks_off'])
     burstList = burstanalysis['bLicks'] # type, array 
     runList = burstanalysis['rLicks'] # type array
-    indexRunList = burstanalysis['rInd'] 
+#    indexRunList = burstanalysis['rInd'] 
+    runILIs = burstanalysis['rILIs']
     
     allBursts.append(burstList)
     allRuns.append(runList)
-    allRunIndices.append(indexRunList)
+#    allRunIndices.append(indexRunList)
+    allrILIs.append(runILIs)
     
 # Make the list of lists into one long list for histogram 
 MergedBurstList = list(itertools.chain.from_iterable(allBursts)) 
@@ -391,8 +394,14 @@ for runLicksList in allRuns:
 # 14 lists of logical indices for whether the n licks in that run was L,M,U
 
  
-#### ===========================================  
-# Now find the pauses preceding each run (can do it for all or can select out high and low)
+#### =========================================== 
+
+# Figure 10 - Finding the pauses before run (preRunPauses) and how this relates
+# to burst length 
+# regression? As both continuous??? 
+
+# Linear regression --> see R notes 
+
 
 ''' UNSURE IF THE RUN INDICES ARE CORRECT, THOUGHT RUNS WERE NOTHING FOR 10 SECONDS'''
 
@@ -406,18 +415,33 @@ for runIndexIndex, runIndexList in enumerate(allRunIndices):
         preRunPauses.append(preRunPause)
         
     allPreRunPauses.append(preRunPauses)
-        
-### HOW CAN THE ILIs BE LESS THAN 10 SECONDS???    
-        
+    
+#rILIs are these the ILIs for before the first lick or not??? 
 
-#        
-#        find the lick before this time in allRatLicks
-#        maybe access the index in the licks and then find the index - 1?
-#        IS this already in the burstanalysis(lickcalc) function? 
-#        write this in earlier and store it 
-#        
-#        the value in rInd = the index in all Licks to access (then want -1)
-#        
+# MergedRunList exists already
+MergedrILIsList = list(itertools.chain.from_iterable(allrILIs)) 
+# repeat for runs (even though the neural data were crap, behaviour might be interesting)
+
+fig10 = plt.figure()
+ax8 = plt.subplot(1,1,1)
+ax8.scatter(MergedrILIsList, MergedRunList, marker='*', color='k') #linewidth=0.2)   
+#ax8.set_xlim([0,400]) 
+#ax8.set_ylim([0,400])
+    
+# Run linear regression, can preRunPause predict the runLength?
+# Can repeat this for bursts too (higher sample size may be more informative)
+# Poor looking fit, possibly correlated at the extremes (very long/short)
+import scipy.stats as scipys
+slope, intercept, r_value, p_value, std_err = scipys.linregress(MergedILIsList, MergedRunList)
+print("r-squared:", r_value**2)
+
+
+
+# Could t-test difference the pre-burst pauses for SHORT (quart) and for LONG
+
+# Figure out how to separate these pauses based on long and short (if, index == long)
+
+     
 #        
 #        find the time of the start of that run for only the items that upper AND for those lower
 #        if item == 'UPPER'  
@@ -432,16 +456,3 @@ for runIndexIndex, runIndexList in enumerate(allRunIndices):
     # stored as SEPARATE by-rat lists NOT aggregated .... 
 
 '''
-
-
-# Will need logical indexing to select the values (is it higher, lower = true)
-#for x in allRuns:
-#    for each index, value in enumerat(allRuns[x]):
-#        
-#
-#1) List of run lengths in same order as 
-#2) List of times of first lick in run   
-#3) List of lick times 
-#
-#     
-

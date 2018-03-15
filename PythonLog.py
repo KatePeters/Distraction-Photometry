@@ -2532,7 +2532,7 @@ def quartiles2(data):
      
      
 ''' 15/03/18 '''
-# 13:00
+# 13:00 - 14:00 
 
 # Working on the pre-run / bre-burst pause 
 # That pause must be at least 10 seconds as defined this previously in the run
@@ -2542,7 +2542,45 @@ def quartiles2(data):
 # Separate the rats by their long and short bursts (done)
 
 # Find the indices of the burst first lick - go back to lick calc and check if
-    # it produces the lick index for the burst/run first lick      
+    # it produces the lick index for the burst/run first lick 
+
+# Do I already have the ILIs? rILI variable looks like the interval between the 
+    # first lick in the run and the preceeding lick (should all be over 10 seconds 
+    # as this was the definition in LickCalc)
+
+'''
+# Figure 10 - Finding the pauses before run (preRunPauses) and how this relates
+# to burst length 
+# regression? As both continuous??? 
+
+# Linear regression --> see R notes 
+
+'''
+
+# Run a linear regression 
+scipy.stats.linregress
+
+# Ran regression 
+r-squared: 0.0252415143382
+p_value
+Out[455]: 0.00573622449834571
+slope
+Out[456]: 0.13265944745570354
+r_value
+Out[457]: 0.15887578273045813
+
+''' Interpretation '''
+# http://blog.minitab.com/blog/adventures-in-statistics-2/how-to-interpret-a-regression-model-with-low-r-squared-and-low-p-values
+
+# Looks like there is incredibly weak relationship OR linear model doesn't fit data well
+
+# Repeat all of this for the bursts (although the neural data shows no peak) would 
+    # be useful to look at behaviour for both bursts and runs 
+
+# THEN, last bit for lick figures
+    # look at peaks alligned to LONG bursts and SHORT bursts 
+    # figure out how to get the snips around these time points (check they are times)
+    # as events      
 ==============================
 
 
