@@ -2719,6 +2719,18 @@ notdist	0.001005643	-0.000233414	0.047120378	0.039605352	0.005720193	-0.00247906
 if title != 'none':
         plt.title(title, fontsize=14)
         
+# Finding a good example for single trial figure 
+# Good --> 
+
+datafile = datafolder + 'thph2.5distraction.mat'
+trial = 5
+
+
+datafile = datafolder + 'thph2.3distraction.mat'
+trial = 8
+trial = 17 # very good
+# Getting rid of spines 
+
 
         
         

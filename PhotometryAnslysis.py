@@ -21,7 +21,9 @@ datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 #datafolder = 'F:\\PHOTOMETRY MMIN18\\'
 
 datafile = datafolder + 'thph2.6lick3.mat' 
-datafile = datafolder + 'thph2.6distraction.mat'
+#datafile = datafolder + 'thph2.6distraction.mat'
+datafile = datafolder + 'thph2.3distraction.mat' #trial 17, 8 
+#datafile = datafolder + 'thph2.5distraction.mat' # trial 5
 examplerat = loadmatfile(datafile)
 
 print(examplerat['licks'][-1])
@@ -100,7 +102,7 @@ print(e1,g1)
 
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickmodel.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
-meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means distracted.csv'
+meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means notdistracted2.csv'
 #meansfile = 'F:\\PHOTOMETRY MMIN18\\Snips means distracted.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means notdistracted.csv'
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickalligned.csv'
@@ -161,7 +163,7 @@ ax5.set_ylim([-0.04, 0.04])
 
     
 scale = 5
-eventText='notdistracted' 
+eventText='Not Distracted' 
 ylabel=''   
 pps = ppsBlue # note this is retrieved from previous code 
 preTrial = 10
@@ -201,6 +203,7 @@ ax5.plot(np.asarray(BLUEMEAN).transpose(), c='blue', alpha=1)
 ax5.plot(np.asarray(UVMEAN).transpose(), c='purple', alpha=1)
 
 ax5.set(ylabel = chr(916) + 'df')
+ax5.yaxis.label.set_size(14)
 ax5.xaxis.set_visible(False)
         
 scalebar = scale * pps
@@ -232,7 +235,10 @@ ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibr
 # Looking at function from Murphy et al (2017)
 
    
-
+'''
+Commented out to test different rats on single trial plot)
+    
+'''
 # Burst analysis for lengths and pauses before and after bursts or runsß
 burstanalysis = lickCalc(examplerat['licks'], offset=examplerat['licks_off'])
 
@@ -240,11 +246,11 @@ meanburstlength = np.mean(np.asarray(burstanalysis['bLicks'] ))
 meanrunlength = np.mean(burstanalysis['rLicks'])
 medburstlen = np.median(np.asarray(burstanalysis['bLicks'] ))
 medrunlen = np.median(burstanalysis['rLicks'])
-modburstlen = stats.mode(np.asarray(burstanalysis['bLicks'] ))
-modrunlen = stats.mode(np.asarray(burstanalysis['rLicks'] ))
+#modburstlen = stats.mode(np.asarray(burstanalysis['bLicks'] ))
+#modrunlen = stats.mode(np.asarray(burstanalysis['rLicks'] ))
 
-print('Mean burst length is', meanburstlength, '/ median is', medburstlen, '/mode is', modburstlen)
-print('Mean run length is', meanrunlength, '/ median is', medrunlen, '/mode is', modrunlen)
+print('Mean burst length is', meanburstlength, '/ median is', medburstlen, '/mode is') #modburstlen)
+print('Mean run length is', meanrunlength, '/ median is', medrunlen, '/mode is') # modrunlen)
 
 figure10 = plt.figure()
 plt.hist(burstanalysis['bLicks'])
@@ -275,11 +281,11 @@ trialdistractors = nearestevents(examplerat['distractors'], examplerat['distract
 trialdistracted = nearestevents(examplerat['distractors'], examplerat['distracted'])
 trialnotdistracted = nearestevents(examplerat['distractors'], examplerat['notdistracted'])
 
+trial = 8
 
-trial = 20
 
 f = plt.Figure()
-ax = plt.subplot()
+ax = plt.subplot(111)
 
 ax.plot(blueSnips[trial])
 ax.plot(uvSnips[trial])
@@ -292,16 +298,17 @@ xvals4 = [(x+10)*10 for x in trialnotdistracted[trial]]
 
 yvals1 = [ax.get_ylim()[1]] * len(xvals1)
 yvals2 = [ax.get_ylim()[1] + 0.005] * len(xvals2)
-yvals3 = [ax.get_ylim()[1] + 0.0075] * len(xvals3) 
+yvals3 = [ax.get_ylim()[1] + 0.01] * len(xvals3) 
 yvals4 = [ax.get_ylim()[1] + 0.01] * len(xvals4)
 
 
 #ax.scatter(xvals, yvals)
 ax.scatter(xvals1, yvals1, marker='|')
 ax.scatter(xvals2, yvals2, marker='*')
-ax.scatter(xvals3, yvals3, marker='_')
-ax.scatter(xvals4, yvals4, marker='x')
+ax.scatter(xvals3, yvals3, marker='o', c='green')
+ax.scatter(xvals4, yvals4, marker='x', c='red')
 
-
-ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+#ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
 

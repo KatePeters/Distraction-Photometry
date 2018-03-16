@@ -491,5 +491,3 @@ def nearestevents(timelock, events, preTrial=10, trialLength=30):
         data[i] = x - timelock[i]      
     
     return data
-
-
