@@ -85,14 +85,12 @@ percentdistractedLickDay = [0,0,8.33,9.26,0,8.7,1.35,0,4.92,3.23,0,1.33,24]
 percentdistractedDisDay = [49.38,81.33,100,42.62,24.32,78.95,10.96,60.94,27.03,57.5,61.11,50,100]
 percentdistractedHabDay = [16.13,43.24,100,18.18,15.38,28.95,1.11,18.42,18.75,23.53,21.62,11.76]
 
-distractionData1 = np.empty((2,), dtype=np.object)
-distractionData1[0] = np.array(percentdistractedLickDay)
-distractionData1[1] = np.array(percentdistractedDisDay)
+distractionData = np.empty((3,), dtype=np.object)
+distractionData[0] = np.array(percentdistractedLickDay)
+distractionData[1] = np.array(percentdistractedDisDay)
+distractionData[2] = np.array(percentdistractedHabDay)
 
 
-distractionData2 = np.empty((2,), dtype=np.object)
-distractionData2[0] = np.array(percentdistractedDisDay)
-distractionData2[1] = np.array(percentdistractedHabDay)
 
 ''' Mean flourescence peak (2 second) following distractor or modelled distractor
     
@@ -186,11 +184,11 @@ def barscatter(data, transpose = False,
 #    colors2 = ['k','k']
 #    colors3 = ['white', 'white']
     
-    barfacecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
-    baredgecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
+    barfacecolorArray = setcolors("between", colors, 1, 3, data, paired_scatter = True)
+    baredgecolorArray = setcolors("between", colors, 1, 3, data, paired_scatter = True)
      
-    scfacecolorArray = setcolors("between", colors3, 1, 2, data, paired_scatter = True)
-    scedgecolorArray = setcolors("between", colors2, 1, 2, data, paired_scatter = True)
+    scfacecolorArray = setcolors("between", colors3, 1, 3, data, paired_scatter = True)
+    scedgecolorArray = setcolors("between", colors2, 1, 3, data, paired_scatter = True)
  #   scfacecolorArray = setcolors("between", colors3, nGroups=nGroups, barspergroup=barspergroup, data=dataX, paired_scatter = True)
     
 # Initialize figure
@@ -341,16 +339,16 @@ def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter =
 
 # (1) Scatter / bar - lick day modelled and distraction day (% distracted) 
 # Bars represent mean 
-colors = ['darkorange', 'skyblue']
-colors2 = ['k','k']
-colors3 = ['white', 'white']
-ax = barscatter(distractionData1, paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
+colors = ['darkorange', 'skyblue', 'darkgrey']
+colors2 = ['k','k','k']
+colors3 = ['white', 'white', 'white']
+ax = barscatter(distractionData, paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
 # Re-define colours, bars, scatter edges and scatter face
-colors = ['skyblue', 'darkgrey']
-colors2 = ['k','k']
-colors3 = ['white', 'white']
-ax2 = barscatter(distractionData2,paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
-
+#colors = ['skyblue', 'darkgrey']
+#colors2 = ['k','k']
+#colors3 = ['white', 'white']
+#ax2 = barscatter(distractionData2,paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
+#
 
 ## Data - peak heights for modelled snips and distraction snips (see excel sheet or variables
 #    # in photometry analysis script) 
