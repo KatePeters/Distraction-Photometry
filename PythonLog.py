@@ -2674,7 +2674,34 @@ for i, listofindices in enumerate(allLogIndRuns):
 # Move onto distraction figures ... 
 
 
-•••••••••••••••••••••••••••••••••• BREAK
+''' 16/03/18 '''
+
+# 8:00 
+
+# Distractionn figures  (file = Distraction_photometry_figures)
+# Behavioural figs. in THPH1 and 2 behaviour
+
+# Bar scatter plots done, add them to individual script
+# Get behavioural figures too, cumulative licking on distraction day vs lick day 
+
+# Move the plotting functions and code to new folder to produce all behavioural 
+    # and photometry figures for distraction 
+    
+# Remaking barscatter plots for percentage distracted, adding axes labels
+# Finding data for photometry peak (delta df) on lick day and distraction day
+    # In respons to DISTRACTORS and modelled distractors (defined as 2 seconds following
+     #                                                     onset)
+    
+
+# Finding data - peaks for distractED and NOTdistractED
+
+
+# There is no for loop in the distraction data set 
+
+# Previously I had MANUALLY taken out the data to make the means file 
+# Add in the for loop and get all the data in Python NOT excel 
+
+ß
 
 
   

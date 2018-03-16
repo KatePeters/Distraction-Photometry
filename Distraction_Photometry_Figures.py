@@ -21,7 +21,6 @@ import pandas as pd
 import os
 import tkinter as tk
 from tkinter import filedialog
-
 import matplotlib as mpl
 
 # Defining figure sizes using rcParams 
@@ -86,10 +85,14 @@ percentdistractedLickDay = [0,0,8.33,9.26,0,8.7,1.35,0,4.92,3.23,0,1.33,24]
 percentdistractedDisDay = [49.38,81.33,100,42.62,24.32,78.95,10.96,60.94,27.03,57.5,61.11,50,100]
 percentdistractedHabDay = [16.13,43.24,100,18.18,15.38,28.95,1.11,18.42,18.75,23.53,21.62,11.76]
 
-dataX = np.empty((3,), dtype=np.object)
-dataX[0] = np.array(percentdistractedLickDay)
-dataX[1] = np.array(percentdistractedDisDay)
-dataX[2] = np.array(percentdistractedHabDay)
+distractionData1 = np.empty((2,), dtype=np.object)
+distractionData1[0] = np.array(percentdistractedLickDay)
+distractionData1[1] = np.array(percentdistractedDisDay)
+
+
+distractionData2 = np.empty((2,), dtype=np.object)
+distractionData2[0] = np.array(percentdistractedDisDay)
+distractionData2[1] = np.array(percentdistractedHabDay)
 
 ''' Mean flourescence peak (2 second) following distractor or modelled distractor
     
@@ -109,7 +112,9 @@ dataX[2] = np.array(percentdistractedHabDay)
 #dataX[1][1] = np.array(percentdistractedDisDay)
 #dataX[2][1] = np.array(percentdistractedHabDay)
 
-
+colors = ['darkorange', 'skyblue']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
  
 def barscatter(data, transpose = False,
                 groupwidth = .75,
@@ -184,17 +189,16 @@ def barscatter(data, transpose = False,
         xvals = groupx
     
     # Set colors for bars and scatters  
-    colors = ['grey', '#eca72c', '#14a7e0']
-    colors2 = ['k','k','k']
-    colors3 = ['white', 'white', 'white']
+#    colors = ['darkorange', 'skyblue']
+#    colors2 = ['k','k']
+#    colors3 = ['white', 'white']
     
-    barfacecolorArray = setcolors("between", colors, 1, 3, dataX, paired_scatter = True)
-    baredgecolorArray = setcolors("between", colors, 1, 3, dataX, paired_scatter = True)
+    barfacecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
+    baredgecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
      
-    scfacecolorArray = setcolors("between", colors3, 1, 3, dataX, paired_scatter = True)
-    scedgecolorArray = setcolors("between", colors2, 1, 3, dataX, paired_scatter = True)
-
-# scfacecolorArray = setcolors("between", colors3, nGroups=nGroups, barspergroup=barspergroup, data=dataX, paired_scatter = True)
+    scfacecolorArray = setcolors("between", colors3, 1, 2, data, paired_scatter = True)
+    scedgecolorArray = setcolors("between", colors2, 1, 2, data, paired_scatter = True)
+ #   scfacecolorArray = setcolors("between", colors3, nGroups=nGroups, barspergroup=barspergroup, data=dataX, paired_scatter = True)
     
 # Initialize figure
     if ax == []:
@@ -246,7 +250,7 @@ def barscatter(data, transpose = False,
 
     # Label axes
     if ylabel != 'none':
-        plt.ylabel(ylabel)
+        plt.ylabel(ylabel, fontsize=14)
     
     if xlabel != 'none':
         plt.xlabel(xlabel)
@@ -333,7 +337,30 @@ def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter =
 # Generate bar/scatter plot for percent distracted incl. modelled distractors
 # on lick day and %dis on habituation day 
 
-ax = barscatter(dataX, paired=True, scatterlinecolor='k')
+# (1) Scatter / bar - lick day modelled and distraction day (% distracted) 
+# Bars represent mean 
 
-ax2 = barscatter(dataX,paired=True, scatterlinecolor='k')
+ax = barscatter(distractionData1, paired=True, scatterlinecolor='k', barfacecolor=['darkorange', 'skyblue'], ylabel='Percentage distracted trials')
+# Re-define colours, bars, scatter edges and scatter face
+colors = ['skyblue', 'darkgrey']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
+ax2 = barscatter(distractionData2,paired=True, scatterlinecolor='k', barfacecolor=['skyblue', 'darkgrey'], ylabel='Percentage distracted trials')
 
+
+# Data - peak heights for modelled snips and distraction snips (see excel sheet or variables
+    # in photometry analysis script) 
+
+photopeaks1 = 
+peaksModelledDis = (-0.001217125,0.000859069,-0.001190911,0.036421799,0.008933065, -0.002367187,0.026656246,0.008760555,0.000819196,0.003400855,0.012282488,0.008551392,0.034570625,0.040277452)
+peaksDistractorsALL = (0.002176149,0.000233842,0.058384302,0.03030952,0.004967007,-0.002709698,0.04434895,0.008963946,0.017853078,0.036290338,0.035266618,0.041162435,0.040683707,0.051224802)
+colors = ['darkorange', 'lightorange']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
+ax3 = barscatter(photopeaks1,paired=True, scatterlinecolor='k', barfacecolor=['skyblue', 'darkgrey'])
+
+# Need to check where these came from, why are there 21 values?? Subtracted UV from BLUE 
+# peaks in first 2 seconds following distractor or modelled distractor 
+photopeaks2 = 
+peaksNotDistracted = (0.001005643,-0.000233414,0.047120378,0.039605352,0.005720193,-0.002479069,0.055897022,0.009787216,0.01537006,0.036403637,0.024719976,0.026275861,0.0384651,0.067704732)
+peaksDistracted = (0.003363358,0.000194394,0.060783732,0.020370505,0.01726766,-0.003759903,0.041509866,0.012103415,0.019385049,0.036805379,0.042935575,0.050501034,0.074754689,0.042745122)
