@@ -15,7 +15,7 @@ Created on Thu Sep 21 15:14:15 2017
 #plt.rcParams['xtick.labelsize'] = label_size 
 #plt.rcParams['ytick.labelsize'] = label_size 
 
-
+from AllFunctions import *
 
 datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 #datafolder = 'F:\\PHOTOMETRY MMIN18\\'
