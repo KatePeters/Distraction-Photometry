@@ -102,17 +102,9 @@ distractionData2[1] = np.array(percentdistractedHabDay)
     Distraction day only
 
 '''
+''' Barscatter '''
 
-
-
-
-# Testing 2D array and barscatter function paired bug fix 
-#dataX = np.empty((3,2), dtype=np.object)
-#dataX[0][1] = np.array(percentdistractedLickDay)
-#dataX[1][1] = np.array(percentdistractedDisDay)
-#dataX[2][1] = np.array(percentdistractedHabDay)
-
-colors = ['darkorange', 'skyblue']
+colors = ['darkorange', 'orange']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
  
@@ -135,6 +127,7 @@ def barscatter(data, transpose = False,
                 linewidth=1,
                 ylabel = 'none',
                 xlabel = 'none',
+                title = 'none',
                 grouplabel = 'auto',
                 itemlabel = 'none',
                 yaxisparams = 'auto',
@@ -254,6 +247,9 @@ def barscatter(data, transpose = False,
     
     if xlabel != 'none':
         plt.xlabel(xlabel)
+        
+    if title != 'none':
+        plt.title(title, fontsize=14)
     
     # Set range and tick values for Y axis
     if yaxisparams != 'auto':
@@ -333,34 +329,54 @@ def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter =
 
     return coloroutput
 
+# Testing 2D array and barscatter function paired bug fix 
+#dataX = np.empty((3,2), dtype=np.object)
+#dataX[0][1] = np.array(percentdistractedLickDay)
+#dataX[1][1] = np.array(percentdistractedDisDay)
+#dataX[2][1] = np.array(percentdistractedHabDay)
+
 
 # Generate bar/scatter plot for percent distracted incl. modelled distractors
 # on lick day and %dis on habituation day 
 
 # (1) Scatter / bar - lick day modelled and distraction day (% distracted) 
 # Bars represent mean 
-
-ax = barscatter(distractionData1, paired=True, scatterlinecolor='k', barfacecolor=['darkorange', 'skyblue'], ylabel='Percentage distracted trials')
+colors = ['darkorange', 'skyblue']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
+ax = barscatter(distractionData1, paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
 # Re-define colours, bars, scatter edges and scatter face
 colors = ['skyblue', 'darkgrey']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
-ax2 = barscatter(distractionData2,paired=True, scatterlinecolor='k', barfacecolor=['skyblue', 'darkgrey'], ylabel='Percentage distracted trials')
+ax2 = barscatter(distractionData2,paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
 
 
-# Data - peak heights for modelled snips and distraction snips (see excel sheet or variables
-    # in photometry analysis script) 
+## Data - peak heights for modelled snips and distraction snips (see excel sheet or variables
+#    # in photometry analysis script) 
+peaksModelledDis = [-0.001217125,0.000859069,-0.001190911,0.036421799,0.008933065, -0.002367187,0.026656246,0.008760555,0.000819196,0.003400855,0.012282488,0.008551392,0.034570625,0.040277452]
+peaksDistractorsALL = [0.002176149,0.000233842,0.058384302,0.03030952,0.004967007,-0.002709698,0.04434895,0.008963946,0.017853078,0.036290338,0.035266618,0.041162435,0.040683707,0.051224802]
+photopeaks1 = np.empty((2,), dtype=np.object)
+photopeaks1[0] = np.array(peaksModelledDis)
+photopeaks1[1] = np.array(peaksDistractorsALL)
 
-photopeaks1 = 
-peaksModelledDis = (-0.001217125,0.000859069,-0.001190911,0.036421799,0.008933065, -0.002367187,0.026656246,0.008760555,0.000819196,0.003400855,0.012282488,0.008551392,0.034570625,0.040277452)
-peaksDistractorsALL = (0.002176149,0.000233842,0.058384302,0.03030952,0.004967007,-0.002709698,0.04434895,0.008963946,0.017853078,0.036290338,0.035266618,0.041162435,0.040683707,0.051224802)
-colors = ['darkorange', 'lightorange']
+#
+colors = ['darkorange', 'orange']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
-ax3 = barscatter(photopeaks1,paired=True, scatterlinecolor='k', barfacecolor=['skyblue', 'darkgrey'])
+ax3 = barscatter(photopeaks1,paired=True, scatterlinecolor='k', ylabel='Max ∆df', title='title')
 
 # Need to check where these came from, why are there 21 values?? Subtracted UV from BLUE 
 # peaks in first 2 seconds following distractor or modelled distractor 
-photopeaks2 = 
+colors = ['darkblue', 'lightblue']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
 peaksNotDistracted = (0.001005643,-0.000233414,0.047120378,0.039605352,0.005720193,-0.002479069,0.055897022,0.009787216,0.01537006,0.036403637,0.024719976,0.026275861,0.0384651,0.067704732)
 peaksDistracted = (0.003363358,0.000194394,0.060783732,0.020370505,0.01726766,-0.003759903,0.041509866,0.012103415,0.019385049,0.036805379,0.042935575,0.050501034,0.074754689,0.042745122)
+photopeaks2 = np.empty((2,), dtype=np.object)
+photopeaks2[0] = np.array(peaksNotDistracted)
+photopeaks2[1] = np.array(peaksDistracted)
+
+ax4 = barscatter(photopeaks2,paired=True, scatterlinecolor='k', ylabel='Max ∆df', title='title')
+
+

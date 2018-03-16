@@ -2699,9 +2699,31 @@ for i, listofindices in enumerate(allLogIndRuns):
 # There is no for loop in the distraction data set 
 
 # Previously I had MANUALLY taken out the data to make the means file 
-# Add in the for loop and get all the data in Python NOT excel 
+# Add in the for loop and get all the data in Python NOT excel  - will do this later
 
-ß
+# Found the peaks!!
+'''
+
+lick	-0.001217125	0.000859069	-0.001190911	0.036421799	0.008933065	-0.002367187	0.026656246	0.008760555	0.000819196	0.003400855	0.012282488	0.008551392	0.034570625	0.040277452
+dis	0.002176149	0.000233842	0.058384302	0.03030952	0.004967007	-0.002709698	0.04434895	0.008963946	0.017853078	0.036290338	0.035266618	0.041162435	0.040683707	0.051224802
+distracted	0.003363358	0.000194394	0.060783732	0.020370505	0.01726766	-0.003759903	0.041509866	0.012103415	0.019385049	0.036805379	0.042935575	0.050501034	0.074754689	0.042745122
+notdist	0.001005643	-0.000233414	0.047120378	0.039605352	0.005720193	-0.002479069	0.055897022	0.009787216	0.01537006	0.036403637	0.024719976	0.026275861	0.0384651	0.067704732
+
+'''
+
+# Making barscatter using the peaks (2 seconds peaks)
+
+# Altering barscatter function to add titles
+# Added title='none' parameter :
+
+if title != 'none':
+        plt.title(title, fontsize=14)
+        
+
+        
+        
+
+
 
 
   
