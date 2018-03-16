@@ -278,7 +278,7 @@ pandaPDPs.to_excel('D:\Third year report\THPH1_PDPS.xlsx', index=False) #specify
 
 
 
-def cumulativelickFig(ax, firstlick, normed=True, color='g', log=True):
+def cumulativelickFig(ax, firstlick, normed=True, color='g', log=True, ylabel='none', xlabel='none', title='none'):
     sorted_data = np.sort(firstlick)
     yvals = np.arange(len(sorted_data)+1)
     
@@ -292,6 +292,17 @@ def cumulativelickFig(ax, firstlick, normed=True, color='g', log=True):
     if log == True:
         ax.set_xscale('log', basex=10) # option in funcion as True or False (log setting)
         ax.set_xlim([0.1, 1000])
+        
+        # Label axes
+#    if ylabel != 'none':
+#        plt.ylabel(ylabel, fontsize=14)
+#    
+#    if xlabel != 'none':
+#        plt.xlabel(xlabel)
+#        
+#    if title != 'none':
+#        plt.title(title, fontsize=14)
+#        
     return ax, a
 
 
@@ -371,11 +382,7 @@ ax7 = fig7.add_subplot(111)
 ax7.spines['right'].set_visible(False)
 ax7.spines['top'].set_visible(False)
 
-fig8 = plt.figure()
-plt.title('ADD TITLE', **Calibri, **Size)
-ax8 = fig8.add_subplot(111)
-ax8.spines['right'].set_visible(False)
-ax8.spines['top'].set_visible(False)
+
 
 # CUMULATIVE LICKS
 # Plots all for lick day with average
@@ -432,11 +439,28 @@ cumulativelickFig(ax6, avg5, normed=True, color='gold', log=True)
 
 
 # Averages for lickplot, orange is lick training, blue is distraction 
-cumulativelickFig(ax8, avg4, normed=True, color='seagreen', log=True)
-cumulativelickFig(ax8, avg5, normed=True, color='gold', log=True)
+
+# ============================================================================================
+# ALL DATA ON ONE CUMULATIVE PLOT
+# Cumulative licking plot (all individual rats)
+
+fig8 = plt.figure()
+plt.title('Cumulative licks', **Calibri, **Size)
+ax8 = fig8.add_subplot(111)
+ax8.spines['right'].set_visible(False)
+ax8.spines['top'].set_visible(False)
+ax8.set(ylabel = 'label??')
+ax8.yaxis.label.set_size(16)
+ax8.set(xlabel = 'label??')
+ax8.xaxis.label.set_size(16)
+
+for index, licklist in enumerate(lastlickdayPDPs):
+    plot = cumulativelickFig(ax8, lastlickdayPDPs[index], normed=True, color='lightgrey', log=True)
+
+# Plots all for distraction day (all individual rats)
+for index, licklist in enumerate(distractiondayPDPs):
+    plot = cumulativelickFig(ax8, distractiondayPDPs[index], normed=True, color='lightblue', log=True)
+
+cumulativelickFig(ax8, avg4, normed=True, color='k', log=True)
+cumulativelickFig(ax8, avg5, normed=True, color='b', log=True)
 #cumulativelickFig(ax8, avg6, normed=True, color='k', log=True)
-
-
-
-
-
