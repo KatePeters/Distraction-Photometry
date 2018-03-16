@@ -27,8 +27,8 @@ import matplotlib as mpl
 
 fig_size = plt.rcParams["figure.figsize"]
 print("Current size:", fig_size)
-fig_size[0] = 4
-fig_size[1] = 5
+fig_size[0] = 8
+fig_size[1] = 4
 plt.rcParams["figure.figsize"] = fig_size
 
 # Data processing functions 
@@ -195,6 +195,7 @@ def barscatter(data, transpose = False,
     if ax == []:
         fig = plt.figure()
         ax = fig.add_subplot(111)
+        
     
     # Make bars
     barlist = []
