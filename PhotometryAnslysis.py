@@ -22,7 +22,7 @@ datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 
 datafile = datafolder + 'thph2.6lick3.mat' 
 #datafile = datafolder + 'thph2.6distraction.mat'
-datafile = datafolder + 'thph2.3lick3.mat' #trial 17, 8 
+datafile = datafolder + 'thph2.5distraction.mat' #trial 17, 8 
 #datafile = datafolder + 'thph2.5distraction.mat' # trial 5
 examplerat = loadmatfile(datafile)
 
@@ -102,7 +102,7 @@ print(e1,g1)
 
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickmodel.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means distractors.csv'
-meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means notdistracted2.csv'
+meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means distracted.csv'
 #meansfile = 'F:\\PHOTOMETRY MMIN18\\Snips means distracted.csv'
 #meansfile = 'D:/PHOTOMETRY MMIN18/Snips means notdistracted.csv'
 #meansfile = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/Snips means lickalligned.csv'
@@ -163,7 +163,7 @@ ax5.set_ylim([-0.04, 0.04])
 
     
 scale = 5
-eventText='Not Distracted' 
+eventText='' #Not distracted 
 ylabel=''   
 pps = ppsBlue # note this is retrieved from previous code 
 preTrial = 10
@@ -202,7 +202,7 @@ ax5.plot(np.asarray(u28).transpose(), c='thistle', alpha=0.6)
 ax5.plot(np.asarray(BLUEMEAN).transpose(), c='blue', alpha=1)
 ax5.plot(np.asarray(UVMEAN).transpose(), c='purple', alpha=1)
 
-ax5.set(ylabel = chr(916) + 'df')
+ax5.set(ylabel = chr(916) + 'F')
 ax5.yaxis.label.set_size(14)
 ax5.xaxis.set_visible(False)
         
@@ -220,9 +220,29 @@ ax5.spines['top'].set_visible(False)
 ax5.spines['bottom'].set_visible(False)
 
 xevent = pps * preTrial  
-ax5.plot([xevent, xevent],[ax5.get_ylim()[0], ax5.get_ylim()[1] - yrange/20],'--')
+ax5.plot([xevent, xevent],[ax5.get_ylim()[0], ax5.get_ylim()[1] - yrange/20],'--', zorder=10)
 ax5.text(xevent, ax5.get_ylim()[1], eventText, ha='center',va='bottom', **Calibri, **Size)
 
+# MAKING Y SCALE .....
+# gets first two ytick values that are >0.
+# these are the yvals the scale bar will use
+#y = [y for y in ax5.get_yticks() if y > 0][:2]
+y_offset = 1
+y = [y for y in ax5.get_yticks()][y_offset:y_offset+2]
+#finds the distance between these two values (length of the scale bar)
+l = y[1] - y[0]
+#makes a label using this number, multiplies by 100 to get percent
+# {0:.0f} removes decimal places
+scale_label = '{0:.0f}% \u0394F'.format(l*100)
+# draws line, you could change the [50,50] to move position on xaxis
+ax5.plot([325,325], [y[0], y[1]], c='k', linewidth=2)
+# this writes the label in an appropriate place
+ax5.text(375, y[0]+(l/2), scale_label, va='center', ha='right', fontsize=16)
+ax5.xaxis.set_visible(False)
+ax5.yaxis.set_visible(False)
+ax5.spines['left'].set_visible(False)
+
+#fig5.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/TrialsPhoto_DIS.pdf') 
 
 #NEED TO make a mult shaded figure here using each mean as a "trial" then get 
 # a shaded figure of the means means with SEM error bars
@@ -281,14 +301,14 @@ trialdistractors = nearestevents(examplerat['distractors'], examplerat['distract
 trialdistracted = nearestevents(examplerat['distractors'], examplerat['distracted'])
 trialnotdistracted = nearestevents(examplerat['distractors'], examplerat['notdistracted'])
 
-trial = 8
+trial = 5
 
 
-f = plt.Figure()
+f = plt.figure(figsize=(6,2))
 ax = plt.subplot(111)
 
-ax.plot(blueSnips[trial])
-ax.plot(uvSnips[trial])
+ax.plot(blueSnips[trial], color='blue')
+ax.plot(uvSnips[trial], color='purple')
 
 xvals1 = [(x+10)*10 for x in triallicks[trial]]
 xvals2 = [(x+10)*10 for x in trialdistractors[trial]]
@@ -297,20 +317,60 @@ xvals4 = [(x+10)*10 for x in trialnotdistracted[trial]]
 
 
 yvals1 = [ax.get_ylim()[1]] * len(xvals1)
-yvals2 = [ax.get_ylim()[1] + 0.005] * len(xvals2)
-yvals3 = [ax.get_ylim()[1] + 0.01] * len(xvals3) 
-yvals4 = [ax.get_ylim()[1] + 0.01] * len(xvals4)
+#yvals2 = [ax.get_ylim()[1] + 0.005] * len(xvals2)
+yvals3 = [ax.get_ylim()[1] + 0.02] * len(xvals3) 
+yvals4 = [ax.get_ylim()[1] + 0.02] * len(xvals4)
 
 
 #ax.scatter(xvals, yvals)
-ax.scatter(xvals1, yvals1, marker='|')
-ax.scatter(xvals2, yvals2, marker='*')
-ax.scatter(xvals3, yvals3, marker='o', c='green')
-ax.scatter(xvals4, yvals4, marker='x', c='red')
+ax.scatter(xvals1, yvals1, marker='|', s=90)
+#ax.scatter(xvals2, yvals2, marker='*')
+ax.scatter(xvals3, yvals3, marker='o', facecolors= 'k', edgecolors='k', linewidth=2, s=60)
+ax.scatter(xvals4, yvals4, marker='o', facecolors= 'none', edgecolors='k', linewidth=2, s=60)
 
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-#ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
+
+
+# Making x scale
+scale = 5
+scalebar = scale * pps
+yrange = ax.get_ylim()[1] - ax.get_ylim()[0]
+scalebary = (yrange / 10) + ax.get_ylim()[0]
+scalebarx = [ax.get_xlim()[1] - scalebar, ax.get_xlim()[1]]
+
+ax.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
+ax.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), str(scale) +' s', ha='center',va='top', **Calibri, **Size)
+ 
+# MAKING Y SCALE .....
+# gets first two ytick values that are >0.
+# these are the yvals the scale bar will use
+#y = [y for y in ax5.get_yticks() if y > 0][:2]
+y_offset = 1
+y = [y for y in ax.get_yticks()][y_offset:y_offset+2]
+#finds the distance between these two values (length of the scale bar)
+l = y[1] - y[0]
+#makes a label using this number, multiplies by 100 to get percent
+# {0:.0f} removes decimal places
+scale_label = ' {0:.0f}% \u0394F'.format(l*100)
+# draws line, you could change the [50,50] to move position on xaxis
+ax.plot([325,325], [y[0], y[1]], c='k', linewidth=2)
+# this writes the label in an appropriate place
+ax.text(380, y[0]+(l/2), scale_label, va='center', ha='right', fontsize=16)
+
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.xaxis.set_visible(False)
+ax.yaxis.set_visible(False)
+#f.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/IndTrial2.3_17_SCALES.pdf') 
+#f.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/IndTrial2.5_5.pdf') 
+
+#### ___________________________________________________________
+
+
+
 
 
 # Post distraction pause rater plot 
@@ -392,7 +452,5 @@ scalebarx = [ax6.get_xlim()[1] - scalebar, ax6.get_xlim()[1]]
 ax6.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
 ax6.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), str(scale) +' s', ha='center',va='top', **Calibri, **Size) 
 
-
 rasterPlot = distractionrasterFig(ax6, examplerat['distractors'], examplerat['licks'], pre=1, post=10, sortevents=pdps, sortdirection='dec')
-
-figure12.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/RasterLickDay2.3.pdf') 
+#figure12.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/RasterLickDay2.3.pdf') 
