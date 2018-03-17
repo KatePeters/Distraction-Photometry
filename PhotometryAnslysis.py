@@ -63,10 +63,6 @@ ax3 = plt.subplot(1,1,1)
 trialsFig(ax3, blueSnips, uvSnips, ppsBlue, eventText='distractor', noiseindex=noiseindex) #, )
 
 
-
-
-
-
 fig4 = plt.figure()
 ax4 = plt.subplot(1,1,1)
 ax4.set_ylim([-0.05, 0.05])

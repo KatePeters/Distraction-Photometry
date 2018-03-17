@@ -445,13 +445,13 @@ cumulativelickFig(ax6, avg5, normed=True, color='gold', log=True)
 # Cumulative licking plot (all individual rats)
 
 fig8 = plt.figure()
-plt.title('Cumulative licks', **Calibri, **Size)
+#plt.title('Cumulative PDP', **Calibri, **Size)
 ax8 = fig8.add_subplot(111)
 ax8.spines['right'].set_visible(False)
 ax8.spines['top'].set_visible(False)
-ax8.set(ylabel = 'label??')
+ax8.set(ylabel = 'Probability')
 ax8.yaxis.label.set_size(16)
-ax8.set(xlabel = 'label??')
+ax8.set(xlabel = 'log post-distraction pause (s)')
 ax8.xaxis.label.set_size(16)
 
 for index, licklist in enumerate(lastlickdayPDPs):
@@ -464,3 +464,6 @@ for index, licklist in enumerate(distractiondayPDPs):
 cumulativelickFig(ax8, avg4, normed=True, color='k', log=True)
 cumulativelickFig(ax8, avg5, normed=True, color='b', log=True)
 #cumulativelickFig(ax8, avg6, normed=True, color='k', log=True)
+
+
+#fig8.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/CumulativePDP.pdf', bbox_inches="tight") 

@@ -2734,7 +2734,7 @@ trial = 17 # very good
 
  ''' 17/03/18 '''
  
- # 10:00 
+ # 10:00 - 17:00
  
  # Working on distraciton raster for distraction day 
  
@@ -2773,27 +2773,18 @@ trial = 17 # very good
 #     fig.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/FILENAME.pdf')        
     
 
-# Size 4,5 
+# Size 4,5 (barscatter)
 
 
 
   
+# 17:10 - 
 
-
-
-
-
-
-
-
-
-# Any numbers that need exporting for statistics
-
-# Distraction figures
-# All numbers that need exporting for statistics 
-
-
-# Statistics (friday)
+# Find where the peak data are defined, and work out how to get these for different 
+    # time points 
+    
+# Want peaks or averaged activity across the preceding 2 seconds 
+# Averaged activity in the whole 5 or 10 seconds after (maybe between 2 seconds and 10)
 
 
    
