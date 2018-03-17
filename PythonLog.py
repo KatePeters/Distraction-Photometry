@@ -2794,7 +2794,15 @@ trial = 17 # very good
 # Axis 2 -> 0.03 - 0.04
 # Axis 3 --> -0.03 - -0.04
    
+# 19:00 - 19:50 
 
+# Making and saving scatterbar plots for 2 seconds before and 20 seconds after distract(tion)/not
+# Fixing issue with marker edge color
+    # Jaime sent link to styles setting (was overridding)
+    
+    ''' https://matplotlib.org/users/customizing.html ''' 
+    
+    
 ==============================
 
 
