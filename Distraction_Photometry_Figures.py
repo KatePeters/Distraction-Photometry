@@ -27,9 +27,10 @@ import matplotlib as mpl
 
 fig_size = plt.rcParams["figure.figsize"]
 print("Current size:", fig_size)
-fig_size[0] = 8
-fig_size[1] = 4
+fig_size[0] = 4
+fig_size[1] = 5
 plt.rcParams["figure.figsize"] = fig_size
+
 
 # Data processing functions 
 
@@ -184,18 +185,19 @@ def barscatter(data, transpose = False,
 #    colors2 = ['k','k']
 #    colors3 = ['white', 'white']
     
-    barfacecolorArray = setcolors("between", colors, 1, 3, data, paired_scatter = True)
-    baredgecolorArray = setcolors("between", colors, 1, 3, data, paired_scatter = True)
+    barfacecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
+    baredgecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
      
-    scfacecolorArray = setcolors("between", colors3, 1, 3, data, paired_scatter = True)
-    scedgecolorArray = setcolors("between", colors2, 1, 3, data, paired_scatter = True)
+    scfacecolorArray = setcolors("between", colors3, 1, 2, data, paired_scatter = True)
+    scedgecolorArray = setcolors("between", colors2, 1, 2, data, paired_scatter = True)
  #   scfacecolorArray = setcolors("between", colors3, nGroups=nGroups, barspergroup=barspergroup, data=dataX, paired_scatter = True)
     
 # Initialize figure
     if ax == []:
         fig = plt.figure()
         ax = fig.add_subplot(111)
-        
+        ax.tick_params(axis='both', which='major', labelsize=14)
+        fig.tight_layout()
     
     # Make bars
     barlist = []
@@ -272,6 +274,7 @@ def barscatter(data, transpose = False,
     ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_position('zero')
     
+    
     if show_legend == 'within':
         if len(itemlabel) != barspergroup:
             print('Not enough item labels for legend!')
@@ -282,6 +285,10 @@ def barscatter(data, transpose = False,
                 legendbar.append(barlist[i])
                 legendtext.append(itemlabel[i])
             plt.legend(legendbar, legendtext, loc=legendloc)
+
+    ax.set(ylabel='Peak ∆F')
+    ax.yaxis.label.set_size(14)      
+ #   fig.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/Peaks_DisvsNotDis_2sec.pdf', bbox_inches="tight")        
     
     return ax, barx, barlist, sclist
       
@@ -343,7 +350,9 @@ def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter =
 colors = ['darkorange', 'skyblue', 'darkgrey']
 colors2 = ['k','k','k']
 colors3 = ['white', 'white', 'white']
-ax = barscatter(distractionData, paired=True, scatterlinecolor='k', ylabel='Percentage distracted trials', title='title')
+ax = barscatter(distractionData, paired=True, scatterlinecolor='k', ylabel='Distracted trials (%)')
+
+
 # Re-define colours, bars, scatter edges and scatter face
 #colors = ['skyblue', 'darkgrey']
 #colors2 = ['k','k']
@@ -360,14 +369,14 @@ photopeaks1[0] = np.array(peaksModelledDis)
 photopeaks1[1] = np.array(peaksDistractorsALL)
 
 #
-colors = ['darkorange', 'orange']
+colors = ['darkorange', 'skyblue']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
-ax3 = barscatter(photopeaks1,paired=True, scatterlinecolor='k', ylabel='Max ∆df', title='title')
+ax3 = barscatter(photopeaks1,paired=True, scatterlinecolor='k')
 
 # Need to check where these came from, why are there 21 values?? Subtracted UV from BLUE 
 # peaks in first 2 seconds following distractor or modelled distractor 
-colors = ['darkblue', 'lightblue']
+colors = ['thistle', 'gold']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
 peaksNotDistracted = (0.001005643,-0.000233414,0.047120378,0.039605352,0.005720193,-0.002479069,0.055897022,0.009787216,0.01537006,0.036403637,0.024719976,0.026275861,0.0384651,0.067704732)
@@ -376,6 +385,6 @@ photopeaks2 = np.empty((2,), dtype=np.object)
 photopeaks2[0] = np.array(peaksNotDistracted)
 photopeaks2[1] = np.array(peaksDistracted)
 
-ax4 = barscatter(photopeaks2,paired=True, scatterlinecolor='k', ylabel='Max ∆df', title='title')
+ax4 = barscatter(photopeaks2,paired=True, scatterlinecolor='k')
 
 

@@ -81,18 +81,20 @@ plt.show()
 # 1b - Run histogram, frequency of run lengths all rats, last lick day
 figure2 = plt.figure()
 
-plt.hist(MergedRunList, bins=100, normed=1, facecolor='gold') 
+plt.hist(MergedRunList, bins=100, normed=0, facecolor='darkorange') 
 plt.xlabel('Licks per run', fontsize=14)
-plt.ylabel('Probability', fontsize=14)
+plt.ylabel('Frequency', fontsize=14)
 plt.xlim(xmax=500, xmin=0)
-plt.text(200, 0.010, 'Mean licks per run '+'{}'.format(meanrunlength), fontsize=14)
-plt.text(200, 0.009, 'Median licks per run '+'{}'.format(medrunlen), fontsize=14)
+plt.text(200, 50, 'Mean licks per run '+'{}'.format(meanrunlength), fontsize=14)
+plt.text(200, 40, 'Median licks per run '+'{}'.format(medrunlen), fontsize=14)
 
 # get rid of the frame
 for spine in plt.gca().spines.values():
     spine.set_visible(False)
 
 plt.show()
+
+#figure2.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/Hist_Runs.pdf', bbox_inches="tight") 
 
 #------------------------------------------------------------------------
 ## Descriptives, means and medians from each rat then then mean of those
@@ -316,15 +318,16 @@ fig7 = plt.figure()
 ax5 = plt.subplot(1,1,1)
 ax5.set_ylim([-0.04, 0.04])
 runMultFig = trialsMultShadedFig(ax5, [np.asarray(uvMeans),np.asarray(blueMeans)], ppsBlue, eventText='First Lick in Run')
-ax5.set(ylabel = chr(916) + 'df')
+ax5.set(ylabel = chr(916) + 'F')
 ax5.yaxis.label.set_size(14)
 
 fig8 = plt.figure()
 ax6 = plt.subplot(1,1,1)
 ax6.set_ylim([-0.04, 0.04])
 burstMultFig = trialsMultShadedFig(ax6, [np.asarray(uvMeansBurst),np.asarray(blueMeansBurst)], ppsBlue, eventText='First Lick in Burst')
-ax6.set(ylabel = chr(916) + 'df')
+ax6.set(ylabel = chr(916) + 'F')
 ax6.yaxis.label.set_size(14)
+fig7.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/PhotoALL_RUNS.pdf', bbox_inches="tight") 
 
 
 #==================================
@@ -357,7 +360,7 @@ ax7.scatter(xvals, yvals, marker='|', color='k', linewidth=0.2)
 
 # Get rid of the spines and add labels and ticks to plot 
 # Add a 1 minute scale bar OR tick labels for mins 
-ax7.set(ylabel = 'Light output(mA)')
+ax7.set(ylabel = '∆F')
 ax7.yaxis.label.set_size(14)
 ax7.xaxis.set_visible(False)
             
@@ -371,6 +374,10 @@ ax7.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), '1 Min', ha='cent
 ax7.spines['right'].set_visible(False)
 ax7.spines['top'].set_visible(False)
 ax7.spines['bottom'].set_visible(False)
+#fig9.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/LongTimeCourse.pdf', bbox_inches="tight") 
+
+
+
 
 
 # Separating data by quartiles
@@ -583,29 +590,30 @@ for i, val in enumerate(uppqRunTimes):
 # JUST the error bard type figure (mult shaded) make with blue and uv then make 
 # with blue from short and blue from long 
 
-fig15 = plt.figure()
+fig15 = plt.figure(figsize=(6,3))
 ax14 = plt.subplot(1,1,1)
-ax14.set_ylim([-0.04, 0.04])
-SHORTrunMultFig = trialsMultShadedFig(ax14, [np.asarray(uvMeans_short_run),np.asarray(blueMeans_short_run)], ppsBlue, eventText='First Lick in Short Run')
-ax14.set(ylabel = chr(916) + 'df')
+ax14.set_ylim([-0.05, 0.05])
+SHORTrunMultFig = trialsMultShadedFig(ax14, [np.asarray(uvMeans_short_run),np.asarray(blueMeans_short_run)], ppsBlue, eventText='', scale=0) #First Lick in Short Run
+ax14.set(ylabel = chr(916) + 'F')
 ax14.yaxis.label.set_size(14)
+#fig15.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/PhotoMultSHORTRUN.pdf', bbox_inches="tight") 
 
-fig16 = plt.figure()
+fig16 = plt.figure(figsize=(6,3))
 ax15 = plt.subplot(1,1,1)
-ax15.set_ylim([-0.04, 0.04])
-LONGrunMultFig = trialsMultShadedFig(ax15, [np.asarray(uvMeans_long_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText='First Lick in Long Run')
-ax15.set(ylabel = chr(916) + 'df')
+ax15.set_ylim([-0.05, 0.05])
+LONGrunMultFig = trialsMultShadedFig(ax15, [np.asarray(uvMeans_long_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText='') #First Lick in Long Run
+ax15.set(ylabel = chr(916) + 'F')
 ax15.yaxis.label.set_size(14)
-
+#fig16.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/PhotoMultLONGRUN.pdf', bbox_inches="tight") 
 
 ## Both short and long runs on the same graph (just blue signals)
 
-fig17 = plt.figure()
+fig17 = plt.figure(figsize=(6,3))
 ax16 = plt.subplot(1,1,1)
-ax16.set_ylim([-0.05, 0.04])
+ax16.set_ylim([-0.05, 0.05])
 LONG_SHORTrunMultFig = trialsMultShadedFig(ax16, [np.asarray(blueMeans_short_run),np.asarray(blueMeans_long_run)], ppsBlue, eventText=''
-                                                  , linecolor=['k', 'firebrick'], errorcolor=['darkgrey', 'darkorange'])
-ax16.set(ylabel = chr(916) + 'df')
+                                                  , linecolor=['k', 'firebrick'], errorcolor=['darkgrey', 'darkorange'], scale=0)
+ax16.set(ylabel = chr(916) + 'F')
 ax16.yaxis.label.set_size(14)
 
 # Simple figure legend
@@ -614,6 +622,6 @@ grey_patch = mpatches.Patch(color='darkgrey', label='Short Runs')
 plt.legend(handles=[orange_patch, grey_patch], fontsize=14)
 plt.show()
 
-
+#fig17.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/PhotoMultORANGE.pdf', bbox_inches="tight") 
 
 

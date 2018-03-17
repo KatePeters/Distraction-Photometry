@@ -463,7 +463,7 @@ def trialsMultShadedFig(ax, trials, pps = 1, scale = 5, preTrial = 10,
     scalebary = (yrange / 10) + ax.get_ylim()[0]
     scalebarx = [ax.get_xlim()[1] - scalebar, ax.get_xlim()[1]]
     
-    ax.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
+    ax.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2) # below in '' = 5
     ax.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), '5 s', ha='center',va='top', **Calibri, **Size)
  
     ax.spines['right'].set_visible(False)

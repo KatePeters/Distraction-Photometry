@@ -2767,6 +2767,13 @@ trial = 17 # very good
 
 # Repeat for that rat on licking day 
     # This particular rat has 40 trials out of 65 distracted 
+    
+# Making and saving figures 
+
+#     fig.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/FILENAME.pdf')        
+    
+
+# Size 4,5 
 
 
 
