@@ -2754,7 +2754,19 @@ trial = 17 # very good
 
 # Try to use scatter plots rather than V.LINEs and see if it looks better 
 
+            
+    for ith, trial in enumerate(rasterData): 
+        xvals = [x for x in trial]
+        yvals = [ith+0.5] * len(xvals) 
+        ax.scatter(xvals, yvals, marker='|', color='k')
+        
+# Issues of overlap! Changing the yvals doesnt seem to fix the overlap issue
+# Temporary fix with different marker style ('.' not vline)
 
+# Remove axes and add time scale bar
+
+# Repeat for that rat on licking day 
+    # This particular rat has 40 trials out of 65 distracted 
 
 
 

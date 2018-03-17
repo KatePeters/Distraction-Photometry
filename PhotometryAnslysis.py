@@ -22,7 +22,7 @@ datafolder = '/Volumes/KPMSB352/PHOTOMETRY MMIN18/'
 
 datafile = datafolder + 'thph2.6lick3.mat' 
 #datafile = datafolder + 'thph2.6distraction.mat'
-datafile = datafolder + 'thph2.3distraction.mat' #trial 17, 8 
+datafile = datafolder + 'thph2.3lick3.mat' #trial 17, 8 
 #datafile = datafolder + 'thph2.5distraction.mat' # trial 5
 examplerat = loadmatfile(datafile)
 
@@ -342,13 +342,20 @@ def distractionrasterFig(ax, timelock, events,
 #        else:
 #            ax.vlines(trial, ith + .5, ith + 1.5, color='blue')
 #            
-            
+#            
     for ith, trial in enumerate(rasterData): 
-        xvals = [x for x in trial]
-        yvals = [ith+0.5] * len(xvals) 
-        ax.scatter(xvals, yvals, marker='|', color='k')
+        xvals = [x for x in trial]  
+        yvals = [1+ith] * len(xvals)
+        
+        #if ith<40:  # 26 if ascending
+            #ax.scatter(xvals, yvals, marker='.', color='b')
+            
+        #else:
+         #   ax.scatter(xvals, yvals, marker='.', color='k')
+        ax.scatter(xvals, yvals, marker='.', color='k')
         
         
+       
        
 # produces the index in the lick data where the distractor was (indices1)
 # now use these indices to add one and subtract the VALUE at index+1 from the VALUE at index
@@ -368,8 +375,24 @@ for tupl in indices1:
 # Check the PDPs first one is very long?Yes it it 
 #
 pdps.append(0)        
-figure12 = plt.figure()
+figure12 = plt.figure(figsize=(8,5))
 ax6 = plt.subplot(111)
+ax6.spines['right'].set_visible(False)
+ax6.xaxis.set_visible(False)
+ax6.spines['top'].set_visible(False)
+ax6.spines['bottom'].set_visible(False)
+ax6.set(ylabel = 'Trials')
+ax6.yaxis.label.set_size(14)
 
-rasterPlot = distractionrasterFig(ax6, examplerat['distractors'], examplerat['licks'], pre=1, post=10, sortevents=pdps, sortdirection='ascending')
+scale = 1
+scalebar = 1
+yrange = ax6.get_ylim()[1] - ax6.get_ylim()[0]
+scalebary = (yrange / 10) + ax6.get_ylim()[0]
+scalebarx = [ax6.get_xlim()[1] - scalebar, ax6.get_xlim()[1]]
+ax6.plot(scalebarx, [scalebary, scalebary], c='k', linewidth=2)
+ax6.text((scalebarx[0] + (scalebar/2)), scalebary-(yrange/50), str(scale) +' s', ha='center',va='top', **Calibri, **Size) 
 
+
+rasterPlot = distractionrasterFig(ax6, examplerat['distractors'], examplerat['licks'], pre=1, post=10, sortevents=pdps, sortdirection='dec')
+
+figure12.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/RasterLickDay2.3.pdf') 
