@@ -141,10 +141,9 @@ peak20sec[1] = MeanOf20SecNOT_DISTRACTED
 
 # BAR SCATTER FUNCTION = HERE BECAUSE DOESNT WORK IF IMPORTED FROM ALL FUNCS. will fix later
 #
-colors = ['darkorange', 'orange']
+colors = ['thistle', 'gold']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
- 
 def barscatter(data, transpose = False,
                 groupwidth = .75,
                 barwidth = .9,
@@ -219,7 +218,7 @@ def barscatter(data, transpose = False,
         xvals = groupx
     
 # Set colors for bars and scatters  
-    colors = ['darkorange', 'skyblue']
+    colors = ['thistle', 'gold']
     colors2 = ['k','k']
     colors3 = ['white', 'white']
     
@@ -260,6 +259,7 @@ def barscatter(data, transpose = False,
 
     else:
         try:
+            print('hey')
             np.shape(data)[1]
             for x, Yarray, scf, sce in zip(xvals, data, scfacecolorArray, scedgecolorArray):
                 for y in np.transpose(Yarray.tolist()):
@@ -270,7 +270,8 @@ def barscatter(data, transpose = False,
                              markeredgecolor = sce))
 
 # Explicitly added color here, issue with assignment of scf and sce 
-        except IndexError:                    
+        except IndexError:
+                    
             print(len(data[0]))
             for n,_ in enumerate(data[0]):
                 y = [y[n-1] for y in data]
@@ -278,7 +279,8 @@ def barscatter(data, transpose = False,
                              color = 'grey',
                              linewidth=linewidth,
                              markerfacecolor = 'white',
-                             markeredgecolor = 'grey'))
+                             markeredgecolor = 'k'))
+                
 
     # Label axes
     if ylabel != 'none':
@@ -326,20 +328,63 @@ def barscatter(data, transpose = False,
 
     ax.set(ylabel='Peak ∆F')
     ax.yaxis.label.set_size(14)      
- #   fig.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/Peaks_DisvsNotDis_2sec.pdf', bbox_inches="tight")        
+  #  fig.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/BarScat_20secAfter.pdf', bbox_inches="tight")        
     
     return ax, barx, barlist, sclist
       
+def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter = False):
+            
+    nColors = len(colors)
+    
+    if (paired_scatter == True) & (coloroption == 'within'):
+        print('Not possible to make a Paired scatter plot with Within setting.')
+        coloroption = 'same'
+        
+    if coloroption == 'within':
+        if nColors < barspergroup:
+            print('Not enough colors for this option! Reverting to one color.')
+            coloroption = 'same'
+        elif nColors > barspergroup:
+            colors = colors[:barspergroup]
+        coloroutput = [colors for i in data]
+        coloroutput = list(chain(*coloroutput))
+        
+    if coloroption == 'between':
+        if nColors < nGroups:
+            print('Not enough colors for this option! Reverting to one color.')
+            coloroption = 'same'
+        elif nColors > nGroups:
+            colors = colors[:nGroups]
+        if paired_scatter == False:
+            coloroutput = [[c]*barspergroup for c in colors]
+            coloroutput = list(chain(*coloroutput))
+        else:
+            coloroutput = colors
+            
+    if coloroption == 'individual':
+        if nColors < nGroups*barspergroup:
+            print('Not enough colors for this color option')
+            coloroption = 'same'
+        elif nColors > nGroups*barspergroup:
+            coloroutput = colors[:nGroups*barspergroup]
+        else: 
+            coloroutput = colors
+    
+    if coloroption == 'same':
+        coloroutput = [colors[0] for x in range(len(data.flatten()))]
+
+    return coloroutput
 
 
-colors = ['darkorange', 'skyblue']
+colors = ['thistle', 'gold']
 colors2 = ['k','k']
 colors3 = ['white', 'white']
+mpl.rc('lines', markeredgewidth=1)
 ax = barscatter(PEAK2SEC, paired=True, scatterlinecolor='k', ylabel='Distracted trials (%)')
 ax2 = barscatter(peak20sec, paired=True, scatterlinecolor='k', ylabel='Distracted trials (%)')
 
 
 # Not sure about accuracy here but not significant. will run in R and cross ref (is the same)
 from scipy import stats as stt
-t2sec = stt.ttest_rel(MeanOf2SecDISTRACTED, MeanOf2SecNOT_DISTRACTED)
-t20sec = stt.ttest_rel(MeanOf20SecDISTRACTED, MeanOf20SecNOT_DISTRACTED)
+t2sec = stt.ttest_rel(MeanOf2SecNOT_DISTRACTED,MeanOf2SecDISTRACTED)
+t20sec = stt.ttest_rel(MeanOf20SecNOT_DISTRACTED,MeanOf20SecDISTRACTED)

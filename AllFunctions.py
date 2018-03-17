@@ -30,7 +30,7 @@ import statistics as stats
 # Set plot parameters and styles
 
 sb.set_context("paper")
-sb.set_style("white")
+#sb.set_style("white")
 
 # Plot settings, font / size / styles
 Calibri = {'fontname':'Calibri'}
@@ -493,45 +493,3 @@ def nearestevents(timelock, events, preTrial=10, trialLength=30):
     return data
 
 
-def setcolors(coloroption, colors, barspergroup, nGroups, data, paired_scatter = False):
-            
-    nColors = len(colors)
-    
-    if (paired_scatter == True) & (coloroption == 'within'):
-        print('Not possible to make a Paired scatter plot with Within setting.')
-        coloroption = 'same'
-        
-    if coloroption == 'within':
-        if nColors < barspergroup:
-            print('Not enough colors for this option! Reverting to one color.')
-            coloroption = 'same'
-        elif nColors > barspergroup:
-            colors = colors[:barspergroup]
-        coloroutput = [colors for i in data]
-        coloroutput = list(chain(*coloroutput))
-        
-    if coloroption == 'between':
-        if nColors < nGroups:
-            print('Not enough colors for this option! Reverting to one color.')
-            coloroption = 'same'
-        elif nColors > nGroups:
-            colors = colors[:nGroups]
-        if paired_scatter == False:
-            coloroutput = [[c]*barspergroup for c in colors]
-            coloroutput = list(chain(*coloroutput))
-        else:
-            coloroutput = colors
-            
-    if coloroption == 'individual':
-        if nColors < nGroups*barspergroup:
-            print('Not enough colors for this color option')
-            coloroption = 'same'
-        elif nColors > nGroups*barspergroup:
-            coloroutput = colors[:nGroups*barspergroup]
-        else: 
-            coloroutput = colors
-    
-    if coloroption == 'same':
-        coloroutput = [colors[0] for x in range(len(data.flatten()))]
-
-    return coloroutput
