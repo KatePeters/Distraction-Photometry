@@ -2732,8 +2732,28 @@ trial = 17 # very good
 # Getting rid of spines 
 
 
+ ''' 17/03/18 '''
+ 
+ # 10:00 
+ 
+ # Working on distraciton raster for distraction day 
+ 
+ # At the moment code is very specific to the individual rat 
+     # Corrected for this rat having the last lick as a distractors etc.
+     # Specifying the cut off for colour change by N distractions (40/65) so
+       # 26 not distracted cut off manual here: 
+           
+         for ith, trial in enumerate(rasterData):
+        if ith < 26:
+ 
+            ax.vlines(trial, ith + .5, ith + 1.5)
+        else:
+            ax.vlines(trial, ith + .5, ith + 1.5, color='blue')
         
-        
+# Play around with axes and scale bars, 
+
+# Try to use scatter plots rather than V.LINEs and see if it looks better 
+
 
 
 

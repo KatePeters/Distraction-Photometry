@@ -312,3 +312,64 @@ ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 #ax.plot([100,100], [ax.get_ylim()[1], ax.get_ylim()[0]])
 
+
+# Post distraction pause rater plot 
+
+def distractionrasterFig(ax, timelock, events,
+                         pre = 1, post = 1,
+                         sortevents=None, sortdirection='ascending'):
+
+    if sortevents != None:
+        if len(timelock) != len(sortevents):
+            print('Length of sort events does not match timelock events; no sorting')
+        else:
+            if sortdirection == 'ascending':
+                sortOrder = np.argsort(sortevents)
+            else:
+                sortOrder = np.argsort(sortevents)[::-1]
+                
+            timelock = [timelock[i] for i in sortOrder]
+    
+    rasterData = [[] for i in timelock]
+    
+    for i,x in enumerate(timelock):
+        rasterData[i] = [j-x for j in events if (j > x-pre) & (j < x+post)]
+
+#    for ith, trial in enumerate(rasterData):
+#        if ith < 26:
+# 
+#            ax.vlines(trial, ith + .5, ith + 1.5)
+#        else:
+#            ax.vlines(trial, ith + .5, ith + 1.5, color='blue')
+#            
+            
+    for ith, trial in enumerate(rasterData): 
+        xvals = [x for x in trial]
+        yvals = [ith+0.5] * len(xvals) 
+        ax.scatter(xvals, yvals, marker='|', color='k')
+        
+        
+       
+# produces the index in the lick data where the distractor was (indices1)
+# now use these indices to add one and subtract the VALUE at index+1 from the VALUE at index
+indices1 = []       
+for index, value in enumerate(examplerat['distractors']):
+    a = np.where(examplerat['licks'] == value) 
+    indices1.append(a)       
+
+pdps = []
+for tupl in indices1:
+    i = tupl[0][0]
+    if i+1 < len(examplerat['licks']):
+        
+        pdp = (examplerat['licks'][i+1] - examplerat['licks'][i])
+        pdps.append(pdp)    
+
+# Check the PDPs first one is very long?Yes it it 
+#
+pdps.append(0)        
+figure12 = plt.figure()
+ax6 = plt.subplot(111)
+
+rasterPlot = distractionrasterFig(ax6, examplerat['distractors'], examplerat['licks'], pre=1, post=10, sortevents=pdps, sortdirection='ascending')
+
