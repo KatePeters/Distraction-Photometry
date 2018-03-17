@@ -2778,7 +2778,7 @@ trial = 17 # very good
 
 
   
-# 17:10 - 
+# 17:10 - 19:00
 
 # Find where the peak data are defined, and work out how to get these for different 
     # time points 
@@ -2786,7 +2786,13 @@ trial = 17 # very good
 # Want peaks or averaged activity across the preceding 2 seconds 
 # Averaged activity in the whole 5 or 10 seconds after (maybe between 2 seconds and 10)
 
+# Making barscatter for 2 seconds before and 20 seconds after averaged activity 
 
+# Looking at broken axis example (would make plot look better to save the outliers ruining it)
+
+# Axis 1 -> 0.025 - -0.025
+# Axis 2 -> 0.03 - 0.04
+# Axis 3 --> -0.03 - -0.04
    
 
 ==============================

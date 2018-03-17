@@ -81,7 +81,25 @@ for i, val in enumerate(allDistracted):
 
 
 
+all2SecBefore = []
+all20SecAfter = []
+for eachlist in allblueMeans:
+    slice1 = eachlist[80:100]
+    #print(len(slice1))
+    
+    slice2 = eachlist[100:300]
+    #print(len(slice2))
+    
+    all2SecBefore.append(slice1)
+    all20SecAfter.append(slice2) 
+    
+    #then out of the loop mean these (axis 1 not 0) = gives 14 points for the barscatter
 
+      
+MeanOf2SecDISTRACTED = (np.mean(all2SecBefore, axis=1))
+MeanOf20SecDISTRACTED = (np.mean(all20SecAfter, axis=1))
+
+# Repeat for not distracted - reassignes all values 
 
 allblueMeans = []
 alluvMeans = []
@@ -96,9 +114,232 @@ for i, val in enumerate(allNotDistracted):
         allblueMeans.append(blueMean)
         uvMean = np.mean(uvSnips, axis=0)
         alluvMeans.append(uvMean)
+
+
+all2SecBefore = []
+all20SecAfter = []
+for eachlist in allblueMeans:
+    slice1 = eachlist[80:100]
+    #print(len(slice1))
+    
+    slice2 = eachlist[100:300]
+    #print(len(slice2))
+    
+    all2SecBefore.append(slice1)
+    all20SecAfter.append(slice2) 
+    
+MeanOf2SecNOT_DISTRACTED = (np.mean(all2SecBefore, axis=1))
+MeanOf20SecNOT_DISTRACTED = (np.mean(all20SecAfter, axis=1))
+
+PEAK2SEC = np.empty((2,), dtype=np.object)
+PEAK2SEC[0] = MeanOf2SecDISTRACTED 
+PEAK2SEC[1] = MeanOf2SecNOT_DISTRACTED
+
+peak20sec = np.empty((2,), dtype=np.object)
+peak20sec[0] = MeanOf20SecDISTRACTED
+peak20sec[1] = MeanOf20SecNOT_DISTRACTED
+
+# BAR SCATTER FUNCTION = HERE BECAUSE DOESNT WORK IF IMPORTED FROM ALL FUNCS. will fix later
+#
+colors = ['darkorange', 'orange']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
+ 
+def barscatter(data, transpose = False,
+                groupwidth = .75,
+                barwidth = .9,
+                paired = False,
+                barfacecoloroption = 'same', # other options 'between' or 'individual'
+                barfacecolor = ['white'],
+                baredgecoloroption = 'same',
+                baredgecolor = ['black'],
+                baralpha = 1,
+                scatterfacecoloroption = 'same',
+                scatterfacecolor = ['white'],
+                scatteredgecoloroption = 'same',
+                scatteredgecolor = ['grey'],
+                scatterlinecolor = 'grey', # Don't put this value in a list
+                scattersize = 80,
+                scatteralpha = 1,
+                linewidth=1,
+                ylabel = 'none',
+                xlabel = 'none',
+                title = 'none',
+                grouplabel = 'auto',
+                itemlabel = 'none',
+                yaxisparams = 'auto',
+                show_legend = 'none',
+                legendloc='upper right',
+                ax=[]):
+#
+#    if type(data) == float
+    # Check if transpose = True
+    if transpose == True:
+        data = np.transpose(data)
         
-plt.plot(np.mean(allblueMeans, axis=0))
+    # Initialize arrays and calculate number of groups, bars, items, and means
+    
+    barMeans = np.zeros((np.shape(data)))
+    items = np.zeros((np.shape(data)))
+    
+    nGroups = np.shape(data)[0]
+    groupx = np.arange(1,nGroups+1)
+
+    if len(np.shape(data)) > 1:
+        grouped = True
+        barspergroup = np.shape(data)[1]
+        barwidth = (barwidth * groupwidth) / barspergroup
+        
+        for i in range(np.shape(data)[0]):
+            for j in range(np.shape(data)[1]):
+                barMeans[i][j] = np.mean(data[i][j])
+                items[i][j] = len(data[i][j])
+        
+    else:
+        grouped = False
+        paired = True
+        barspergroup = 1
+        
+        for i in range(np.shape(data)[0]):
+            barMeans[i] = np.mean(data[i])
+            items[i] = len(data[i])
+    
+    # Calculate x values for bars and scatters    
+    xvals = np.zeros((np.shape(data)))
+    barallocation = groupwidth / barspergroup
+    k = (groupwidth/2) - (barallocation/2)
+    
+    if grouped == True:
+        
+        for i in range(np.shape(data)[0]):
+            xrange = np.linspace(i+1-k, i+1+k, barspergroup)
+            for j in range(barspergroup):
+                xvals[i][j] = xrange[j]
+    else:
+        xvals = groupx
+    
+# Set colors for bars and scatters  
+    colors = ['darkorange', 'skyblue']
+    colors2 = ['k','k']
+    colors3 = ['white', 'white']
+    
+    barfacecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
+    baredgecolorArray = setcolors("between", colors, 1, 2, data, paired_scatter = True)
+     
+    scfacecolorArray = setcolors("between", colors3, 1, 2, data, paired_scatter = True)
+    scedgecolorArray = setcolors("between", colors2, 1, 2, data, paired_scatter = True)
+ #   scfacecolorArray = setcolors("between", colors3, nGroups=nGroups, barspergroup=barspergroup, data=dataX, paired_scatter = True)
+    
+# Initialize figure
+    if ax == []:
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+        ax.tick_params(axis='both', which='major', labelsize=14)
+ 
+    
+    # Make bars
+    barlist = []
+    barx = []
+    for x, y, bfc, bec in zip(xvals.flatten(), barMeans.flatten(),
+                              barfacecolorArray, baredgecolorArray):
+        barx.append(x)
+        barlist.append(ax.bar(x, y, barwidth,
+                         facecolor = bfc, edgecolor = bec,
+                         zorder=-1))
+    
+    # Make scatters
+    sclist = []
+    if paired == False:
+        for x, Yarray, scf, sce  in zip(xvals.flatten(), data.flatten(),
+                                        scfacecolorArray, scedgecolorArray):
+            for y in Yarray:
+                sclist.append(ax.scatter(x, y, s = scattersize,
+                         c = scf,
+                         edgecolors = sce,
+                         zorder=1))
+
+    else:
+        try:
+            np.shape(data)[1]
+            for x, Yarray, scf, sce in zip(xvals, data, scfacecolorArray, scedgecolorArray):
+                for y in np.transpose(Yarray.tolist()):
+                    sclist.append(ax.plot(x, y, '-o', markersize = scattersize/10,
+                             color = scatterlinecolor,
+                             linewidth=linewidth,
+                             markerfacecolor = scf,
+                             markeredgecolor = sce))
+
+# Explicitly added color here, issue with assignment of scf and sce 
+        except IndexError:                    
+            print(len(data[0]))
+            for n,_ in enumerate(data[0]):
+                y = [y[n-1] for y in data]
+                sclist.append(ax.plot(xvals, y, '-o', markersize = scattersize/10,
+                             color = 'grey',
+                             linewidth=linewidth,
+                             markerfacecolor = 'white',
+                             markeredgecolor = 'grey'))
+
+    # Label axes
+    if ylabel != 'none':
+        plt.ylabel(ylabel, fontsize=14)
+    
+    if xlabel != 'none':
+        plt.xlabel(xlabel)
+        
+    if title != 'none':
+        plt.title(title, fontsize=14)
+    
+    # Set range and tick values for Y axis
+    if yaxisparams != 'auto':
+        ax.set_ylim(yaxisparams[0])
+        plt.yticks(yaxisparams[1])
+       
+    # X ticks
+    plt.tick_params(
+        axis='x',          # changes apply to the x-axis
+        which='both',      # both major and minor ticks are affected
+        bottom='off',      # ticks along the bottom edge are off
+        top='off') # labels along the bottom edge are off
+    
+    if grouplabel == 'auto':
+        plt.tick_params(labelbottom='off')
+    else:
+        plt.xticks(range(1,nGroups+1), grouplabel)
+    
+    # Hide the right and top spines and set bottom to zero
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['bottom'].set_position('zero')
+    
+    
+    if show_legend == 'within':
+        if len(itemlabel) != barspergroup:
+            print('Not enough item labels for legend!')
+        else:
+            legendbar = []
+            legendtext = []
+            for i in range(barspergroup):
+                legendbar.append(barlist[i])
+                legendtext.append(itemlabel[i])
+            plt.legend(legendbar, legendtext, loc=legendloc)
+
+    ax.set(ylabel='Peak ∆F')
+    ax.yaxis.label.set_size(14)      
+ #   fig.savefig('/Volumes/KPMSB352/PHOTOMETRY MMIN18/PDF figures/Peaks_DisvsNotDis_2sec.pdf', bbox_inches="tight")        
+    
+    return ax, barx, barlist, sclist
+      
 
 
-# Subset into new lists. Take the snips (preTrial=10, trialLength=30)
-# Set to pre trial = 2 (s econds) and trial length is 2 (only before not after)
+colors = ['darkorange', 'skyblue']
+colors2 = ['k','k']
+colors3 = ['white', 'white']
+ax = barscatter(PEAK2SEC, paired=True, scatterlinecolor='k', ylabel='Distracted trials (%)')
+ax2 = barscatter(peak20sec, paired=True, scatterlinecolor='k', ylabel='Distracted trials (%)')
+
+
+# Not sure about accuracy here but not significant. will run in R and cross ref (is the same)
+from scipy import stats as stt
+t2sec = stt.ttest_rel(MeanOf2SecDISTRACTED, MeanOf2SecNOT_DISTRACTED)
+t20sec = stt.ttest_rel(MeanOf20SecDISTRACTED, MeanOf20SecNOT_DISTRACTED)
