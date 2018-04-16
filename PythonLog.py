@@ -2801,7 +2801,26 @@ trial = 17 # very good
     # Jaime sent link to styles setting (was overridding)
     
     ''' https://matplotlib.org/users/customizing.html ''' 
+ 
     
+''' 10/04/18 '''
+
+# Need to go through all files again and catch up 
+# What has been done, what needs doing 
+
+# Make a clear pipeline from start to finish for 
+
+(1) Behavioural analysis and paper
+(2) Phototmetry analysis and paper 
+
+Work on gettng the lick ttls onto the existing plots too 
+    
+''' 16/04/18 ''' 
+
+#
+#
+#
+#
     
 ==============================
 

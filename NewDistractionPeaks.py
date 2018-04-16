@@ -388,3 +388,16 @@ ax2 = barscatter(peak20sec, paired=True, scatterlinecolor='k', ylabel='Distracte
 from scipy import stats as stt
 t2sec = stt.ttest_rel(MeanOf2SecNOT_DISTRACTED,MeanOf2SecDISTRACTED)
 t20sec = stt.ttest_rel(MeanOf20SecNOT_DISTRACTED,MeanOf20SecDISTRACTED)
+
+
+# Looking at FFTs for behavioural lick data, can we separate out high and and 
+# low frequency information, to find out something about distractibility?
+# Make a palatability score?? 
+from scipy.fftpack import fft, ifft, rfft
+
+x= np.array(allRatLicks[3])
+y = fft(x)
+
+y2 = ifft(x)
+y3 = rfft(x)
+from scipy.fftpack import fftfreq
